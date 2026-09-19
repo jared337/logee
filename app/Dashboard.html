@@ -509,6 +509,50 @@ tbody tr:last-child td{border-bottom:none}
 </style>
 </head>
 <body>
+<script>try{if(sessionStorage.getItem('logee_demo')!=='ok'){document.documentElement.classList.add('gate-lock');}}catch(e){document.documentElement.classList.add('gate-lock');}</script>
+<style>
+.gate-lock .app{display:none!important}
+#gate{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:#050038;font-family:Inter,system-ui,-apple-system,sans-serif}
+.gate-lock #gate{display:flex}
+#gate .card{background:#fff;padding:36px 32px;border-radius:16px;width:320px;max-width:calc(100% - 40px);box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center}
+#gate .logo{font-weight:800;font-size:22px;color:#050038;margin-bottom:6px;letter-spacing:-.5px}
+#gate .logo small{color:#4262ff}
+#gate p{color:#5b5b73;font-size:13px;margin:0 0 18px;line-height:1.5}
+#gate input{width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #dcdce6;border-radius:10px;font-size:15px;outline:none;margin-bottom:12px}
+#gate input:focus{border-color:#4262ff}
+#gate button{width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+#gate .err{color:#e0245e;font-size:12px;height:14px;margin-top:8px}
+</style>
+<div id="gate">
+  <div class="card">
+    <div class="logo">logee<small>.ai</small></div>
+    <p>Enter the access code to view the demo.</p>
+    <input id="gate-input" type="password" placeholder="Access code" autocomplete="off">
+    <button id="gate-btn">Enter</button>
+    <div class="err" id="gate-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var CODE='qwerty';
+  function submit(){
+    var v=document.getElementById('gate-input').value.trim();
+    if(v===CODE){
+      try{sessionStorage.setItem('logee_demo','ok');}catch(e){}
+      document.documentElement.classList.remove('gate-lock');
+    }else{
+      document.getElementById('gate-err').textContent='Incorrect code';
+      document.getElementById('gate-input').value='';
+    }
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('gate-btn'),i=document.getElementById('gate-input');
+    if(b)b.addEventListener('click',submit);
+    if(i)i.addEventListener('keydown',function(e){if(e.key==='Enter')submit();});
+    if(i&&document.documentElement.classList.contains('gate-lock'))i.focus();
+  });
+})();
+</script>
 <div class="app">
 
   <!-- ══ Top bar ══ -->
