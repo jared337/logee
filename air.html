@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Air freight · logee.ai</title>
+<meta name="description" content="Track every air waybill against real flight movements. logee flags cut-offs and delays and checks your air freight costs, so speed never comes with surprises.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{--ink:#050038;--ink-soft:#54536e;--ink-faint:#8f8ea3;--yellow:#ffd02f;--yellow-deep:#f0bb00;--bg:#ffffff;--canvas:#f7f7f9;--line:#e9e9ee;--blue:#4262ff;--blue-deep:#2f4ad0;--blue-soft:#eef1ff;--green:#0ca678;--green-soft:#e6f6f0;--red:#e5484d;--red-soft:#fdecec;--amber:#e8930c;--amber-soft:#fdf3e1;--violet:#7b61ff;--violet-soft:#f0edff;--shadow:0 1px 2px rgba(5,0,56,.05),0 4px 14px rgba(5,0,56,.05);--shadow-lift:0 12px 40px rgba(5,0,56,.16);--shadow-card:0 1px 2px rgba(5,0,56,.04),0 10px 34px rgba(5,0,56,.08);--r-xl:20px;--r-lg:14px;--r-md:10px;--r-sm:8px;--maxw:1160px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s,border-color .14s,box-shadow .14s,transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}.btn svg{width:18px;height:18px}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-white{background:#fff;color:var(--ink)}.btn-white:hover{background:#f0f0f3}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}.btn-block{width:100%}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:24px;height:24px}.brand small{font-weight:700;color:var(--blue);font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.05;letter-spacing:-1.2px;font-weight:900}
+h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.8px;line-height:1.12;font-weight:900}
+.sec{padding:64px 0}.sec.tint{background:var(--canvas)}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 40px}.sec-head p{font-size:18px;color:var(--ink-soft);margin-top:14px}
+/* mode hero */
+.mode-hero{position:relative;color:#fff;overflow:hidden;background:#050038}
+.mode-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.mode-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,0,56,.68),rgba(5,0,56,.88))}
+.mode-hero .inner{position:relative;z-index:1;padding:88px 0 78px;text-align:center}
+.mode-hero .eyebrow{color:var(--yellow)}
+.mode-hero .lead{color:#d7d7e6;font-size:19px;margin:20px auto 0;max-width:60ch}
+.mode-hero .mh-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+/* feature cards */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.vcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 24px;box-shadow:var(--shadow)}
+.vcard .vi{width:46px;height:46px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;margin-bottom:16px}
+.vcard .vi svg{width:23px;height:23px}
+.vcard h3{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.vcard p{font-size:15px;color:var(--ink-soft);line-height:1.55}
+/* checklist */
+.checks{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px 30px}
+.ck{display:flex;gap:11px;align-items:flex-start;font-size:16px;color:var(--ink-soft);line-height:1.5}
+.ck svg{width:21px;height:21px;color:var(--green);flex-shrink:0;margin-top:2px}
+/* modes cross-links */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.modet{position:relative;height:132px;border-radius:var(--r-md);overflow:hidden;display:block;background:linear-gradient(135deg,#0b0759,#2f4ad0)}
+.modet img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.modet:hover img{transform:scale(1.06)}
+.modet span{position:absolute;left:0;right:0;bottom:0;padding:24px 14px 12px;color:#fff;font-weight:800;font-size:14px;background:linear-gradient(transparent,rgba(5,0,56,.82))}
+.modet.cur{outline:2.5px solid var(--yellow);outline-offset:-2px}
+/* cta band */
+.ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
+.ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:48ch}
+/* footer */
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}.foot-bottom .fb-links a:hover{color:var(--ink)}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 20px;border-radius:10px;box-shadow:var(--shadow-lift);z-index:200;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){.cards3{grid-template-columns:1fr}.checks{grid-template-columns:1fr}.modes{grid-template-columns:1fr 1fr}.foot-grid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:720px){.nav-links,.nav-signin{display:none}.hamburger{display:flex}.nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;margin:0;box-shadow:var(--shadow)}.nav-links.open a{padding:12px 10px}.sec{padding:48px 0}.mode-hero .inner{padding:60px 0 56px}.ctaband{padding:38px 24px}}
+@media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://logee.ai/air.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/air.html">
+<meta property="og:title" content="Air freight · logee.ai">
+<meta property="og:description" content="Track every air waybill against real flight movements. logee flags cut-offs and delays and checks your air freight costs, so speed never comes with surprises.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Air freight · logee.ai">
+<meta name="twitter:description" content="Track every air waybill against real flight movements. logee flags cut-offs and delays and checks your air freight costs, so speed never comes with surprises.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="logee.ai home">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <span class="wm">logee<small>.ai</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="index.html#watches">What it watches</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <a href="index.html#start" class="btn btn-primary">Start free</a>
+      <button class="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="mode-hero">
+    <div class="bg" style="background-image:url('img/air.jpg')"></div>
+    <div class="ov"></div>
+    <div class="inner wrap">
+      <span class="eyebrow">Air freight</span>
+      <h1>Air freight that keeps up<br>with your cargo</h1>
+      <p class="lead">Time-critical shipments move fast. logee tracks every air waybill, flags delays and cut-offs, and keeps your costs honest, so speed never comes with surprises.</p>
+      <div class="mh-cta">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="how-it-works.html" class="btn btn-white btn-lg">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>What logee does for air freight</h2></div>
+      <div class="cards3">
+        <div class="vcard">
+          <div class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a6 6 0 0 0 3-1 6 6 0 0 1 6 0 6 6 0 0 0 6 0 6 6 0 0 1 5 1"/><path d="M4 18l-2-6h20l-3 6"/><path d="M12 3v9M9 6h3"/></svg></div>
+          <h3>AWB tracking, flight by flight</h3>
+          <p>Track each air waybill against real flight movements, from tender to arrival.</p>
+        </div>
+        <div class="vcard">
+          <div class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+          <h3>Cut-off and delay alerts</h3>
+          <p>Screening, acceptance and flight cut-offs flagged early, plus any reroute or rolled uplift.</p>
+        </div>
+        <div class="vcard">
+          <div class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Landed cost, not just the rate</h3>
+          <p>Airline rate, fuel and security surcharges and handling, all checked against your quote.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head"><h2>What logee watches on every air shipment</h2><p>Every order, every day, so nothing turns into a surprise bill.</p></div>
+      <div class="checks">
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceptance and screening cut-offs approaching</div>
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Flight delayed or uplift rolled</div>
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ETA changed since the last update</div>
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>AWB or documents missing before arrival</div>
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Surcharges above quote, line by line</div>
+        <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Customs clearance not lodged before landing</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>Every mode, one place</h2></div>
+      <div class="modes">
+        <a class="modet" href="ocean.html"><img src="img/ocean.jpg" alt="Ocean freight" loading="lazy"><span>Ocean freight</span></a>
+        <a class="modet cur" href="air.html"><img src="img/air.jpg" alt="Air freight" loading="lazy"><span>Air freight</span></a>
+        <a class="modet" href="road.html"><img src="img/road.jpg" alt="Road &amp; trucking" loading="lazy"><span>Road &amp; trucking</span></a>
+        <a class="modet" href="warehousing.html"><img src="img/warehouse.jpg" alt="Warehousing &amp; storage" loading="lazy"><span>Warehousing &amp; storage</span></a>
+        <a class="modet" href="ports.html"><img src="img/port.jpg" alt="Ports &amp; terminals" loading="lazy"><span>Ports &amp; terminals</span></a>
+        <a class="modet" href="customs.html"><img src="img/yard.jpg" alt="Container yards &amp; customs" loading="lazy"><span>Container yards &amp; customs</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px">
+    <div class="wrap"><div class="ctaband">
+      <h2>Keep every AWB on track</h2>
+      <p>Connect your inbox and logee starts watching your air freight in minutes. Start free, then upgrade as you grow.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="demo.html" class="btn btn-white btn-lg">Book a demo</a>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col"><h5>Modes</h5><a href="ocean.html">Ocean freight</a><a href="air.html">Air freight</a><a href="road.html">Road &amp; trucking</a><a href="warehousing.html">Warehousing</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a><a href="security.html">Security</a></div>
+      <div class="foot-col"><h5>Get started</h5><a href="index.html#start">Start free</a><a href="signin.html">Sign in</a><a href="demo.html">Book a demo</a></div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var nav=document.getElementById('nav');if(nav){window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8);},{passive:true});}var burger=document.querySelector('.hamburger'),links=document.querySelector('.nav-links');if(burger&&links){burger.addEventListener('click',function(){links.classList.toggle('open');});}var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
+var _toastEl,_toastT;function toast(msg){if(!_toastEl){_toastEl=document.createElement('div');_toastEl.className='toast';document.body.appendChild(_toastEl);}_toastEl.textContent=msg;_toastEl.classList.add('show');clearTimeout(_toastT);_toastT=setTimeout(function(){_toastEl.classList.remove('show');},3000);}
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing · logee.ai</title>
+<meta name="description" content="Simple pricing that grows with your freight. Start free, then Starter, TMS Light or Enterprise. Compare shipments, AI tokens, features and support across every plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{--ink:#050038;--ink-soft:#54536e;--ink-faint:#8f8ea3;--yellow:#ffd02f;--yellow-deep:#f0bb00;--bg:#ffffff;--canvas:#f7f7f9;--line:#e9e9ee;--blue:#4262ff;--blue-deep:#2f4ad0;--blue-soft:#eef1ff;--green:#0ca678;--green-soft:#e6f6f0;--red:#e5484d;--red-soft:#fdecec;--amber:#e8930c;--amber-soft:#fdf3e1;--violet:#7b61ff;--violet-soft:#f0edff;--shadow:0 1px 2px rgba(5,0,56,.05),0 4px 14px rgba(5,0,56,.05);--shadow-lift:0 12px 40px rgba(5,0,56,.16);--shadow-card:0 1px 2px rgba(5,0,56,.04),0 10px 34px rgba(5,0,56,.08);--r-xl:20px;--r-lg:14px;--r-md:10px;--r-sm:8px;--maxw:1160px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s,border-color .14s,box-shadow .14s,transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ink{background:var(--ink);color:#fff}.btn-ink:hover{background:#0d0a52}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-white{background:#fff;color:var(--ink)}.btn-white:hover{background:#f0f0f3}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}.btn-block{width:100%}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:24px;height:24px}.brand small{font-weight:700;color:var(--blue);font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+.page-hero{padding:70px 0 30px;text-align:center;position:relative;background:radial-gradient(55% 55% at 92% 96%, rgba(66,98,255,.13), transparent 70%),radial-gradient(42% 45% at 4% 2%, rgba(255,208,47,.10), transparent 70%),radial-gradient(rgba(5,0,56,.05) 1px, transparent 1.6px) 0 0 / 22px 22px,#ffffff}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,50px);line-height:1.05;letter-spacing:-1.2px;font-weight:900}
+.page-hero .lead{font-size:19px;color:var(--ink-soft);margin:20px auto 0;max-width:56ch}
+h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-weight:900}
+.sec{padding:40px 0}.sec.tint{background:var(--canvas)}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 36px}.sec-head p{font-size:18px;color:var(--ink-soft);margin-top:14px}
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.tier{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 22px 24px;display:flex;flex-direction:column;position:relative;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+.tier:hover{border-color:var(--ink);box-shadow:var(--shadow-lift);transform:translateY(-3px)}
+.tier.pop{border:2px solid var(--ink);box-shadow:var(--shadow-lift)}
+.tiers:hover .tier.pop:not(:hover){border:1px solid var(--line);box-shadow:none}
+.pop-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--ink);font-weight:800;font-size:11.5px;padding:5px 14px;border-radius:999px;letter-spacing:.3px;white-space:nowrap}
+.tname{font-size:15px;font-weight:800;color:var(--ink-soft)}
+.tprice{display:flex;align-items:baseline;gap:5px;margin:10px 0 2px}
+.tprice .amt{font-size:38px;font-weight:900;letter-spacing:-1.6px}
+.tprice .per{font-size:14px;color:var(--ink-faint);font-weight:600}
+.tfor{font-size:13.5px;color:var(--ink-soft);min-height:40px;margin-bottom:14px}
+.tlimits{display:flex;flex-direction:column;gap:7px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
+.tlimit{font-size:14px}.tlimit b{font-weight:800}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:20px;flex:1}
+.tier li{position:relative;padding-left:24px;font-size:13.5px;color:var(--ink-soft);line-height:1.45}
+.tier li svg{position:absolute;left:0;top:2px;width:16px;height:16px;color:var(--green)}
+.tier li b{color:var(--ink);font-weight:700}
+.trust{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;color:var(--ink-soft);font-size:13.5px;font-weight:600}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust svg{width:16px;height:16px;color:var(--green)}
+/* comparison table */
+.ptable-wrap{overflow-x:auto}
+.ptable{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+.ptable th,.ptable td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--line)}
+.ptable th:first-child,.ptable td:first-child{text-align:left;color:var(--ink-soft);font-weight:600;min-width:220px}
+.ptable thead th{font-size:15px;font-weight:800;border-bottom:2px solid var(--line)}
+.ptable thead th.hl{color:var(--ink)}
+.ptable thead th span{display:block;font-size:12px;font-weight:600;color:var(--ink-faint)}
+.ptable .yes{color:var(--green)}.ptable .yes svg{width:19px;height:19px;margin:0 auto}
+.ptable .no{color:var(--ink-faint)}
+.ptable .grp td{background:var(--canvas);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-faint)}
+.ptable tbody tr:not(.grp):hover td{background:var(--canvas)}
+.ptable td.val b{font-weight:800}
+/* faq */
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.faq[open]{border-color:#d7d7e0;box-shadow:var(--shadow)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{width:20px;height:20px;flex-shrink:0;color:var(--ink-faint);transition:transform .2s}
+.faq[open] summary .chev{transform:rotate(180deg);color:var(--blue)}
+.faq .ans{padding:0 20px 20px;font-size:14.5px;color:var(--ink-soft);line-height:1.65}
+.ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
+.ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:52ch}
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}.foot-bottom .fb-links a:hover{color:var(--ink)}
+@media(max-width:960px){.tiers{grid-template-columns:1fr 1fr}.foot-grid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:720px){.nav-links,.nav-signin{display:none}.hamburger{display:flex}.nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;box-shadow:var(--shadow)}.nav-links.open a{padding:12px 10px}.tiers{grid-template-columns:1fr}.ctaband{padding:38px 24px}}
+@media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://logee.ai/pricing.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/pricing.html">
+<meta property="og:title" content="Pricing · logee.ai">
+<meta property="og:description" content="Simple pricing that grows with your freight. Start free, then Starter, TMS Light or Enterprise. Compare shipments, AI tokens, features and support across every plan.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pricing · logee.ai">
+<meta name="twitter:description" content="Simple pricing that grows with your freight. Start free, then Starter, TMS Light or Enterprise. Compare shipments, AI tokens, features and support across every plan.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"logee","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://logee.ai/pricing.html","description":"Pricing for logee, the AI transport management system (TMS) for importers and exporters.","offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"0","highPrice":"1000","offerCount":"4","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Starter","price":"500","priceCurrency":"USD"},{"@type":"Offer","name":"TMS Light","price":"1000","priceCurrency":"USD"},{"@type":"Offer","name":"Enterprise","priceCurrency":"USD"}]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What counts as a shipment?","acceptedAnswer":{"@type":"Answer","text":"A shipment is one order logee actively tracks and manages in a given month, from booking through to delivery, no matter how many containers, documents or emails it involves."}},{"@type":"Question","name":"What are AI tokens?","acceptedAnswer":{"@type":"Answer","text":"AI tokens measure the work the agent does for you: reading your emails and documents, drafting chasers, checking invoices and answering your questions. Each plan includes a monthly allowance, and you can top up or upgrade for more."}},{"@type":"Question","name":"Can I change plans at any time?","acceptedAnswer":{"@type":"Answer","text":"Yes. Upgrade or downgrade whenever you like, and the change takes effect immediately with billing prorated."}},{"@type":"Question","name":"Do I need a credit card to start?","acceptedAnswer":{"@type":"Answer","text":"No. The Free plan needs no card. Sign in with Google or Microsoft and logee starts building your shipments straight away."}},{"@type":"Question","name":"What happens if I reach my limit?","acceptedAnswer":{"@type":"Answer","text":"We let you know as you approach your monthly shipment or token limit, and you can upgrade or add capacity in a click. logee never stops tracking a shipment that is already underway."}},{"@type":"Question","name":"Do my forwarders or suppliers need a paid seat?","acceptedAnswer":{"@type":"Answer","text":"No. Forwarders, brokers and suppliers take part entirely by email, with no login and no seat. Team members are only the people inside your business who sign in to logee."}},{"@type":"Question","name":"Which currency are prices in?","acceptedAnswer":{"@type":"Answer","text":"Prices are in USD and billed monthly. For annual billing or a different currency, get in touch and we will sort it out."}}]}</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="logee.ai home"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+    <nav class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="index.html#watches">What it watches</a>
+      <a href="pricing.html" class="on">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <a href="index.html#start" class="btn btn-primary">Start free</a>
+      <button class="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Pricing</span>
+      <h1>Simple pricing that<br>grows with your freight</h1>
+      <p class="lead">Start free and move up as you ship more. Every plan is the full logee agent, the higher tiers simply cover more shipments, more AI and bigger teams.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:26px">
+    <div class="wrap">
+      <div class="tiers">
+
+        <div class="tier" data-href="index.html#start">
+          <div class="tname">Free</div>
+          <div class="tprice"><span class="amt">$0</span><span class="per">/ month</span></div>
+          <div class="tfor">Try logee on a few live shipments, no card needed.</div>
+          <div class="tlimits">
+            <div class="tlimit"><b>5</b> shipments / month</div>
+            <div class="tlimit"><b>1,000</b> AI tokens / month</div>
+            <div class="tlimit"><b>1</b> user</div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Connect Gmail or Microsoft 365</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live 8-stage shipment tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Documents filed automatically</li>
+          </ul>
+          <a href="index.html#start" class="btn btn-ghost btn-block tbtn">Start free</a>
+        </div>
+
+        <div class="tier pop" data-href="index.html#start">
+          <span class="pop-badge">Most popular</span>
+          <div class="tname">Starter</div>
+          <div class="tprice"><span class="amt">$500</span><span class="per">/ month</span></div>
+          <div class="tfor">For small forwarders and importers running steady volume.</div>
+          <div class="tlimits">
+            <div class="tlimit"><b>25</b> shipments / month</div>
+            <div class="tlimit"><b>5,000</b> AI tokens / month</div>
+            <div class="tlimit"><b>3</b> users</div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><b>Everything in Free, plus</b></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Quote requests &amp; comparison</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cost checks, quoted vs actual</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Demurrage &amp; delay alerts</li>
+          </ul>
+          <a href="index.html#start" class="btn btn-primary btn-block tbtn">Get started</a>
+        </div>
+
+        <div class="tier" data-href="index.html#start">
+          <div class="tname">TMS Light</div>
+          <div class="tprice"><span class="amt">$1,000</span><span class="per">/ month</span></div>
+          <div class="tfor">The full agent for most importing and exporting teams.</div>
+          <div class="tlimits">
+            <div class="tlimit"><b>60</b> shipments / month</div>
+            <div class="tlimit"><b>10,000</b> AI tokens / month</div>
+            <div class="tlimit"><b>10</b> users</div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><b>Everything in Starter, plus</b></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Daily digest &amp; WhatsApp alerts</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Per-order threads with forwarders</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Role-based team access</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Priority support</li>
+          </ul>
+          <a href="index.html#start" class="btn btn-ghost btn-block tbtn">Get started</a>
+        </div>
+
+        <div class="tier" data-href="mailto:sales@logee.ai?subject=logee%20Enterprise">
+          <div class="tname">Enterprise</div>
+          <div class="tprice"><span class="amt">Custom</span></div>
+          <div class="tfor">For high volume, ERP integration and custom limits.</div>
+          <div class="tlimits">
+            <div class="tlimit"><b>Unlimited</b> shipments</div>
+            <div class="tlimit"><b>Unlimited</b> AI tokens</div>
+            <div class="tlimit"><b>Unlimited</b> users</div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><b>Everything in TMS Light, plus</b></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ERP integration (Priority, SAP, Oracle)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>SSO &amp; advanced security</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Dedicated success manager</li>
+          </ul>
+          <a href="mailto:sales@logee.ai?subject=logee%20Enterprise" class="btn btn-ink btn-block tbtn">Contact sales</a>
+        </div>
+
+      </div>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Start free, no credit card</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Upgrade or cancel anytime</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Forwarders join by email, free</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head"><h2>Compare every plan</h2><p>The same agent across the board. Higher tiers add reach, alerts and control.</p></div>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Free<span>$0/mo</span></th>
+              <th class="hl">Starter<span>$500/mo</span></th>
+              <th>TMS Light<span>$1,000/mo</span></th>
+              <th>Enterprise<span>Custom</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="grp"><td colspan="5">Usage</td></tr>
+            <tr><td>Shipments / month</td><td class="val">5</td><td class="val"><b>25</b></td><td class="val">60</td><td class="val">Unlimited</td></tr>
+            <tr><td>AI tokens / month</td><td class="val">1,000</td><td class="val"><b>5,000</b></td><td class="val">10,000</td><td class="val">Unlimited</td></tr>
+            <tr><td>Team members</td><td class="val">1</td><td class="val"><b>3</b></td><td class="val">10</td><td class="val">Unlimited</td></tr>
+
+            <tr class="grp"><td colspan="5">Track &amp; manage</td></tr>
+            <tr><td>Live 8-stage tracking</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Track &amp; trace (container / B/L / AWB)</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Documents auto-filed</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Quote requests &amp; comparison</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Cost checks (quoted vs actual)</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+
+            <tr class="grp"><td colspan="5">Alerts</td></tr>
+            <tr><td>Demurrage &amp; delay alerts</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Daily digest &amp; WhatsApp alerts</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+
+            <tr class="grp"><td colspan="5">Collaboration</td></tr>
+            <tr><td>Per-order threads with forwarders</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Role-based team access</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Forwarder-scoped view</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+
+            <tr class="grp"><td colspan="5">Integrations &amp; security</td></tr>
+            <tr><td>Gmail / Microsoft 365</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>ERP (Priority, SAP, Oracle)</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>SSO &amp; advanced security</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="no">&ndash;</td><td class="yes">&#10003;</td></tr>
+
+            <tr class="grp"><td colspan="5">Support</td></tr>
+            <tr><td>Support</td><td class="val">Community</td><td class="val"><b>Email</b></td><td class="val">Priority</td><td class="val">Dedicated</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>Pricing questions, answered</h2></div>
+      <div class="faq-list">
+        <details class="faq"><summary>What counts as a shipment?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">A shipment is one order logee actively tracks and manages in a given month, from booking through to delivery, no matter how many containers, documents or emails it involves. Your plan's monthly shipment count is how many new shipments you can open each month.</div></details>
+        <details class="faq"><summary>What are AI tokens?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">AI tokens measure the work the agent does for you: reading and understanding your emails and documents, drafting chasers, checking invoices and answering your questions. Each plan includes a monthly allowance. If you need more, you can top up or move to a higher plan.</div></details>
+        <details class="faq"><summary>Can I change plans at any time?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Yes. Upgrade or downgrade whenever you like, and the change takes effect immediately with billing prorated. Start on Free, and move up only when your volume calls for it.</div></details>
+        <details class="faq"><summary>Do I need a credit card to start?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">No. The Free plan needs no card. Sign in with Google or Microsoft and logee starts building your shipments straight away.</div></details>
+        <details class="faq"><summary>What happens if I reach my limit?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">We'll let you know as you approach your monthly shipment or token limit so there are no surprises, and you can upgrade or add capacity in a click. logee never stops tracking a shipment that is already underway.</div></details>
+        <details class="faq"><summary>Do my forwarders or suppliers need a paid seat?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">No. Forwarders, brokers and suppliers take part entirely by email, with no login and no seat. Team members are only the people inside your business who sign in to logee.</div></details>
+        <details class="faq"><summary>Which currency are prices in?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Prices are in USD and billed monthly. For annual billing or a different currency, get in touch and we'll sort it out.</div></details>
+        <details class="faq"><summary>Is my data secure?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Your data is yours. We use it only to run your shipments, never to share or sell, with encryption in transit and at rest and read-scoped access you can revoke anytime. See our <a href="security.html" style="color:var(--blue);font-weight:700">Security page</a> for details.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap"><div class="ctaband">
+      <h2>Start free today</h2>
+      <p>Connect your inbox and logee gets to work in minutes. Move up a plan only when your freight does.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="demo.html" class="btn btn-white btn-lg">Book a demo</a>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="index.html#watches">What it watches</a><a href="pricing.html">Pricing</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a><a href="security.html">Security</a></div>
+      <div class="foot-col"><h5>Get started</h5><a href="index.html#start">Start free</a><a href="signin.html">Sign in</a><a href="demo.html">Book a demo</a></div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var nav=document.getElementById('nav');if(nav){window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8);},{passive:true});}var burger=document.querySelector('.hamburger'),links=document.querySelector('.nav-links');if(burger&&links){burger.addEventListener('click',function(){links.classList.toggle('open');});}var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
+document.querySelectorAll('.tier[data-href]').forEach(function(t){t.addEventListener('click',function(e){if(e.target.closest('a,button'))return;var h=t.getAttribute('data-href');if(h)location.href=h;});});
+</script>
+</body>
+</html>

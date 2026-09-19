@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Transport Management System (TMS) for Importers &amp; Exporters · logee.ai</title>
+<meta name="description" content="logee is an AI transport management system (TMS) for SMB importers and exporters. Track every shipment, compare forwarder quotes, check invoices, and catch demurrage before it costs you. Start free.">
+<meta name="keywords" content="AI transport management system, AI TMS, TMS software, transport management system, freight management software, shipment tracking software, importers, exporters, demurrage alerts, freight forwarder software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{
+  --ink:#050038;
+  --ink-soft:#54536e;
+  --ink-faint:#8f8ea3;
+  --yellow:#ffd02f;
+  --yellow-deep:#f0bb00;
+  --bg:#ffffff;
+  --canvas:#f7f7f9;
+  --line:#e9e9ee;
+  --blue:#4262ff;
+  --blue-deep:#2f4ad0;
+  --blue-soft:#eef1ff;
+  --green:#0ca678;
+  --green-soft:#e6f6f0;
+  --red:#e5484d;
+  --red-soft:#fdecec;
+  --amber:#e8930c;
+  --amber-soft:#fdf3e1;
+  --violet:#7b61ff;
+  --violet-soft:#f0edff;
+  --shadow:0 1px 2px rgba(5,0,56,.05), 0 4px 14px rgba(5,0,56,.05);
+  --shadow-lift:0 12px 40px rgba(5,0,56,.16);
+  --shadow-card:0 1px 2px rgba(5,0,56,.04), 0 10px 34px rgba(5,0,56,.08);
+  --r-xl:20px; --r-lg:14px; --r-md:10px; --r-sm:8px;
+  --maxw:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ── Buttons ─────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s, border-color .14s, box-shadow .14s, transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}
+.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ink:hover{background:#0d0a52}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-white{background:#fff;color:var(--ink)}
+.btn-white:hover{background:#f0f0f3}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}
+.btn-block{width:100%}
+
+/* ── Nav ─────────────────────────────── */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s, box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:24px;height:24px}
+.brand small{font-weight:700;color:var(--blue);font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+
+/* ── Hero ─────────────────────────────── */
+.hero{padding:64px 0 40px;overflow:hidden;position:relative;background:radial-gradient(55% 55% at 92% 96%, rgba(66,98,255,.13), transparent 70%),radial-gradient(42% 45% at 4% 2%, rgba(255,208,47,.10), transparent 70%),radial-gradient(rgba(5,0,56,.05) 1px, transparent 1.6px) 0 0 / 22px 22px,#ffffff}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:13px;padding:6px 13px;border-radius:999px;margin-bottom:22px}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(66,98,255,.2)}
+h1{font-size:clamp(32px,3.9vw,46px);line-height:1.08;letter-spacing:-1px;font-weight:800}
+h1 .hl{background:linear-gradient(transparent 60%, var(--yellow) 60%);padding:0 3px}
+.hero p.sub{font-size:18px;color:var(--ink-soft);margin-top:20px;max-width:44ch;line-height:1.55}
+.hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-trust{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap;color:var(--ink-soft);font-size:13.5px;font-weight:600}
+.hero-trust .ti{display:flex;align-items:center;gap:7px}
+.hero-trust svg{width:16px;height:16px;color:var(--green)}
+
+/* hero visual */
+.hero-visual{position:relative}
+.hero-visual .glow{position:absolute;inset:-8% -10% -12% -6%;background:radial-gradient(60% 60% at 70% 30%, rgba(255,208,47,.28), transparent 70%),radial-gradient(50% 50% at 20% 80%, rgba(66,98,255,.16), transparent 70%);filter:blur(6px);z-index:0}
+.hv-card{position:relative;z-index:1;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card)}
+.hv-alert{padding:18px 20px}
+.hv-alert .top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hv-alert .mk{width:30px;height:30px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.hv-alert .mk svg{width:16px;height:16px}
+.hv-alert .top b{font-size:14px}
+.hv-alert .top span{font-size:12px;color:var(--ink-faint);font-weight:600;margin-left:auto}
+.hv-alert h4{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.hv-alert .warn-ico{width:20px;height:20px;color:var(--red);flex-shrink:0}
+.hv-alert p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.hv-alert .ask{font-size:13.5px;color:var(--ink);margin-top:12px;font-weight:600}
+.hv-alert .acts{display:flex;gap:9px;margin-top:12px}
+.hv-alert .acts .a1{background:var(--blue-soft);color:var(--blue);font-weight:700;font-size:13px;border-radius:8px;padding:9px 15px}
+.hv-alert .acts .a2{border:1.5px solid var(--line);font-weight:700;font-size:13px;border-radius:8px;padding:9px 15px;color:var(--ink-soft)}
+.hv-float{position:absolute;z-index:2;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);padding:12px 15px;display:flex;align-items:center;gap:11px}
+.hv-float .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.hv-float .ic svg{width:20px;height:20px}
+.hv-float b{font-size:15px;font-weight:800;display:block;letter-spacing:-.3px}
+.hv-float span{font-size:11.5px;color:var(--ink-faint);font-weight:600}
+.hv-float.f1{top:-26px;right:-14px;animation:floaty 5s ease-in-out infinite}
+.hv-float.f2{bottom:-42px;left:-34px;animation:floaty 6s ease-in-out infinite .8s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* hero photo */
+.hero-photo{position:relative;margin:0;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-card);aspect-ratio:4/3.1;background:linear-gradient(135deg,#0b0759,#2f4ad0)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;background:linear-gradient(transparent,rgba(5,0,56,.85));color:#fff;display:flex;flex-direction:column;gap:8px}
+.hp-status{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:800;letter-spacing:.2px}
+.hp-dot{width:8px;height:8px;border-radius:50%;background:#31d0aa;box-shadow:0 0 0 3px rgba(49,208,170,.35)}
+.hp-route{font-size:14px;font-weight:600;opacity:.96}
+
+/* logos strip */
+.logos-band{background:var(--canvas);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:40px 0;margin-top:44px}
+.logos{padding:0}
+.logos .lbl{text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
+.logos .row{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 40px;align-items:center}
+.logo{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.5px;line-height:1;opacity:.92;transition:opacity .18s, transform .18s}
+.logo:hover{opacity:1;transform:translateY(-1px)}
+.logo svg{flex-shrink:0;display:block}
+.logo .erp{font-size:10.5px;font-weight:800;letter-spacing:.6px;color:var(--ink-faint);border:1.5px solid var(--line);border-radius:5px;padding:1px 5px;margin-left:1px}
+@media(max-width:460px){.logo{font-size:17px}}
+
+/* section header */
+.sec{padding:76px 0}
+.sec.tint{background:var(--canvas)}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 46px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-1px;line-height:1.1;font-weight:900}
+.sec-head p{font-size:18px;color:var(--ink-soft);margin-top:16px}
+
+/* problems grid */
+.quote-band{max-width:820px;margin:0 auto 40px;text-align:center}
+.quote-band blockquote{font-size:clamp(21px,2.6vw,28px);font-weight:800;letter-spacing:-.6px;line-height:1.35}
+.quote-band blockquote .hl{background:linear-gradient(transparent 62%, var(--yellow) 62%)}
+.quote-band cite{display:block;margin-top:16px;font-size:14px;font-style:normal;font-weight:700;color:var(--ink-faint)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 22px 24px}
+.pcard .pic{width:42px;height:42px;border-radius:11px;background:var(--red-soft);display:grid;place-items:center;margin-bottom:15px}
+.pcard .pic svg{width:21px;height:21px;color:var(--red)}
+.pcard h3{font-size:16.5px;font-weight:800;margin-bottom:7px;letter-spacing:-.3px}
+.pcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+
+/* how it works */
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:step}
+.hcard{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px 20px;box-shadow:var(--shadow)}
+.hcard .num{width:36px;height:36px;border-radius:10px;background:var(--ink);color:#fff;font-weight:800;font-size:16px;display:grid;place-items:center;margin-bottom:16px}
+.hcard h3{font-size:17.5px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px}
+.hcard p{font-size:15px;color:var(--ink-soft)}
+.hcard .arrow{position:absolute;top:44px;right:-24px;color:var(--line);z-index:2}
+.hcard .arrow svg{width:24px;height:24px}
+@media(max-width:860px){.hcard .arrow{display:none}}
+
+/* capabilities */
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cap{display:flex;gap:16px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 24px;transition:border-color .15s, box-shadow .15s, transform .15s}
+.cap:hover{border-color:#d7d7e0;box-shadow:var(--shadow);transform:translateY(-2px)}
+.cap .ci{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.cap .ci svg{width:23px;height:23px}
+.cap .ci.yellow{background:var(--yellow);color:var(--ink)}
+.cap .ci.blue{background:var(--blue-soft);color:var(--blue)}
+.cap .ci.green{background:var(--green-soft);color:var(--green)}
+.cap .ci.violet{background:var(--violet-soft);color:var(--violet)}
+.cap .ci.amber{background:var(--amber-soft);color:var(--amber)}
+.cap .cbody h3{font-size:16.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px;display:flex;align-items:center;gap:9px}
+.cap .cbody p{font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+.order-tag{font-size:11px;font-weight:800;color:var(--blue);background:var(--blue-soft);border-radius:6px;padding:2px 7px}
+
+/* watches grid (dark) */
+.sec.dark{background:var(--ink);color:#fff}
+.sec.dark .eyebrow{color:var(--yellow)}
+.sec.dark .sec-head p{color:#b9b8cf}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.wcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:22px 22px 8px}
+.wcard .wh{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.wcard .wh .wi{width:38px;height:38px;border-radius:10px;background:rgba(255,208,47,.15);display:grid;place-items:center;flex-shrink:0}
+.wcard .wh .wi svg{width:20px;height:20px;color:var(--yellow)}
+.wcard .wh b{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.wcard ul{list-style:none;margin-bottom:14px}
+.wcard li{display:flex;gap:10px;padding:8px 0;font-size:14px;color:#cfcee0;border-top:1px solid rgba(255,255,255,.07)}
+.wcard li:first-child{border-top:none}
+.wcard li svg{width:16px;height:16px;color:var(--green);flex-shrink:0;margin-top:3px}
+.watch-foot{text-align:center;margin-top:34px;font-size:15px;color:#b9b8cf;font-weight:600}
+.watch-foot b{color:#fff}
+
+/* thread mock */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.split .copy h2{margin-bottom:18px}
+.split .copy .flist{margin-top:26px;display:flex;flex-direction:column;gap:20px}
+.flist .fi{display:flex;gap:14px}
+.flist .fi .fn{width:30px;height:30px;border-radius:8px;background:var(--yellow);color:var(--ink);font-weight:800;font-size:14px;display:grid;place-items:center;flex-shrink:0}
+.flist .fi h4{font-size:16px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.flist .fi p{font-size:14.5px;color:var(--ink-soft)}
+.thread{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card);overflow:hidden}
+.thread .th-head{padding:16px 20px;border-bottom:1px solid var(--line);background:var(--canvas)}
+.thread .th-head .r1{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.thread .th-head b{font-size:15px;font-weight:800}
+.thread .th-head .pill-s{font-size:11px;font-weight:800;color:var(--blue);background:var(--blue-soft);padding:3px 9px;border-radius:999px;margin-left:auto}
+.thread .th-head span{font-size:12.5px;color:var(--ink-faint);font-weight:600}
+.thread .body{padding:18px 20px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:11px}
+.msg .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0;color:#fff}
+.msg .bub .who{font-size:12.5px;font-weight:800;margin-bottom:3px}
+.msg .bub .who span{color:var(--ink-faint);font-weight:600;margin-left:6px}
+.msg .bub .txt{font-size:14px;background:var(--canvas);border-radius:10px;padding:9px 13px;color:var(--ink);line-height:1.5}
+.msg.agent .av{background:var(--yellow);color:var(--ink)}
+.msg.agent .txt{background:#fffbea;border-left:3px solid var(--yellow)}
+.msg .txt .tag-a{color:var(--blue);font-weight:700}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto}
+.cmp .col{border-radius:var(--r-lg);padding:28px 26px}
+.cmp .col.old{background:var(--bg);border:1px solid var(--line)}
+.cmp .col.new{background:var(--ink);color:#fff;box-shadow:var(--shadow-lift)}
+.cmp .col h3{font-size:18px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.cmp .col .cs{font-size:13px;font-weight:700;color:var(--ink-faint);margin-bottom:18px}
+.cmp .col.new .cs{color:var(--yellow)}
+.cmp ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+.cmp li{display:flex;gap:11px;font-size:14.5px;line-height:1.45}
+.cmp li svg{width:19px;height:19px;flex-shrink:0;margin-top:2px}
+.cmp .old li{color:var(--ink-soft)}
+.cmp .old li svg{color:var(--ink-faint)}
+.cmp .new li svg{color:var(--yellow)}
+
+/* pricing */
+.price{max-width:480px;margin:0 auto;background:var(--bg);border:2px solid var(--ink);border-radius:var(--r-xl);padding:36px 34px;box-shadow:var(--shadow-lift);position:relative}
+.price .ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--ink);font-weight:800;font-size:12.5px;padding:6px 16px;border-radius:999px;letter-spacing:.3px}
+.price .amt{display:flex;align-items:baseline;gap:8px;margin:8px 0 4px}
+.price .amt .big{font-size:52px;font-weight:900;letter-spacing:-2px}
+.price .amt .per{font-size:15px;color:var(--ink-soft);font-weight:600}
+.price .ptitle{font-size:15px;font-weight:800;color:var(--ink-soft)}
+.price .pdesc{font-size:14.5px;color:var(--ink-soft);margin-bottom:22px}
+.price ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin:22px 0 26px}
+.price li{display:flex;gap:11px;font-size:15px}
+.price li svg{width:20px;height:20px;color:var(--green);flex-shrink:0}
+.price .fine{text-align:center;font-size:12.5px;color:var(--ink-faint);margin-top:14px}
+
+/* freight photo band */
+.imgband{padding:0}
+.imgband .ib-head{text-align:center;padding:0 24px;margin-bottom:26px}
+.ib-row{display:grid;grid-template-columns:repeat(3,1fr)}
+.ib{position:relative;height:240px;overflow:hidden;margin:0;background:linear-gradient(135deg,#0b0759,#2f4ad0)}
+.ib img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.ib:hover img{transform:scale(1.06)}
+.ib figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;color:#fff;font-weight:800;font-size:15.5px;letter-spacing:-.2px;background:linear-gradient(transparent,rgba(5,0,56,.78));display:flex;align-items:center;gap:9px}
+.ib figcaption svg{width:18px;height:18px;color:var(--yellow);flex-shrink:0}
+a.ib{text-decoration:none;color:inherit;display:block}
+@media(max-width:720px){.ib-row{grid-template-columns:1fr}.ib{height:210px}}
+
+/* hero product mock */
+.hero-app{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);overflow:hidden}
+.ha-bar{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--canvas)}
+.ha-dots{display:flex;gap:6px}
+.ha-dots i{width:10px;height:10px;border-radius:50%;background:#dcdce4}
+.ha-title{font-size:12.5px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px}
+.ha-title .mk{width:19px;height:19px;border-radius:5px;background:var(--yellow);display:grid;place-items:center}
+.ha-title .mk svg{width:12px;height:12px}
+.ha-body{padding:16px 18px 18px}
+.ha-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ha-h b{font-size:14.5px;font-weight:800}
+.ha-h span{font-size:11.5px;font-weight:700;color:var(--green);background:var(--green-soft);padding:3px 9px;border-radius:999px}
+.ha-row{display:grid;grid-template-columns:1.15fr 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.ha-info b{font-size:13px;font-weight:800;display:block}
+.ha-info span{font-size:11.5px;color:var(--ink-soft)}
+.ha-prog{height:6px;background:var(--canvas);border-radius:99px;overflow:hidden}
+.ha-prog i{display:block;height:100%;border-radius:99px}
+.ha-st{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap;text-align:center}
+.ha-st.ok{background:var(--green-soft);color:var(--green)}
+.ha-st.late{background:var(--red-soft);color:var(--red)}
+.ha-st.watch{background:var(--amber-soft);color:var(--amber)}
+
+/* product visuals section */
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:720px){.pv-grid{grid-template-columns:1fr}}
+.pv{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-card);overflow:hidden;display:flex;flex-direction:column}
+.pv-top{display:flex;align-items:center;gap:9px;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--canvas)}
+.pv-top .mk{width:24px;height:24px;border-radius:7px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.pv-top .mk svg{width:14px;height:14px}
+.pv-top b{font-size:13.5px;font-weight:800}
+.pv-top .t{margin-left:auto;font-size:11px;color:var(--ink-faint);font-weight:600}
+.pv-body{padding:18px 20px;flex:1}
+.pv-brief{font-size:14.5px;line-height:1.6}
+.pv-brief strong{background:linear-gradient(transparent 62%, var(--yellow) 62%);font-weight:800;padding:0 2px}
+.pv-chips{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pv-chip{border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:700;font-size:12px;color:var(--ink-soft)}
+.pv-cost-top{display:flex;gap:12px;margin-bottom:14px}
+.pv-stat{flex:1;background:var(--canvas);border-radius:10px;padding:11px 13px}
+.pv-stat .l{font-size:11px;font-weight:700;color:var(--ink-faint)}
+.pv-stat .n{font-size:19px;font-weight:800;letter-spacing:-.4px}
+.pv-line{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:9px 0;border-top:1px dashed var(--line)}
+.pv-line .nm{color:var(--ink-soft)}
+.pv-line .dv{font-weight:800}
+.pv-cap{text-align:center;margin-top:22px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+
+/* shipment stage tracker */
+.track-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-card);padding:22px 26px 26px;margin-top:22px}
+.track-head{display:flex;align-items:center;gap:12px;margin-bottom:26px;flex-wrap:wrap}
+.track-head b{font-size:15px;font-weight:800}
+.track-head .rt{font-size:12.5px;color:var(--ink-faint);font-weight:600}
+.track-head .badge{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:var(--blue);background:var(--blue-soft);padding:5px 11px;border-radius:999px}
+.track-head .badge i{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(66,98,255,.25)}
+.track{display:flex}
+.tstep{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 4px}
+.tstep::before{content:"";position:absolute;top:15px;left:-50%;width:100%;height:2px;background:var(--line);z-index:0}
+.tstep:first-child::before{display:none}
+.tstep.done::before,.tstep.current::before{background:var(--green)}
+.tdot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;position:relative;z-index:1;background:var(--canvas);border:2px solid var(--line);color:var(--ink-faint)}
+.tdot svg{width:15px;height:15px}
+.tstep.done .tdot{background:var(--green);border-color:var(--green);color:#fff}
+.tstep.current .tdot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px var(--blue-soft)}
+.tstep.current .tdot i{width:8px;height:8px;border-radius:50%;background:#fff;display:block}
+.tlabel{font-size:11.5px;font-weight:700;margin-top:9px;line-height:1.3;color:var(--ink-faint)}
+.tstep.done .tlabel{color:var(--ink)}
+.tstep.current .tlabel{color:var(--blue)}
+.track-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.track-note .ni{width:30px;height:30px;border-radius:8px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;flex-shrink:0}
+.track-note .ni svg{width:17px;height:17px}
+.track-note b{color:var(--ink)}
+@media(max-width:720px){
+  .track{flex-direction:column;align-items:stretch}
+  .tstep{flex-direction:row;align-items:center;gap:13px;text-align:left;padding:7px 0}
+  .tstep::before{display:none}
+  .tlabel{margin-top:0;font-size:13.5px}
+}
+
+/* FAQ */
+.faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;transition:border-color .15s, box-shadow .15s}
+.faq[open]{border-color:#d7d7e0;box-shadow:var(--shadow)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{width:20px;height:20px;flex-shrink:0;color:var(--ink-faint);transition:transform .2s}
+.faq[open] summary .chev{transform:rotate(180deg);color:var(--blue)}
+.faq .ans{padding:0 20px 20px;font-size:14.5px;color:var(--ink-soft);line-height:1.65}
+
+/* final cta */
+.finalcta{background:linear-gradient(rgba(5,0,56,.80),rgba(5,0,56,.93)), #050038 url('img/ship.jpg') center/cover;color:#fff;border-radius:var(--r-xl);padding:64px 40px;text-align:center;position:relative;overflow:hidden}
+.finalcta::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 90% at 80% 10%, rgba(255,208,47,.22), transparent 60%),radial-gradient(50% 80% at 10% 90%, rgba(66,98,255,.28), transparent 60%)}
+.finalcta > *{position:relative;z-index:1}
+.finalcta h2{font-size:clamp(28px,3.6vw,42px)}
+.finalcta p{font-size:18.5px;color:#cfcee0;margin:16px auto 30px;max-width:52ch}
+.finalcta .cbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ptease{transition:border-color .15s, box-shadow .15s, transform .15s}
+.ptease:hover{border-color:var(--ink)!important;box-shadow:var(--shadow-lift);transform:translateY(-3px)}
+.pteaser-grid:hover .ptease.pop:not(:hover){border-color:var(--line)!important;box-shadow:none!important}
+
+/* footer */
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}
+.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}
+.foot-bottom .fb-links a:hover{color:var(--ink)}
+
+/* ── Signup modal ─────────────────────────── */
+.scrim{position:fixed;inset:0;background:rgba(5,0,56,.55);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;animation:fade .18s ease}
+.scrim.open{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg);border-radius:var(--r-xl);width:100%;max-width:460px;box-shadow:var(--shadow-lift);position:relative;animation:pop .22s cubic-bezier(.2,.9,.3,1.2);max-height:92vh;overflow-y:auto}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.modal .mclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--ink-faint)}
+.modal .mclose:hover{background:var(--canvas);color:var(--ink)}
+.modal .mhead{padding:30px 32px 6px}
+.modal .mhead .mk{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;margin-bottom:16px}
+.modal .mhead .mk svg{width:22px;height:22px}
+.modal .mhead h3{font-size:23px;font-weight:900;letter-spacing:-.6px}
+.modal .mhead p{font-size:14.5px;color:var(--ink-soft);margin-top:6px}
+.mform{padding:20px 32px 30px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field input,.field select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;background:var(--bg);transition:border-color .14s, box-shadow .14s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.field .err{color:var(--red);font-size:12.5px;font-weight:600;margin-top:5px;display:none}
+.field.invalid input{border-color:var(--red)}
+.field.invalid .err{display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mform .consent{font-size:12px;color:var(--ink-faint);margin-top:14px;text-align:center;line-height:1.5}
+.mform .consent a{color:var(--ink-soft);text-decoration:underline}
+.mform .signin-row{text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:18px}
+.sso{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+.sso-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px 18px;border:1.5px solid var(--line);border-radius:11px;background:#fff;font-weight:700;font-size:15.5px;color:var(--ink);transition:border-color .14s, box-shadow .14s, transform .1s}
+.sso-btn:hover{border-color:var(--ink-faint);box-shadow:var(--shadow)}
+.sso-btn:active{transform:scale(.99)}
+.sso-btn svg{flex-shrink:0}
+.mform .signin-row a{color:var(--blue);font-weight:700}
+/* success */
+.msuccess{padding:40px 34px 38px;text-align:center;display:none}
+.msuccess.show{display:block}
+.msuccess .check{width:66px;height:66px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;margin:0 auto 20px;animation:pop .3s ease}
+.msuccess .check svg{width:34px;height:34px;color:var(--green)}
+.msuccess h3{font-size:24px;font-weight:900;letter-spacing:-.6px;margin-bottom:10px}
+.msuccess p{font-size:15px;color:var(--ink-soft);line-height:1.55}
+.msuccess p b{color:var(--ink)}
+.msuccess .steps{text-align:left;background:var(--canvas);border-radius:12px;padding:18px 20px;margin:22px 0 6px}
+.msuccess .steps .st{display:flex;gap:12px;padding:8px 0;font-size:14px;font-weight:600}
+.msuccess .steps .st span{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;flex-shrink:0}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 20px;border-radius:10px;box-shadow:var(--shadow-lift);z-index:200;opacity:0;transition:opacity .2s, transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── Responsive ─────────────────────────── */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:60px}
+  .hero p.sub{max-width:52ch}
+  .hv-float{display:none}
+  .split{grid-template-columns:1fr;gap:36px}
+  .grid3,.how,.wgrid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:26px}
+}
+@media(max-width:720px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;margin:0;box-shadow:var(--shadow)}
+  .nav-links.open a{padding:12px 10px}
+  .nav-signin{display:none}
+  .hamburger{display:flex}
+  .hero{padding:44px 0 20px}
+  .grid2,.grid3,.how,.wgrid,.cmp,.two{grid-template-columns:1fr}
+  .sec{padding:56px 0}
+  .hv-float.f1{right:0;top:-18px}
+  .hv-float.f2{left:0;bottom:-18px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .finalcta{padding:44px 24px}
+}
+@media(max-width:460px){
+  .hv-float b{font-size:13px}
+  .foot-grid{grid-template-columns:1fr}
+  .hero-cta .btn{width:100%}
+}
+</style>
+<link rel="canonical" href="https://logee.ai/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/">
+<meta property="og:title" content="AI Transport Management System (TMS) for Importers &amp; Exporters · logee.ai">
+<meta property="og:description" content="logee is an AI transport management system (TMS) for SMB importers and exporters. Track every shipment, compare forwarder quotes, check invoices, and catch demurrage before it costs you. Start free.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Transport Management System (TMS) for Importers &amp; Exporters · logee.ai">
+<meta name="twitter:description" content="logee is an AI transport management system (TMS) for SMB importers and exporters. Track every shipment, compare forwarder quotes, check invoices, and catch demurrage before it costs you. Start free.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"logee","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://logee.ai/","description":"logee is an AI transport management system (TMS) for SMB importers and exporters that tracks every shipment, compares forwarder quotes, checks invoices against quotes, and flags demurrage before it costs you.","offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"0","highPrice":"1000","offerCount":"4"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What exactly is logee?","acceptedAnswer":{"@type":"Answer","text":"logee is an AI transport management system (TMS) for importers and exporters. It reads your inbox and connected systems, builds a live record of every shipment, tracks it, checks the costs, and flags issues like demurrage before they turn into charges."}},{"@type":"Question","name":"How does logee get my shipment data?","acceptedAnswer":{"@type":"Answer","text":"You connect the email you already use, Gmail or Microsoft 365, and your ERP if you have one. logee reads the booking confirmations, documents and invoices that already land there and turns them into structured shipment records automatically."}},{"@type":"Question","name":"Do my forwarders, brokers or suppliers need to sign up?","acceptedAnswer":{"@type":"Answer","text":"No. They keep working over email as they do today. logee reads and drafts the emails for you, so nobody on the other side needs a login. You can optionally give a forwarder a limited view of just their own shipments."}},{"@type":"Question","name":"Which inboxes, carriers and systems do you work with?","acceptedAnswer":{"@type":"Answer","text":"Gmail and Microsoft 365 for email, major ocean carriers such as Maersk, MSC, ZIM and Hapag-Lloyd for tracking, and ERPs like Priority. We add integrations throughout early access."}},{"@type":"Question","name":"Will logee ever email or book anything without my approval?","acceptedAnswer":{"@type":"Answer","text":"Never. logee drafts chasers and flags decisions, but nothing is sent and nothing is booked until you review and approve it."}},{"@type":"Question","name":"How long does it take to get set up?","acceptedAnswer":{"@type":"Answer","text":"A couple of minutes. Connect your inbox and logee starts building your shipments straight away. There is nothing to install."}},{"@type":"Question","name":"Is it really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. logee is free to start, with no credit card. Paid plans cover higher volumes and advanced features when you are ready."}},{"@type":"Question","name":"Is my data private and secure?","acceptedAnswer":{"@type":"Answer","text":"Your data is yours. We use it only to run your shipments, never to share or sell, with encryption in transit and at rest and read-scoped access you can revoke at any time."}},{"@type":"Question","name":"What happens if the AI gets something wrong?","acceptedAnswer":{"@type":"Answer","text":"You are always the final check. logee shows its work, links to the source email or document, and asks before it acts, so you can correct anything before it matters. It gets more accurate the more you use it."}},{"@type":"Question","name":"Do I have to switch carriers, forwarders or my ERP?","acceptedAnswer":{"@type":"Answer","text":"No. logee works with the carriers, forwarders, brokers and systems you already use. It sits on top and pulls everything into one place."}}]}</script>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="logee.ai home">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="wm">logee<small>.ai</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="#watches">What it watches</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <button class="btn btn-primary" onclick="openSignup('nav')">Start free</button>
+      <button class="hamburger" aria-label="Menu" onclick="toast('Menu (mobile nav)')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<span id="top"></span>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill"><span class="dot"></span>AI TMS for SMB importers &amp; exporters</span>
+      <h1>Keep every shipment<br><span class="hl">on track.</span></h1>
+      <p class="sub">The AI transport management system that watches your freight, chases updates, and flags problems before they cost you.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="openSignup('hero')">Start free</button>
+        <a href="how-it-works.html" class="btn btn-ghost btn-lg">See how it works</a>
+      </div>
+      <div class="hero-trust">
+        <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Free to start</span>
+        <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Set up in 2 minutes</span>
+        <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No new system for your team</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-app">
+        <div class="ha-bar">
+          <span class="ha-dots"><i></i><i></i><i></i></span>
+          <span class="ha-title"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>logee · Shipments</span>
+        </div>
+        <div class="ha-body">
+          <div class="ha-h"><b>Your shipments, live</b><span>● 23 active</span></div>
+          <div class="ha-row">
+            <div class="ha-info"><b>LG-2418</b><span>Ningbo → Sydney</span></div>
+            <div class="ha-prog"><i style="width:58%;background:var(--red)"></i></div>
+            <span class="ha-st late">Late</span>
+          </div>
+          <div class="ha-row">
+            <div class="ha-info"><b>LG-2431</b><span>Shenzhen → Melbourne</span></div>
+            <div class="ha-prog"><i style="width:80%;background:var(--green)"></i></div>
+            <span class="ha-st ok">On track</span>
+          </div>
+          <div class="ha-row">
+            <div class="ha-info"><b>LG-2402</b><span>Shanghai → Brisbane</span></div>
+            <div class="ha-prog"><i style="width:45%;background:var(--amber)"></i></div>
+            <span class="ha-st watch">Watch</span>
+          </div>
+          <div class="ha-row">
+            <div class="ha-info"><b>LG-2447</b><span>Qingdao → Sydney</span></div>
+            <div class="ha-prog"><i style="width:92%;background:var(--green)"></i></div>
+            <span class="ha-st ok">On track</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LOGOS BAND ══ -->
+<section class="logos-band">
+  <div class="wrap logos">
+    <div class="lbl">Works with the tools you already ship with</div>
+    <div class="row">
+      <!-- Gmail -->
+      <span class="logo" style="color:#4b4a63">
+        <svg viewBox="0 0 52 40" width="26" height="20" aria-label="Gmail">
+          <path fill="#4285F4" d="M3.5 40h9V18L0 8.7v27.8C0 38.4 1.6 40 3.5 40z"/>
+          <path fill="#34A853" d="M39.5 40h9c1.9 0 3.5-1.6 3.5-3.5V8.7L39.5 18z"/>
+          <path fill="#FBBC04" d="M39.5 3.5V18L52 8.7V5.6c0-4.3-4.9-6.8-8.4-4.2z"/>
+          <path fill="#EA4335" d="M12.5 18V6L26 16 39.5 6v12L26 28z"/>
+          <path fill="#C5221F" d="M0 5.6v3.1L12.5 18V6L8.4 1.4C4.9-1.2 0 1.3 0 5.6z"/>
+        </svg>Gmail</span>
+      <!-- Microsoft 365 -->
+      <span class="logo" style="color:#4b4a63">
+        <svg viewBox="0 0 24 24" width="21" height="21" aria-label="Microsoft">
+          <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+          <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+          <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
+          <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
+        </svg>Microsoft 365</span>
+      <!-- Maersk -->
+      <span class="logo" style="color:#0a3d62">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-label="Maersk">
+          <rect width="24" height="24" rx="5" fill="#42B0D5"/>
+          <polygon fill="#fff" points="12,2 13.74,8.4 19.82,5.77 15.9,11.11 21.75,14.22 15.13,14.49 16.34,21.01 12,16 7.66,21.01 8.87,14.49 2.25,14.22 8.1,11.11 4.18,5.77 10.26,8.4"/>
+        </svg>MAERSK</span>
+      <!-- MSC -->
+      <span class="logo" style="color:#142c63">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-label="MSC">
+          <path d="M2.5 14c3.2-2.2 5.3-2.2 8.5 0s5.3 2.2 8.5 0" stroke="#C8A24A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M2.5 18c3.2-2.2 5.3-2.2 8.5 0s5.3 2.2 8.5 0" stroke="#142c63" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>MSC</span>
+      <!-- ZIM -->
+      <span class="logo" style="color:#0b2a6b">ZIM<span style="color:#00B140;font-size:22px;line-height:0;margin-left:-3px">.</span></span>
+      <!-- Hapag-Lloyd -->
+      <span class="logo" style="color:#003a70">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-label="Hapag-Lloyd"><rect width="24" height="24" rx="4" fill="#EB6608"/></svg>Hapag-Lloyd</span>
+      <!-- Priority ERP -->
+      <span class="logo" style="color:#2b2b3a">Priority<span class="erp">ERP</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FREIGHT PHOTO BAND ══ -->
+<section class="sec imgband" style="padding:64px 0 0">
+  <div class="ib-head">
+    <span class="eyebrow">Ocean · Air · Road · Warehousing</span>
+    <h2 style="max-width:20ch;margin:0 auto">Built for how your freight really moves</h2>
+  </div>
+  <div class="ib-row">
+    <a class="ib" href="ocean.html">
+      <img src="img/ocean.jpg" alt="Container ship loaded with cargo at sea" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a6 6 0 0 0 3-1 6 6 0 0 1 6 0 6 6 0 0 0 6 0 6 6 0 0 1 5 1"/><path d="M4 18l-2-6h20l-3 6"/><path d="M12 3v9M9 6h3"/></svg>Ocean freight</figcaption>
+    </a>
+    <a class="ib" href="air.html">
+      <img src="img/air.jpg" alt="Air cargo freight plane on the tarmac" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5a2.1 2.1 0 0 0-3-3L13 8 4.8 6.2a1 1 0 0 0-.9 1.7l6.1 4-2 3.5-2.5-.4a1 1 0 0 0-.9 1.6l2.7 3.2a1 1 0 0 0 1.6-.2l2-3.5 4.1 2.2a1 1 0 0 0 1.7-.9z"/></svg>Air freight</figcaption>
+    </a>
+    <a class="ib" href="road.html">
+      <img src="img/road.jpg" alt="Freight truck hauling cargo on the highway" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Road &amp; trucking</figcaption>
+    </a>
+    <a class="ib" href="warehousing.html">
+      <img src="img/warehouse.jpg" alt="Goods stored on racking inside a logistics warehouse" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8.4 12 3 2 8.4V21h20zM6 21v-6h4v6M14 15h4v6h-4z"/></svg>Warehousing &amp; storage</figcaption>
+    </a>
+    <a class="ib" href="ports.html">
+      <img src="img/port.jpg" alt="Cranes loading containers at a shipping port terminal" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4l14 3v14M4 9h14M9 21v-5h4v5"/></svg>Ports &amp; terminals</figcaption>
+    </a>
+    <a class="ib" href="customs.html">
+      <img src="img/yard.jpg" alt="Stacked shipping containers in a container yard" loading="lazy" onerror="this.style.display='none'">
+      <figcaption><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M7 8v12M12 8v12M17 8v12M3 4h18"/></svg>Container yards &amp; customs</figcaption>
+    </a>
+  </div>
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section class="sec tint" id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why freight feels so hard</span>
+      <h2>Six problems you already know too well</h2>
+      <p>It isn't you. When shipments live across inboxes, spreadsheets and phone calls, things slip, and it costs you.</p>
+    </div>
+    <div class="quote-band">
+      <blockquote>“My shipment info is buried across <span class="hl">dozens of email threads</span>. I only find out what something actually cost <span class="hl">at the end of the month</span>.”</blockquote>
+      <cite>An importer we spoke with</cite>
+    </div>
+    <div class="grid3">
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+        <h3>Scattered across email</h3>
+        <p>Quotes, bookings, documents and invoices sit in different threads with no shared view.</p>
+      </div>
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.6"/><path d="M22 4 12 14.01l-3-3"/></svg></div>
+        <h3>No single source of truth</h3>
+        <p>Status, paperwork and pricing live in separate places. Nothing ties them to one shipment.</p>
+      </div>
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Costs surface too late</h3>
+        <p>Landed cost isn't known until invoices are reconciled weeks later, so overcharges slip through.</p>
+      </div>
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Deadlines get missed</h3>
+        <p>Free time runs out and cut-offs pass, and the first sign is a demurrage or storage bill.</p>
+      </div>
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-6 0v4"/><path d="M21 15a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3l1-6h16l1 6Z"/></svg></div>
+        <h3>Chasing wastes time</h3>
+        <p>Following up forwarders, brokers and suppliers by hand. Silence until you ask, then 'see attached'.</p>
+      </div>
+      <div class="pcard">
+        <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4"/><path d="M19 16v6M16 19h6"/></svg></div>
+        <h3>It lives in one person's head</h3>
+        <p>When the person who knows the shipments is away, nobody else can find anything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How it works</span>
+      <h2>From quote to delivery, in one place</h2>
+      <p>Set a shipment up once. logee gets you quotes, tracks the journey and your partners, and flags problems before they cost you.</p>
+    </div>
+    <div class="how">
+      <div class="hcard">
+        <div class="num">1</div>
+        <h3>Set up your shipment</h3>
+        <p>Create the order and upload your documents, invoice, packing list and the rest. A few minutes, all in one place.</p>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="hcard">
+        <div class="num">2</div>
+        <h3>Get quotes and book</h3>
+        <p>Send it to your forwarding partners in one click, compare their offers side by side, and book the one you choose.</p>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="hcard">
+        <div class="num">3</div>
+        <h3>logee tracks it all</h3>
+        <p>From booking to delivery, it tracks the shipment and every message with your partner, keeping status, docs and costs on one order.</p>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="hcard">
+        <div class="num">4</div>
+        <h3>Stay ahead of problems</h3>
+        <p>It watches every milestone and warns you early, like a delivery about to run late, so you can act before it costs you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAPABILITIES ══ -->
+<section class="sec tint" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What you get</span>
+      <h2>One home for every shipment, and an agent that acts on it</h2>
+      <p>Starting with the costs that hurt most, right through to the paperwork that never files itself.</p>
+    </div>
+    <div class="grid2">
+      <div class="cap">
+        <div class="ci amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+        <div class="cbody"><h3>Demurrage &amp; delay alerts <span class="order-tag">Where the money is</span></h3><p>Know before free time runs out, while you can still book pickup and dodge the charge.</p></div>
+      </div>
+      <div class="cap">
+        <div class="ci green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="cbody"><h3>Actual vs. quoted costs</h3><p>Every freight invoice checked against its quote the moment it lands, with overcharges flagged line by line.</p></div>
+      </div>
+      <div class="cap">
+        <div class="ci blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
+        <div class="cbody"><h3>One real-time shipment view</h3><p>Every shipment, its status and the next step in a single live view. No more digging through threads.</p></div>
+      </div>
+      <div class="cap">
+        <div class="ci violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H4v18h5M9 3h11v18H9M9 3v18"/><path d="M13 8h3M13 12h3"/></svg></div>
+        <div class="cbody"><h3>Request &amp; compare quotes</h3><p>Send one request to all your forwarders, compare their offers side by side, and book the one you choose.</p></div>
+      </div>
+      <div class="cap">
+        <div class="ci yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.4 8.4-9.8 9.8a4 4 0 0 1-5.7-5.7l9.9-9.8a2.7 2.7 0 0 1 3.8 3.8l-9.9 9.8a1.3 1.3 0 0 1-1.9-1.9l9.1-9"/></svg></div>
+        <div class="cbody"><h3>Documents auto-attached</h3><p>Bills of lading, packing lists and invoices matched to the right shipment automatically.</p></div>
+      </div>
+      <div class="cap">
+        <div class="ci blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg></div>
+        <div class="cbody"><h3>Chases missing info</h3><p>Drafts the chaser to you or the other party when something's missing. You approve, it sends. Nothing goes out on its own.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ A LOOK INSIDE ══ -->
+<section class="sec" id="inside">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A look inside</span>
+      <h2>See exactly what you get</h2>
+      <p>A daily briefing in plain English, and every freight cost checked the moment it lands.</p>
+    </div>
+    <div class="pv-grid">
+      <div class="pv">
+        <div class="pv-top">
+          <span class="mk"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <b>Morning briefing</b>
+          <span class="t">updated 08:12</span>
+        </div>
+        <div class="pv-body">
+          <p class="pv-brief">Good morning. You have <strong>23 active shipments</strong>. Overnight, 2 were delivered and <strong>4 now need your attention</strong>: two are running late, one invoice came in above quote, and one is missing its bill of lading.</p>
+          <div class="pv-chips"><span class="pv-chip">Show late shipments</span><span class="pv-chip">Why is spend over quote?</span></div>
+        </div>
+      </div>
+      <div class="pv">
+        <div class="pv-top">
+          <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#050038" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+          <b>Cost check · this month</b>
+          <span class="t">live</span>
+        </div>
+        <div class="pv-body">
+          <div class="pv-cost-top">
+            <div class="pv-stat"><div class="l">Quoted</div><div class="n">$38,850</div></div>
+            <div class="pv-stat"><div class="l">Charged</div><div class="n" style="color:var(--red)">$41,200</div></div>
+          </div>
+          <div class="pv-line"><span class="nm">Ocean freight</span><span class="dv" style="color:var(--green)">On quote</span></div>
+          <div class="pv-line"><span class="nm">Storage &amp; detention · LG-2418</span><span class="dv" style="color:var(--red)">+$1,400</span></div>
+          <div class="pv-line"><span class="nm">Fuel surcharge · LG-2402</span><span class="dv" style="color:var(--red)">+$950</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="track-card">
+      <div class="track-head">
+        <b>LG-2461 · Shanghai → Tel Aviv</b>
+        <span class="rt">Air · flight LY086</span>
+        <span class="badge"><i></i>Tracked live</span>
+      </div>
+      <div class="track">
+        <div class="tstep done"><span class="tdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tlabel">Origin &amp; type</span></div>
+        <div class="tstep done"><span class="tdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tlabel">SKUs &amp; quantities</span></div>
+        <div class="tstep done"><span class="tdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tlabel">Pickup request</span></div>
+        <div class="tstep done"><span class="tdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tlabel">Confirmation</span></div>
+        <div class="tstep current"><span class="tdot"><i></i></span><span class="tlabel">Pickup / departure</span></div>
+        <div class="tstep"><span class="tdot"></span><span class="tlabel">Arrival at port</span></div>
+        <div class="tstep"><span class="tdot"></span><span class="tlabel">ETA window</span></div>
+        <div class="tstep"><span class="tdot"></span><span class="tlabel">Proof of delivery</span></div>
+      </div>
+      <div class="track-note">
+        <span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <div><b>Happening now:</b> departed Shanghai on LY086, on track for 19 Sep in Tel Aviv, invoice matching quote. logee updates every stage live and alerts you the moment an ETA slips or a cost looks off.</div>
+      </div>
+    </div>
+    <p class="pv-cap">Every shipment shows exactly where it is, from booking to proof of delivery, tracked for you around the clock.</p>
+  </div>
+</section>
+
+<!-- ══ WHAT IT WATCHES (dark) ══ -->
+<section class="sec dark" id="watches">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Always on</span>
+      <h2>Your agent doesn't miss what you might</h2>
+      <p>Every order, every day, logee checks the small things that turn into big bills.</p>
+    </div>
+    <div class="wgrid">
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>Deadlines</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Free time ending, demurrage about to start</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Container return due (detention)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Docs, SI and VGM cut-offs approaching</li>
+        </ul>
+      </div>
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3 8 4-16 3 8h6"/></svg></span><b>Delays &amp; changes</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vessel delayed or booking rolled</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ETA changed since the last update</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Order stuck at a stage longer than usual</li>
+        </ul>
+      </div>
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><b>Documents</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>B/L or telex release not in before arrival</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Packing list or commercial invoice missing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Details that don't match across documents</li>
+        </ul>
+      </div>
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>Money</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Invoice above quote, line by line</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Duplicate or unexpected charges</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Landed cost per order as invoices land</li>
+        </ul>
+      </div>
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.5 8.5 9 10 5.5-1.5 9-5 9-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><b>Customs</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Clearance not lodged before arrival</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hold or inspection flagged</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Duty and GST to expect on the order</li>
+        </ul>
+      </div>
+      <div class="wcard">
+        <div class="wh"><span class="wi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><b>People &amp; follow-ups</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Forwarder hasn't replied in two days</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Supplier payment due before release</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Weekly digest: arriving now, needs action</li>
+        </ul>
+      </div>
+    </div>
+    <p class="watch-foot">Every alert lands in the order thread with the next step attached. <b>Nothing goes out without your permission.</b></p>
+  </div>
+</section>
+
+<!-- ══ ONE THREAD PER ORDER ══ -->
+<section class="sec" id="thread">
+  <div class="wrap split">
+    <div class="copy">
+      <span class="eyebrow">Collaboration</span>
+      <h2>One thread per order, not a hundred emails</h2>
+      <p style="font-size:18px;color:var(--ink-soft)">Every order is its own thread. Message your forwarder inside it, tag anyone who needs to know, and the whole history stays in one place.</p>
+      <div class="flist">
+        <div class="fi"><div class="fn">1</div><div><h4>The order is the unit of work</h4><p>Like a task in Jira: one order, one thread. Messages, documents, costs and status all sit on it, not spread across inboxes.</p></div></div>
+        <div class="fi"><div class="fn">2</div><div><h4>Tag who needs to know</h4><p>Tag your forwarder, broker or a colleague. They get an email and access to the order thread, with no login required to reply.</p></div></div>
+        <div class="fi"><div class="fn">3</div><div><h4>Everyone sees the whole story</h4><p>No forwarding, no CC chains. New people join and read the history from the top.</p></div></div>
+      </div>
+    </div>
+    <div class="thread">
+      <div class="th-head">
+        <div class="r1"><b>Order #4821</b><span class="pill-s">In transit</span></div>
+        <span>MSKU4821 · Shanghai → Sydney · ETA Wed 17 Sep</span>
+      </div>
+      <div class="body">
+        <div class="msg"><div class="av" style="background:var(--blue)">Y</div><div class="bub"><div class="who">You <span>Mon 4:12 pm</span></div><div class="txt"><span class="tag-a">@Priya</span> can you confirm the pickup slot for MSKU4821? Free time ends Thursday.</div></div></div>
+        <div class="msg"><div class="av" style="background:var(--violet)">P</div><div class="bub"><div class="who">Priya <span>forwarder · Mon 5:40 pm</span></div><div class="txt">Booked for Wed 10 am. Delivery order attached. <span class="tag-a">@Broker</span>, is clearance on track?</div></div></div>
+        <div class="msg agent"><div class="av"><svg viewBox="0 0 24 24" style="width:16px;height:16px" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></div><div class="bub"><div class="who">logee <span>Mon 5:41 pm</span></div><div class="txt">Pickup recorded. Demurrage alert cleared. Delivery order attached to this order.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIFFERENCE ══ -->
+<section class="sec tint" id="difference">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why it's different</span>
+      <h2>Not another dashboard you have to feed</h2>
+      <p>Set a shipment up once, and logee runs it from there, tracking, chasing and flagging on its own.</p>
+    </div>
+    <div class="cmp">
+      <div class="col old">
+        <h3>Traditional TMS / dashboard</h3>
+        <div class="cs">You do the work</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Shows data you have to enter yourself</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>You still dig through email to find status</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Alerts only if you set them up and check them</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Another system to log into and maintain</li>
+        </ul>
+      </div>
+      <div class="col new">
+        <h3>logee.ai agent</h3>
+        <div class="cs">The work does itself</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Gets you quotes and lets you book in a few clicks</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Surfaces status and cost automatically</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Flags what needs attention before it's a problem</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Fits into the workflow you already run</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Pricing that grows with your freight</h2>
+      <p>Start free, then move up as you ship more. Every plan is the full logee agent.</p>
+    </div>
+    <div class="pteaser-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;max-width:980px;margin:0 auto">
+      <a class="ptease" href="pricing.html" style="border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;background:var(--bg);display:block;text-decoration:none;color:inherit">
+        <div style="font-size:13.5px;font-weight:800;color:var(--ink-soft)">Free</div>
+        <div style="font-size:30px;font-weight:900;letter-spacing:-1.2px;margin:6px 0 2px">$0<span style="font-size:13px;color:var(--ink-faint);font-weight:600">/mo</span></div>
+        <div style="font-size:12.5px;color:var(--ink-soft)">5 shipments / mo · try it out</div>
+      </a>
+      <a class="ptease pop" href="pricing.html" style="border:2px solid var(--ink);border-radius:14px;padding:22px 18px;text-align:center;background:var(--bg);position:relative;box-shadow:var(--shadow-lift);display:block;text-decoration:none;color:inherit">
+        <span style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--ink);font-weight:800;font-size:10.5px;padding:4px 11px;border-radius:999px;letter-spacing:.3px;white-space:nowrap">Most popular</span>
+        <div style="font-size:13.5px;font-weight:800;color:var(--ink)">Starter</div>
+        <div style="font-size:30px;font-weight:900;letter-spacing:-1.2px;margin:6px 0 2px">$500<span style="font-size:13px;color:var(--ink-faint);font-weight:600">/mo</span></div>
+        <div style="font-size:12.5px;color:var(--ink-soft)">25 shipments / mo</div>
+      </a>
+      <a class="ptease" href="pricing.html" style="border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;background:var(--bg);display:block;text-decoration:none;color:inherit">
+        <div style="font-size:13.5px;font-weight:800;color:var(--ink-soft)">TMS Light</div>
+        <div style="font-size:30px;font-weight:900;letter-spacing:-1.2px;margin:6px 0 2px">$1,000<span style="font-size:13px;color:var(--ink-faint);font-weight:600">/mo</span></div>
+        <div style="font-size:12.5px;color:var(--ink-soft)">60 shipments / mo · most teams</div>
+      </a>
+      <a class="ptease" href="pricing.html" style="border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;background:var(--bg);display:block;text-decoration:none;color:inherit">
+        <div style="font-size:13.5px;font-weight:800;color:var(--ink-soft)">Enterprise</div>
+        <div style="font-size:30px;font-weight:900;letter-spacing:-1.2px;margin:6px 0 2px">Custom</div>
+        <div style="font-size:12.5px;color:var(--ink-soft)">Unlimited volume &amp; tokens</div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary btn-lg" onclick="openSignup('pricing')">Start free</button>
+      <a href="pricing.html" class="btn btn-ghost btn-lg">Compare all plans</a>
+    </div>
+    <div style="text-align:center;font-size:12.5px;color:var(--ink-faint);margin-top:14px">No credit card to start · Cancel anytime · Forwarders join by email, free</div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="sec tint" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+      <p>Everything importers and exporters usually ask before they start.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq">
+        <summary>What exactly is logee?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">logee is an AI transport management system (TMS) for importers and exporters. It reads your inbox and connected systems, builds a live record of every shipment, tracks it end to end, checks invoices against quotes, and flags problems like demurrage before they cost you.</div>
+      </details>
+      <details class="faq">
+        <summary>How does logee get my shipment data?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">You connect the email you already use, Gmail or Microsoft 365, and your ERP if you have one. logee reads the booking confirmations, documents and invoices that already land there and turns them into structured shipment records automatically. No manual data entry.</div>
+      </details>
+      <details class="faq">
+        <summary>Do my forwarders, brokers or suppliers need to sign up?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">No. They keep working over email exactly as they do today. logee reads and drafts the emails for you, so nobody on the other side needs a login or a new tool. You can optionally give a forwarder a limited view of just their own shipments.</div>
+      </details>
+      <details class="faq">
+        <summary>Which inboxes, carriers and systems do you work with?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">Gmail and Microsoft 365 for email, major ocean carriers such as Maersk, MSC, ZIM and Hapag-Lloyd for tracking, and ERPs like Priority. We're adding integrations throughout early access, so tell us what you use and we'll prioritise it.</div>
+      </details>
+      <details class="faq">
+        <summary>Will logee ever email or book anything without my approval?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">Never. logee drafts chasers and flags decisions, but nothing is sent and nothing is booked until you review and approve it. You stay in control of every outbound action.</div>
+      </details>
+      <details class="faq">
+        <summary>How long does it take to get set up?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">A couple of minutes. Connect your inbox and logee starts building your shipments straight away. There's nothing to install and nothing for your team to learn.</div>
+      </details>
+      <details class="faq">
+        <summary>Is it really free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">Yes. logee has a free plan, with no credit card and no sales call. Paid plans (Starter, TMS Light and Enterprise) cover higher volumes and advanced features, and you choose if and when to upgrade. See our <a href="pricing.html" style="color:var(--blue);font-weight:700">pricing</a> for details.</div>
+      </details>
+      <details class="faq">
+        <summary>Is my data private and secure?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">Your data is yours. We use it only to run your shipments for you, never to share or sell. Connections use secure, read-scoped access, and you can disconnect at any time.</div>
+      </details>
+      <details class="faq">
+        <summary>What happens if the AI gets something wrong?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">You're always the final check. logee shows its work, links back to the source email or document, and asks before it acts, so you can correct anything before it matters. It gets more accurate the more you use it.</div>
+      </details>
+      <details class="faq">
+        <summary>Do I have to switch carriers, forwarders or my ERP?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="ans">No. logee works with how you already ship. Keep your carriers, forwarders, brokers and systems. logee sits on top and pulls everything into one place.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="finalcta">
+      <h2>See your next shipment build itself</h2>
+      <p>Connect your inbox and logee gets to work in minutes. Start free, then upgrade as you grow.</p>
+      <div class="cbtns">
+        <button class="btn btn-primary btn-lg" onclick="openSignup('final')">Start free</button>
+        <a href="how-it-works.html" class="btn btn-white btn-lg">See how it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="how-it-works.html">How it works</a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="#watches">What it watches</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Get started</h5>
+        <a href="#" onclick="openSignup('footer');return false;">Start free</a>
+        <a href="signin.html">Sign in</a>
+        <a href="demo.html">Book a demo</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="security.html">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SIGNUP MODAL ══ -->
+<div class="scrim" id="scrim" onclick="if(event.target===this)closeSignup()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+    <button class="mclose" aria-label="Close" onclick="closeSignup()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+
+    <!-- form -->
+    <div id="formView">
+      <div class="mhead">
+        <div class="mk"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3 id="mtitle">Create your free workspace</h3>
+        <p>Sign in with your work Google or Microsoft account and logee starts building your shipments. Start free, then upgrade as you grow.</p>
+      </div>
+      <div class="mform">
+        <div class="sso">
+          <button class="sso-btn" onclick="ssoStart('Google')">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.7-2.4 3.6v3h3.9c2.3-2.1 3.5-5.1 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.9-3c-1.1.7-2.5 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1C3.4 21.3 7.4 24 12 24z"/><path fill="#FBBC05" d="M5.4 14.4c-.2-.7-.4-1.4-.4-2.4s.1-1.7.4-2.4V6.5H1.4C.5 8.2 0 10 0 12s.5 3.8 1.4 5.5l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.4 2.7 1.4 6.5l4 3.1C6.3 6.8 8.9 4.8 12 4.8z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button class="sso-btn" onclick="ssoStart('Microsoft')">
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>
+            <span>Continue with Microsoft</span>
+          </button>
+        </div>
+        <div class="consent">No credit card. logee connects to the inbox you sign in with, so it can start building your shipments straight away. By continuing you agree to our <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy Policy</a>.</div>
+        <div class="signin-row">Already have an account? <a href="signin.html">Sign in</a></div>
+      </div>
+    </div>
+
+    <!-- success -->
+    <div class="msuccess" id="successView">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Connecting your account…</h3>
+      <p>We're setting up your logee workspace with <b id="successProvider">Google</b>. You'll be asked to authorise access to the inbox logee builds your shipments from.</p>
+      <div class="steps">
+        <div class="st"><span>1</span><div>Authorise logee to read your shipping emails</div></div>
+        <div class="st"><span>2</span><div>logee reads your bookings, documents and invoices</div></div>
+        <div class="st"><span>3</span><div>Your shipments alert you automatically</div></div>
+      </div>
+      <p style="font-size:13px;color:var(--ink-faint);margin-top:16px">Need a hand? Email <a href="mailto:hello@logee.ai" style="color:var(--blue);font-weight:700">hello@logee.ai</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── nav shadow on scroll ── */
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8);},{passive:true});
+
+/* ── footer year ── */
+var _y=document.getElementById('year');if(_y)_y.textContent=new Date().getFullYear();
+
+/* ── toast ── */
+var toastEl=document.getElementById('toast'),toastT;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show');},3000);}
+
+/* ── signup modal ── */
+var scrim=document.getElementById('scrim'),formView=document.getElementById('formView'),successView=document.getElementById('successView');
+var signupSource='';
+function openSignup(source){
+  signupSource=source||'unknown';
+  scrim.classList.add('open');
+  document.body.style.overflow='hidden';
+  formView.style.display='block';
+  successView.classList.remove('show');
+  setTimeout(function(){var e=document.getElementById('i-email');if(e)e.focus();},120);
+}
+function closeSignup(){
+  scrim.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&scrim.classList.contains('open'))closeSignup();});
+
+/* ── SSO sign-up (Google / Microsoft) ── */
+function ssoStart(provider){
+  var lead={provider:provider,source:signupSource,ts:new Date().toISOString()};
+  /* ── Prototype: record the intent locally.
+     TODO (backend): start the real OAuth flow here, e.g. redirect to
+     /auth/google or /auth/microsoft, then create the workspace on callback
+     and request the inbox scope logee reads shipments from. ── */
+  try{
+    var all=JSON.parse(localStorage.getItem('logee_signups')||'[]');
+    all.push(lead);
+    localStorage.setItem('logee_signups',JSON.stringify(all));
+  }catch(err){/* storage unavailable, ignore */}
+  var p=document.getElementById('successProvider');if(p)p.textContent=provider;
+  formView.style.display='none';
+  successView.classList.add('show');
+}
+
+/* ── mobile menu toggle ── */
+(function(){
+  var burger=document.querySelector('.hamburger'), links=document.querySelector('.nav-links');
+  if(burger&&links) burger.addEventListener('click',function(){links.classList.toggle('open');});
+})();
+
+/* ── open signup when arriving with #start (from other pages) ── */
+if(location.hash==='#start'){ setTimeout(function(){openSignup('link');},60); }
+window.addEventListener('hashchange',function(){ if(location.hash==='#start') openSignup('link'); });
+</script>
+</body>
+</html>

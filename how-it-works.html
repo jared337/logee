@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How it works · logee.ai</title>
+<meta name="description" content="See exactly how logee works, screen by screen: connect your inbox and ERP, create an order, get and compare forwarder quotes, track every shipment across 8 stages, check costs, and file documents automatically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{--ink:#050038;--ink-soft:#54536e;--ink-faint:#8f8ea3;--yellow:#ffd02f;--yellow-deep:#f0bb00;--bg:#ffffff;--canvas:#f7f7f9;--line:#e9e9ee;--blue:#4262ff;--blue-deep:#2f4ad0;--blue-soft:#eef1ff;--green:#0ca678;--green-soft:#e6f6f0;--red:#e5484d;--red-soft:#fdecec;--amber:#e8930c;--amber-soft:#fdf3e1;--violet:#7b61ff;--violet-soft:#f0edff;--shadow:0 1px 2px rgba(5,0,56,.05),0 4px 14px rgba(5,0,56,.05);--shadow-lift:0 12px 40px rgba(5,0,56,.16);--shadow-card:0 1px 2px rgba(5,0,56,.04),0 10px 34px rgba(5,0,56,.08);--r-xl:20px;--r-lg:14px;--r-md:10px;--r-sm:8px;--maxw:1160px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s,border-color .14s,box-shadow .14s,transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-white{background:#fff;color:var(--ink)}.btn-white:hover{background:#f0f0f3}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:24px;height:24px}.brand small{font-weight:700;color:var(--blue);font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+.page-hero{position:relative;padding:96px 0 84px;text-align:center;color:#fff;overflow:hidden;background:#050038}
+.page-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.page-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,0,56,.72),rgba(5,0,56,.9))}
+.page-hero .wrap{position:relative;z-index:1}
+.page-hero h1{color:#fff}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.05;letter-spacing:-1.2px;font-weight:900}
+.page-hero .lead{font-size:19px;color:#d7d7e6;margin:20px auto 0;max-width:62ch}
+.page-hero .hcta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-weight:900}
+.sec{padding:60px 0}.sec.tint{background:var(--canvas)}
+.sec-head{text-align:center;max-width:800px;margin:0 auto 12px}.sec-head p{font-size:18px;color:var(--ink-soft);margin-top:14px;line-height:1.6}
+.kick{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--blue);margin-bottom:13px}
+.kick .n{width:24px;height:24px;border-radius:7px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;letter-spacing:0}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-card);background:#fff}
+.shot img{width:100%;display:block}
+.shot .cap{font-size:12.5px;color:var(--ink-faint);padding:10px 15px;border-top:1px solid var(--line);font-weight:600}
+.fullshot{max-width:980px;margin:28px auto 0}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1060px;margin:0 auto}
+.frow.rev .fr-media{order:-1}
+.fr-copy h2{font-size:clamp(23px,2.8vw,30px);margin-bottom:14px;letter-spacing:-.5px}
+.fr-copy p{font-size:16.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px}
+.fr-copy ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.fr-copy li{position:relative;padding-left:26px;font-size:15.5px;color:var(--ink-soft);line-height:1.5}
+.fr-copy li svg{position:absolute;left:0;top:3px;width:18px;height:18px;color:var(--green)}
+.fr-media{display:flex;flex-direction:column;gap:14px}
+.stages{max-width:860px;margin:26px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stage{display:flex;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px}
+.stage .sn{width:28px;height:28px;border-radius:7px;background:var(--blue-soft);color:var(--blue);font-weight:800;font-size:13px;display:grid;place-items:center;flex-shrink:0}
+.stage b{font-size:14.5px;display:block;margin-bottom:2px}
+.stage span{font-size:13px;color:var(--ink-soft);line-height:1.45}
+.ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
+.ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:52ch}
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}.foot-bottom .fb-links a:hover{color:var(--ink)}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 20px;border-radius:10px;box-shadow:var(--shadow-lift);z-index:200;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:820px){.frow{grid-template-columns:1fr;gap:26px}.frow.rev .fr-media{order:0}.stages{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:720px){.nav-links,.nav-signin{display:none}.hamburger{display:flex}.nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;box-shadow:var(--shadow)}.nav-links.open a{padding:12px 10px}.sec{padding:44px 0}.ctaband{padding:38px 24px}}
+@media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://logee.ai/how-it-works.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/how-it-works.html">
+<meta property="og:title" content="How it works · logee.ai">
+<meta property="og:description" content="See exactly how logee works, screen by screen: connect your inbox and ERP, create an order, get and compare forwarder quotes, track every shipment across 8 stages, check costs, and file documents automatically.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How it works · logee.ai">
+<meta name="twitter:description" content="See exactly how logee works, screen by screen: connect your inbox and ERP, create an order, get and compare forwarder quotes, track every shipment across 8 stages, check costs, and file documents automatically.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="logee.ai home"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+    <nav class="nav-links">
+      <a href="how-it-works.html" class="on">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="index.html#watches">What it watches</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <a href="index.html#start" class="btn btn-primary">Start free</a>
+      <button class="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="bg" style="background-image:url('img/port.jpg')"></div>
+    <div class="ov"></div>
+    <div class="wrap">
+      <span class="eyebrow">How it works</span>
+      <h1>How logee runs your freight,<br>screen by screen</h1>
+      <p class="lead">logee is an AI transport management system that works the way freight actually moves: from your inbox and your forwarders, not from a data-entry project. Here is exactly what happens, from the first connection to proof of delivery.</p>
+      <div class="hcta">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="demo.html" class="btn btn-white btn-lg">Book a demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 Connect -->
+  <section class="sec">
+    <div class="wrap"><div class="frow">
+      <div class="fr-copy">
+        <span class="kick"><span class="n">1</span>Connect</span>
+        <h2>Start from what you already use</h2>
+        <p>logee reads updates from your forwarders, your ERP and your inbox. There is no heavy integration project, and most connections take minutes. Connect the email you already run on Gmail or Microsoft 365 and the agent begins reading shipping emails and building your shipment view automatically.</p>
+        <p>Link an ERP such as Priority and your orders and SKUs sync in, with invoices linking back to their POs. Turn on each forwarder so their milestones and documents flow onto the right shipment.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Inbox: the agent reads shipping emails and builds the shipment view</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ERP: orders and SKUs sync in, invoices link back to POs</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Nothing to learn for your team, nothing to install for partners</li>
+        </ul>
+      </div>
+      <div class="fr-media"><div class="shot"><img src="img/connections.png" alt="logee Connections settings: email inbox, Priority ERP and forwarders connected with toggles" loading="lazy"><div class="cap">Connections · connect your inbox, ERP and forwarders in minutes</div></div></div>
+    </div></div>
+  </section>
+
+  <!-- 2 New order -->
+  <section class="sec tint">
+    <div class="wrap"><div class="frow rev">
+      <div class="fr-copy">
+        <span class="kick"><span class="n">2</span>Create an order</span>
+        <h2>Set up a shipment in under a minute</h2>
+        <p>Every order starts with what you know. Choose the order type, import, export or dropshipping, and the mode, sea FCL, sea LCL, air or road. Add the origin and destination, the Incoterm, the cargo-ready date, your PO reference and the supplier or consignee.</p>
+        <p>From there the agent fills the rest from your documents and ERP, so you are confirming details rather than keying them in by hand.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Import, export and dropshipping order types</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sea FCL, sea LCL, air and road</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Incoterm, cargo-ready date, PO and supplier captured up front</li>
+        </ul>
+      </div>
+      <div class="fr-media"><div class="shot"><img src="img/new-order.png" alt="logee new freight order wizard, Basics step: order type, mode, origin, destination, Incoterm and PO" loading="lazy"><div class="cap">New freight order · fill in what you know, the agent fills the rest</div></div></div>
+    </div></div>
+  </section>
+
+  <!-- 3 SKUs (full) -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick"><span class="n">3</span>Your products</span><h2>A product catalogue that makes quotes accurate</h2><p>Freight quotes are only as good as the cargo detail behind them. logee keeps your products ready to drop into any order, with unit weights, dimensions and HS customs codes, so quotes come back accurate and customs has what it needs. Import by CSV or sync from your ERP; every SKU becomes one tap in the order wizard, and you can see how many units are in transit right now.</p></div>
+      <div class="fullshot shot"><img src="img/skus.png" alt="logee SKU catalog with HS codes, unit weights, units per carton and in-transit counts" loading="lazy"><div class="cap">SKU catalog · HS codes, weights and units per carton feed accurate quotes and customs</div></div>
+    </div>
+  </section>
+
+  <!-- 4 Quote & book -->
+  <section class="sec tint">
+    <div class="wrap"><div class="frow">
+      <div class="fr-copy">
+        <span class="kick"><span class="n">4</span>Quote &amp; book</span>
+        <h2>Request quotes, compare like for like, and book</h2>
+        <p>Send one request to the forwarders you already work with. As their quotes come back, logee lays them side by side, price, transit time and terms, so you compare like for like instead of digging through email.</p>
+        <p>The agent adds a recommendation in plain language: not simply the cheapest, but the best price-to-reliability call, weighing transit time, transshipment and each forwarder's on-time rate on that lane. Book the one you choose in a click, and the other quotes are declined for you.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>One request to multiple forwarders, quotes back on the order</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Side-by-side price, transit time and terms</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Agent recommendation on price versus reliability, you decide</li>
+        </ul>
+      </div>
+      <div class="fr-media"><div class="shot"><img src="img/drawer-timeline.png" alt="logee shipment drawer showing three forwarder quotes compared with an agent recommendation and the 8-stage timeline" loading="lazy"><div class="cap">Shipment drawer · quotes compared, with the agent's reasoning</div></div></div>
+    </div></div>
+  </section>
+
+  <!-- 5 One thread -->
+  <section class="sec">
+    <div class="wrap"><div class="frow rev">
+      <div class="fr-copy">
+        <span class="kick"><span class="n">5</span>One thread per order</span>
+        <h2>Every message, document and milestone in one place</h2>
+        <p>Because the inbox is connected, there is one place for all the communication on an order, not a hundred scattered emails. Forwarder emails, the agent's own actions and carrier milestones are filed to the order's thread automatically.</p>
+        <p>Reply straight from the order and it goes out as a normal email; your forwarder never needs to log into anything. Tag a colleague or broker and they are pulled in, and anyone new can read the whole story from the top.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Inbound and outbound email threaded to the shipment</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Agent actions and milestones logged automatically</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Forwarders take part by email, with no login</li>
+        </ul>
+      </div>
+      <div class="fr-media"><div class="shot"><img src="img/activity.png" alt="logee order Activity tab: a single thread of forwarder emails and agent actions with a reply box" loading="lazy"><div class="cap">Activity · one thread per order, replies go out as email</div></div></div>
+    </div></div>
+  </section>
+
+  <!-- 6 Live shipments (full) -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick"><span class="n">6</span>Track everything</span><h2>Every shipment, live, in one view</h2><p>The shipments view is every order at a glance. Each row shows the forwarder and mode, the route and linked POs, a colour-coded status, an 8-stage progress bar, the current ETA, and quoted versus actual cost with the variance highlighted. Filter by on time, watch, late or delivered, or paste any container, bill of lading or AWB number into track and trace to jump straight to that shipment.</p></div>
+      <div class="fullshot shot"><img src="img/shipments.png" alt="logee Shipments list with status, 8-stage progress, ETA and quoted versus actual cost per row" loading="lazy"><div class="cap">Shipments · status, stage, ETA and cost variance on every row</div></div>
+    </div>
+  </section>
+
+  <!-- 7 8-stage -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick">The 8-stage timeline</span><h2>One shared vocabulary, every shipment</h2><p>Whatever the mode, every shipment moves through the same eight stages, the model that came straight from talking to importers and exporters. It means you, your team and your forwarder are always looking at the same picture.</p></div>
+      <div class="stages">
+        <div class="stage"><span class="sn">1</span><div><b>Origin &amp; type</b><span>Where it ships from and how</span></div></div>
+        <div class="stage"><span class="sn">2</span><div><b>SKUs &amp; quantities</b><span>What is actually in the shipment</span></div></div>
+        <div class="stage"><span class="sn">3</span><div><b>Pickup request</b><span>Booking requested with the forwarder</span></div></div>
+        <div class="stage"><span class="sn">4</span><div><b>Confirmation</b><span>Booking confirmed and scheduled</span></div></div>
+        <div class="stage"><span class="sn">5</span><div><b>Pickup / departure</b><span>Cargo collected and on its way</span></div></div>
+        <div class="stage"><span class="sn">6</span><div><b>Arrival at port</b><span>Landed at the destination port</span></div></div>
+        <div class="stage"><span class="sn">7</span><div><b>ETA window</b><span>Shows every ETA revision, so you see each slip</span></div></div>
+        <div class="stage"><span class="sn">8</span><div><b>Proof of delivery</b><span>Delivered and the order is closed</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 Costs (full) -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick">Cost control</span><h2>What you were quoted, what you were charged, in real time</h2><p>The number-one pain we heard was not knowing a shipment's real cost until month-end. logee checks every freight invoice against its quote the moment it lands and shows quoted versus actual per shipment, variance in the open. Invoices sort with the biggest variance first, so overcharges rise to the top. Approve and schedule payment, or query a variance with the forwarder, right from the shipment.</p></div>
+      <div class="fullshot shot"><img src="img/costs.png" alt="logee Costs view: quoted versus actual, variance per shipment, awaiting payment and approve buttons" loading="lazy"><div class="cap">Costs · invoice-to-quote checks and variance, no more month-end surprises</div></div>
+    </div>
+  </section>
+
+  <!-- 9 Documents (full) -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick">Documents</span><h2>Every document, filed to the right shipment</h2><p>Bills of lading, commercial invoices, packing lists, freight invoices and PODs attach to their shipment automatically, so there is no digging through email. Forward or CC any shipping email to your dedicated inbox address and the agent files it against the right order. logee also watches for what is missing, flagging, for example, a bill of lading that has not arrived within the usual window after pickup, and offers to nudge the forwarder.</p></div>
+      <div class="fullshot shot"><img src="img/docs.png" alt="logee Documents view with a missing bill of lading flagged and documents filed per shipment" loading="lazy"><div class="cap">Documents · auto-filed by shipment, with missing-document detection</div></div>
+    </div>
+  </section>
+
+  <!-- 10 What changed (full) -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick">The record</span><h2>A single event log behind everything</h2><p>Everything that moves, slips or lands is written to one reverse-chronological feed: delays, cost changes, document events and milestones. It is the same record the agent reads before it writes your morning briefing, so the summary you get is grounded in real events, not guesswork. Export a weekly report whenever you or your finance team need it.</p></div>
+      <div class="fullshot shot"><img src="img/reports.png" alt="logee What changed report: a timestamped feed of delays, invoices, milestones and document events" loading="lazy"><div class="cap">What changed · the event log that feeds your daily briefing</div></div>
+    </div>
+  </section>
+
+  <!-- 11 Today (full) -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><span class="kick">Every morning</span><h2>Your operating summary, written for you</h2><p>Today is the screen to open with your coffee. The agent reads the overnight record and writes a plain-language briefing: how many shipments are active, what changed, what needs your attention, and how spend is tracking against quotes. A KPI strip drills into late shipments, spend, unexplained variance and missing documents, and a Needs your decision queue surfaces the calls only you can make, each with the agent's recommendation and one clear action.</p></div>
+      <div class="fullshot shot"><img src="img/today.png" alt="logee Today view: morning briefing, KPI strip and a needs-your-decision queue" loading="lazy"><div class="cap">Today · a daily briefing, drill-down KPIs and a decision queue</div></div>
+    </div>
+  </section>
+
+  <!-- 12 Alerts -->
+  <section class="sec tint">
+    <div class="wrap"><div class="frow">
+      <div class="fr-copy">
+        <span class="kick">Alerts</span>
+        <h2>Warnings that reach you where you already are</h2>
+        <p>An early warning nobody sees is not a warning. logee comes to you: a daily digest email with what changed and what needs a decision, real-time WhatsApp alerts for anything past your threshold, and an optional weekly summary of spend versus quotes and on-time rate by forwarder.</p>
+        <p>You decide what counts as late. The attention queue flags a shipment only once it runs more than your chosen number of days past plan, so the alerting is as quiet or as sensitive as you want.</p>
+      </div>
+      <div class="fr-media">
+        <div class="shot"><img src="img/notifications.png" alt="logee notification settings: daily digest, WhatsApp alerts and weekly summary toggles" loading="lazy"></div>
+        <div class="shot"><img src="img/threshold.png" alt="logee late-shipment alert threshold slider set to 5 days" loading="lazy"><div class="cap">Set your channels and your late-shipment threshold</div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 13 Team & partners -->
+  <section class="sec">
+    <div class="wrap"><div class="frow rev">
+      <div class="fr-copy">
+        <span class="kick">Team &amp; partners</span>
+        <h2>The right people see the right things</h2>
+        <p>logee is built for real teams. Give finance a view of costs and invoices, give a forwarder access to only their own shipments, and keep full control as the owner. It is order-level permission, not all-or-nothing.</p>
+        <p>A freight-contacts directory holds who quotes and who threads go to for every company you work with, so a request or reply always has a real destination, and the agent learns new contacts from incoming email.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Order-level, role-based access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Forwarders see only their own shipments</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A contacts directory powers every quote request and reply</li>
+        </ul>
+      </div>
+      <div class="fr-media">
+        <div class="shot"><img src="img/team.png" alt="logee team access: owner, finance and a forwarder team with scoped permissions" loading="lazy"></div>
+        <div class="shot"><img src="img/contacts.png" alt="logee freight contacts directory grouped by company with roles" loading="lazy"><div class="cap">Team access and the freight-contacts directory</div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap"><div class="ctaband">
+      <h2>See it running on your own freight</h2>
+      <p>Connect your inbox and logee gets to work in minutes. Start free, then upgrade as you grow.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="capabilities.html" class="btn btn-white btn-lg">Explore capabilities</a>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="index.html#watches">What it watches</a><a href="pricing.html">Pricing</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a><a href="security.html">Security</a></div>
+      <div class="foot-col"><h5>Get started</h5><a href="index.html#start">Start free</a><a href="signin.html">Sign in</a><a href="demo.html">Book a demo</a></div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var nav=document.getElementById('nav');if(nav){window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8);},{passive:true});}var burger=document.querySelector('.hamburger'),links=document.querySelector('.nav-links');if(burger&&links){burger.addEventListener('click',function(){links.classList.toggle('open');});}var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
+</script>
+</body>
+</html>

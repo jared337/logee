@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a demo · logee.ai</title>
+<meta name="description" content="See logee run on your own shipments. Book a short, no-pressure walkthrough with our team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+/* ══ logee.ai shared styles (subpages) ══ */
+:root{
+  --ink:#050038; --ink-soft:#54536e; --ink-faint:#8f8ea3;
+  --yellow:#ffd02f; --yellow-deep:#f0bb00;
+  --bg:#ffffff; --canvas:#f7f7f9; --line:#e9e9ee;
+  --blue:#4262ff; --blue-deep:#2f4ad0; --blue-soft:#eef1ff;
+  --green:#0ca678; --green-soft:#e6f6f0;
+  --red:#e5484d; --red-soft:#fdecec;
+  --amber:#e8930c; --amber-soft:#fdf3e1;
+  --violet:#7b61ff; --violet-soft:#f0edff;
+  --shadow:0 1px 2px rgba(5,0,56,.05), 0 4px 14px rgba(5,0,56,.05);
+  --shadow-lift:0 12px 40px rgba(5,0,56,.16);
+  --shadow-card:0 1px 2px rgba(5,0,56,.04), 0 10px 34px rgba(5,0,56,.08);
+  --r-xl:20px; --r-lg:14px; --r-md:10px; --r-sm:8px;
+  --maxw:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.narrow{max-width:820px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s, border-color .14s, box-shadow .14s, transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}
+.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ink:hover{background:#0d0a52}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}
+.btn-block{width:100%}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s, box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:24px;height:24px}
+.brand small{font-weight:700;color:var(--blue);font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+
+/* page hero */
+.page-hero{padding:70px 0 46px;text-align:center}
+.page-hero.left{text-align:left}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.05;letter-spacing:-1.2px;font-weight:900}
+.page-hero .lead{font-size:19px;color:var(--ink-soft);margin:20px auto 0;max-width:60ch}
+.page-hero.left .lead{margin-left:0}
+h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.8px;line-height:1.12;font-weight:900}
+
+/* sections */
+.sec{padding:56px 0}
+.sec.tint{background:var(--canvas)}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 40px}
+.sec-head p{font-size:18px;color:var(--ink-soft);margin-top:14px}
+
+/* prose / legal */
+.prose{max-width:760px;margin:0 auto}
+.prose p{font-size:17px;color:var(--ink-soft);margin-bottom:18px;line-height:1.7}
+.prose h2{font-size:26px;margin:40px 0 14px;letter-spacing:-.5px}
+.prose h3{font-size:19px;font-weight:800;margin:26px 0 10px}
+.prose ul{margin:0 0 18px 2px;list-style:none;display:flex;flex-direction:column;gap:10px}
+.prose ul li{position:relative;padding-left:26px;font-size:16.5px;color:var(--ink-soft);line-height:1.6}
+.prose ul li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--yellow)}
+.prose strong{color:var(--ink)}
+.prose a{color:var(--blue);font-weight:700}
+.legal .updated{font-size:13.5px;font-weight:700;color:var(--ink-faint);margin-bottom:8px}
+.legal .note{background:var(--amber-soft);border:1px solid #f4dca5;border-radius:var(--r-md);padding:14px 18px;font-size:14px;color:#7a5a12;margin:0 auto 34px;max-width:760px;line-height:1.55}
+.legal h2{font-size:22px;margin:34px 0 10px}
+.legal p,.legal li{font-size:15.5px}
+
+/* value / feature cards */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.vcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 24px;box-shadow:var(--shadow)}
+.vcard .vi{width:46px;height:46px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;margin-bottom:16px}
+.vcard .vi svg{width:23px;height:23px}
+.vcard h3{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.vcard p{font-size:15px;color:var(--ink-soft);line-height:1.55}
+
+/* stat row */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:820px;margin:0 auto}
+.stat{text-align:center}
+.stat .n{font-size:40px;font-weight:900;letter-spacing:-1.5px}
+.stat .l{font-size:14px;color:var(--ink-soft);font-weight:600;margin-top:4px}
+
+/* forms */
+.form-card{max-width:520px;margin:0 auto;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:32px 32px 34px}
+.form-card.wide{max-width:600px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;background:var(--bg);transition:border-color .14s, box-shadow .14s}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.field .err{color:var(--red);font-size:12.5px;font-weight:600;margin-top:5px;display:none}
+.field.invalid input,.field.invalid textarea{border-color:var(--red)}
+.field.invalid .err{display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-consent{font-size:12px;color:var(--ink-faint);margin-top:14px;text-align:center;line-height:1.5}
+.form-alt{text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:18px}
+.form-alt a{color:var(--blue);font-weight:700}
+.form-success{display:none;text-align:center}
+.form-success.show{display:block}
+.form-success .check{width:64px;height:64px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;margin:0 auto 18px}
+.form-success .check svg{width:32px;height:32px;color:var(--green)}
+.form-success h3{font-size:22px;font-weight:900;margin-bottom:8px}
+.form-success p{font-size:15px;color:var(--ink-soft)}
+
+/* contact methods */
+.cmethods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:820px;margin:0 auto 8px}
+.cmethod{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;text-align:center}
+.cmethod .ci{width:44px;height:44px;border-radius:11px;background:var(--yellow);display:grid;place-items:center;margin:0 auto 12px}
+.cmethod .ci svg{width:22px;height:22px}
+.cmethod h3{font-size:16px;font-weight:800;margin-bottom:5px}
+.cmethod p{font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.cmethod a{color:var(--blue);font-weight:700;font-size:14.5px}
+
+/* mini cta band */
+.ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
+.ctaband h2{font-size:clamp(24px,3vw,34px)}
+.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:48ch}
+
+/* footer */
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}
+.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}
+.foot-bottom .fb-links a:hover{color:var(--ink)}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 20px;border-radius:10px;box-shadow:var(--shadow-lift);z-index:200;opacity:0;transition:opacity .2s, transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* responsive */
+@media(max-width:900px){
+  .cards3,.cmethods{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:26px}
+}
+@media(max-width:720px){
+  .nav-links,.nav-signin{display:none}
+  .hamburger{display:flex}
+  .nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;margin:0;box-shadow:var(--shadow)}
+  .nav-links.open a{padding:12px 10px}
+  .cards3,.cards2,.cmethods,.two{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat{padding:6px 0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .sec{padding:44px 0}
+  .ctaband{padding:38px 24px}
+}
+@media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://logee.ai/demo.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/demo.html">
+<meta property="og:title" content="Book a demo · logee.ai">
+<meta property="og:description" content="See logee run on your own shipments. Book a short, no-pressure walkthrough with our team.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Book a demo · logee.ai">
+<meta name="twitter:description" content="See logee run on your own shipments. Book a short, no-pressure walkthrough with our team.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="logee.ai home">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <span class="wm">logee<small>.ai</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="index.html#watches">What it watches</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <a href="index.html#start" class="btn btn-primary">Start free</a>
+      <button class="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Book a demo</span>
+      <h1>See logee on your<br>own shipments</h1>
+      <p class="lead">A short, no-pressure walkthrough. We'll show you how logee sets up a shipment, gets quotes, tracks the journey, and flags problems before they cost you, using examples that look like yours.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="form-card wide">
+        <form id="demoForm" novalidate>
+          <div class="two">
+            <div class="field" id="d-name"><label for="i-name">Name</label><input type="text" id="i-name" autocomplete="name" placeholder="Your name"><div class="err">Please enter your name.</div></div>
+            <div class="field" id="d-email"><label for="i-demail">Work email</label><input type="email" id="i-demail" autocomplete="email" placeholder="you@company.com"><div class="err">Please enter a valid work email.</div></div>
+          </div>
+          <div class="two">
+            <div class="field" id="d-comp"><label for="i-dcomp">Company</label><input type="text" id="i-dcomp" autocomplete="organization" placeholder="Company name"><div class="err">Please enter your company.</div></div>
+            <div class="field"><label for="i-vol">Shipments / month</label>
+              <select id="i-vol"><option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option></select>
+            </div>
+          </div>
+          <div class="field"><label for="i-role">You are a…</label>
+            <select id="i-role"><option>Importer</option><option>Exporter</option><option>Both</option><option>Forwarder / Broker</option></select>
+          </div>
+          <div class="field"><label for="i-note">Anything you'd like us to focus on? <span style="color:var(--ink-faint);font-weight:500">(optional)</span></label><textarea id="i-note" placeholder="e.g. we keep getting hit with demurrage on Asia imports"></textarea></div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Request my demo</button>
+          <div class="form-consent">No commitment. By requesting a demo you agree to our <a href="privacy.html">Privacy Policy</a>.</div>
+          <div class="form-alt">Prefer to just try it? <a href="index.html#start">Start free</a></div>
+        </form>
+        <div class="form-success" id="demoSuccess">
+          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Request received</h3>
+          <p>Thanks! We'll email you within one business day to find a time that suits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="index.html#watches">What it watches</a><a href="pricing.html">Pricing</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Get started</h5><a href="index.html#start">Start free</a><a href="signin.html">Sign in</a><a href="demo.html">Book a demo</a></div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══ logee.ai shared site script ══ */
+(function(){
+  // sticky nav shadow
+  var nav = document.getElementById('nav');
+  if(nav){
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    }, {passive:true});
+  }
+  // mobile menu toggle
+  var burger = document.querySelector('.hamburger');
+  var links = document.querySelector('.nav-links');
+  if(burger && links){
+    burger.addEventListener('click', function(){ links.classList.toggle('open'); });
+  }
+  // footer year
+  var y = document.getElementById('year');
+  if(y) y.textContent = new Date().getFullYear();
+})();
+
+// lightweight toast, shared
+var _toastEl, _toastT;
+function toast(msg){
+  if(!_toastEl){
+    _toastEl = document.createElement('div');
+    _toastEl.className = 'toast';
+    document.body.appendChild(_toastEl);
+  }
+  _toastEl.textContent = msg;
+  _toastEl.classList.add('show');
+  clearTimeout(_toastT);
+  _toastT = setTimeout(function(){ _toastEl.classList.remove('show'); }, 3000);
+}
+</script>
+<script>
+function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+document.getElementById('demoForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=document.getElementById('i-name'),email=document.getElementById('i-demail'),comp=document.getElementById('i-dcomp');
+  var ok=true;
+  if(name.value.trim().length<2){document.getElementById('d-name').classList.add('invalid');ok=false;}else{document.getElementById('d-name').classList.remove('invalid');}
+  if(!validEmail(email.value.trim())){document.getElementById('d-email').classList.add('invalid');ok=false;}else{document.getElementById('d-email').classList.remove('invalid');}
+  if(comp.value.trim().length<2){document.getElementById('d-comp').classList.add('invalid');ok=false;}else{document.getElementById('d-comp').classList.remove('invalid');}
+  if(!ok) return;
+  /* TODO (backend): POST this lead to your scheduling tool / CRM and send a booking link. */
+  try{
+    var all=JSON.parse(localStorage.getItem('logee_demo')||'[]');
+    all.push({name:name.value.trim(),email:email.value.trim(),company:comp.value.trim(),volume:document.getElementById('i-vol').value,role:document.getElementById('i-role').value,note:document.getElementById('i-note').value.trim(),ts:new Date().toISOString()});
+    localStorage.setItem('logee_demo',JSON.stringify(all));
+  }catch(err){}
+  this.style.display='none';
+  document.getElementById('demoSuccess').classList.add('show');
+});
+</script>
+</body>
+</html>
