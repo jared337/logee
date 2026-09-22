@@ -85,7 +85,8 @@ header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,
 
 /* ── Hero ─────────────────────────────── */
 .hero{padding:64px 0 40px;overflow:hidden;position:relative;background:radial-gradient(55% 55% at 92% 96%, rgba(66,98,255,.13), transparent 70%),radial-gradient(42% 45% at 4% 2%, rgba(255,208,47,.10), transparent 70%),radial-gradient(rgba(5,0,56,.05) 1px, transparent 1.6px) 0 0 / 22px 22px,#ffffff}
-.hero-copy{max-width:700px;position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.hero-copy{position:relative;z-index:1}
 .pill{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:13px;padding:6px 13px;border-radius:999px;margin-bottom:22px}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(66,98,255,.2)}
 h1{font-size:clamp(32px,3.9vw,46px);line-height:1.08;letter-spacing:-1px;font-weight:800}
@@ -96,9 +97,9 @@ h1 .hl{background:linear-gradient(transparent 60%, var(--yellow) 60%);padding:0 
 .hero-trust .ti{display:flex;align-items:center;gap:7px}
 .hero-trust svg{width:16px;height:16px;color:var(--green)}
 
-/* hero visual — full-width, below the copy */
-.hero-visual{position:relative;margin-top:44px}
-.hero-visual .glow{position:absolute;inset:-8% -6% -14% -6%;background:radial-gradient(50% 60% at 85% 20%, rgba(255,208,47,.25), transparent 70%),radial-gradient(45% 55% at 10% 90%, rgba(66,98,255,.14), transparent 70%);filter:blur(6px);z-index:0}
+/* hero visual — sits beside the copy, so neither column goes empty */
+.hero-visual{position:relative}
+.hero-visual .glow{position:absolute;inset:-14% -16% -20% -12%;background:radial-gradient(60% 60% at 70% 30%, rgba(255,208,47,.28), transparent 70%),radial-gradient(50% 50% at 20% 80%, rgba(66,98,255,.16), transparent 70%);filter:blur(6px);z-index:0}
 .hv-card{position:relative;z-index:1;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card)}
 .hv-alert{padding:18px 20px}
 .hv-alert .top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -268,8 +269,8 @@ a.ib{text-decoration:none;color:inherit;display:block}
 @media(max-width:720px){.ib-row{grid-template-columns:1fr}.ib{height:210px}}
 
 /* hero product screenshot — real dashboard capture, cropped via CSS to just the morning briefing card */
-.hero-shot{position:relative;z-index:1;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid var(--line);aspect-ratio:1420/265;background:#fff}
-.hero-shot img{position:absolute;width:135%;max-width:none;display:block;left:-7.04%;top:-94.34%}
+.hero-shot{position:relative;z-index:1;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid var(--line);aspect-ratio:254/77;background:#fff}
+.hero-shot img{position:absolute;width:754.7%;max-width:none;display:block;left:-41.73%;top:-335.06%}
 
 /* product visuals section */
 .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -427,9 +428,9 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
   .hv-float.f2{left:0;bottom:-18px}
   .foot-grid{grid-template-columns:1fr 1fr}
   .finalcta{padding:44px 24px}
-  /* the full briefing card is too wide to stay legible this narrow — crop tighter, to just its header */
-  .hero-shot{aspect-ratio:254/77}
-  .hero-shot img{width:754.7%;left:-41.73%;top:-335.06%}
+}
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
 }
 @media(max-width:460px){
   .hv-float b{font-size:13px}
@@ -487,7 +488,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 
 <!-- ══ HERO ══ -->
 <section class="hero">
-  <div class="wrap">
+  <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="pill"><span class="dot"></span>AI TMS for SMB importers &amp; exporters</span>
       <h1>Keep every shipment<br><span class="hl">on track.</span></h1>
