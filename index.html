@@ -267,27 +267,9 @@ h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-1px;line-height:1.1;font-wei
 a.ib{text-decoration:none;color:inherit;display:block}
 @media(max-width:720px){.ib-row{grid-template-columns:1fr}.ib{height:210px}}
 
-/* hero product mock */
-.hero-app{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);overflow:hidden}
-.ha-bar{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--canvas)}
-.ha-dots{display:flex;gap:6px}
-.ha-dots i{width:10px;height:10px;border-radius:50%;background:#dcdce4}
-.ha-title{font-size:12.5px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px}
-.ha-title .mk{width:19px;height:19px;border-radius:5px;background:var(--yellow);display:grid;place-items:center}
-.ha-title .mk svg{width:12px;height:12px}
-.ha-body{padding:16px 18px 18px}
-.ha-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.ha-h b{font-size:14.5px;font-weight:800}
-.ha-h span{font-size:11.5px;font-weight:700;color:var(--green);background:var(--green-soft);padding:3px 9px;border-radius:999px}
-.ha-row{display:grid;grid-template-columns:1.15fr 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
-.ha-info b{font-size:13px;font-weight:800;display:block}
-.ha-info span{font-size:11.5px;color:var(--ink-soft)}
-.ha-prog{height:6px;background:var(--canvas);border-radius:99px;overflow:hidden}
-.ha-prog i{display:block;height:100%;border-radius:99px}
-.ha-st{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap;text-align:center}
-.ha-st.ok{background:var(--green-soft);color:var(--green)}
-.ha-st.late{background:var(--red-soft);color:var(--red)}
-.ha-st.watch{background:var(--amber-soft);color:var(--amber)}
+/* hero product screenshot — real dashboard capture, cropped via CSS to the top of the Today view */
+.hero-shot{position:relative;z-index:1;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid var(--line);aspect-ratio:1546/850;background:#fff}
+.hero-shot img{position:absolute;top:0;left:0;width:124%;max-width:none;display:block}
 
 /* product visuals section */
 .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -520,34 +502,9 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
     </div>
 
     <div class="hero-visual">
-      <div class="hero-app">
-        <div class="ha-bar">
-          <span class="ha-dots"><i></i><i></i><i></i></span>
-          <span class="ha-title"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>logee · Shipments</span>
-        </div>
-        <div class="ha-body">
-          <div class="ha-h"><b>Your shipments, live</b><span>● 23 active</span></div>
-          <div class="ha-row">
-            <div class="ha-info"><b>LG-2418</b><span>Ningbo → Sydney</span></div>
-            <div class="ha-prog"><i style="width:58%;background:var(--red)"></i></div>
-            <span class="ha-st late">Late</span>
-          </div>
-          <div class="ha-row">
-            <div class="ha-info"><b>LG-2431</b><span>Shenzhen → Melbourne</span></div>
-            <div class="ha-prog"><i style="width:80%;background:var(--green)"></i></div>
-            <span class="ha-st ok">On track</span>
-          </div>
-          <div class="ha-row">
-            <div class="ha-info"><b>LG-2402</b><span>Shanghai → Brisbane</span></div>
-            <div class="ha-prog"><i style="width:45%;background:var(--amber)"></i></div>
-            <span class="ha-st watch">Watch</span>
-          </div>
-          <div class="ha-row">
-            <div class="ha-info"><b>LG-2447</b><span>Qingdao → Sydney</span></div>
-            <div class="ha-prog"><i style="width:92%;background:var(--green)"></i></div>
-            <span class="ha-st ok">On track</span>
-          </div>
-        </div>
+      <div class="glow"></div>
+      <div class="hero-shot">
+        <img src="img/today.png" alt="logee.ai Today view: the AI morning briefing flags 4 shipments needing attention out of 23 active, and tracks spend vs. quotes">
       </div>
     </div>
   </div>
