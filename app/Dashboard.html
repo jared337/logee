@@ -996,6 +996,18 @@ tbody tr:last-child td{border-bottom:none}
           <p>Skip the forwarder — send the booking straight to the line. You handle customs &amp; local charges.</p>
           <div class="fwd-checks" id="carrierChecks"></div>
         </div>
+        <div class="wiz-addc" id="wizAddc" style="display:none;margin-top:14px;padding:14px;border:1.5px dashed var(--line,#e3e3ee);border-radius:12px;background:var(--canvas,#f7f7f9)">
+          <b style="font-size:13px">Add a contact for <span id="wizAddcCo"></span></b>
+          <p style="margin:4px 0 0;font-size:12px;color:var(--ink-soft)">Quotes and updates for this order will go here. You won't lose your order.</p>
+          <div class="f-grid" style="margin-top:10px">
+            <div class="field"><label>Name</label><input id="wizAddcName" placeholder="e.g. Dana Levi"></div>
+            <div class="field"><label>Email</label><input id="wizAddcEmail" type="email" placeholder="name@company.com"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button type="button" class="btn btn-blue" onclick="saveWizContact()">Add &amp; select</button>
+            <button type="button" class="btn btn-ghost" onclick="cancelWizContact()">Cancel</button>
+          </div>
+        </div>
         <div class="summary-box" id="wizSummary"></div>
       </div>
 
@@ -1624,10 +1636,32 @@ function renderSendOptions(){
   let first=true;
   $("#carrierChecks").innerHTML=cars.map(c=>{const h=chip(c,first&&c.people.length>0,true);if(c.people.length&&first)first=false;return h;}).join("");
 }
+let wizAddcCo=null;
 function noContact(co){
-  closeWizard();showView("settings");
-  toast(`${co} has no contact yet — add one here, then send your order`);
-  setTimeout(()=>{const sel=$("#caCo");sel.value=co;$("#caName").focus();},250);
+  // add the contact inline, without leaving the order
+  wizAddcCo=co;
+  $("#wizAddcCo").textContent=co;
+  $("#wizAddcName").value="";$("#wizAddcEmail").value="";
+  $("#wizAddc").style.display="block";
+  $("#wizAddc").scrollIntoView({behavior:"smooth",block:"nearest"});
+  $("#wizAddcName").focus();
+}
+function cancelWizContact(){$("#wizAddc").style.display="none";wizAddcCo=null;}
+function saveWizContact(){
+  const n=$("#wizAddcName").value.trim(), e=$("#wizAddcEmail").value.trim();
+  if(!n||!e||!e.includes("@")){toast("Give the contact a name and a valid email");return;}
+  const c=CONTACTS.find(x=>x.co===wizAddcCo);
+  if(c)c.people.push({n,e,r:"Contact"});
+  const co=wizAddcCo; wizAddcCo=null;
+  $("#wizAddc").style.display="none";
+  renderContacts();renderSetupProgress();renderSendOptions();
+  const chip=$(`#fwdQuoteChecks .fwd-check[data-co="${co}"]`)||$(`#carrierChecks .fwd-check[data-co="${co}"]`);
+  if(chip){
+    if(chip.closest("#carrierChecks")){[...chip.parentElement.children].forEach(x=>x.classList.remove("on"));}
+    chip.classList.add("on");
+  }
+  syncWiz();
+  toast(`${n} added to ${co} — this order will be sent to ${e}`);
 }
 
 
