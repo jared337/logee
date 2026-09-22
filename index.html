@@ -271,10 +271,10 @@ a.ib{text-decoration:none;color:inherit;display:block}
 /* desktop: the real app chrome (logo, search, nav rail) + heading + briefing card, so it unmistakably reads as the actual product — needs full width to stay legible */
 .hero-shot{position:relative;z-index:1;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid var(--line);width:100%;aspect-ratio:1546/850;background:#fff}
 .hero-shot img{position:absolute;width:124%;max-width:none;display:block;left:0;top:0}
-/* mobile: the full card can't stay legible this narrow — fall back to a small, honestly-sized real-UI badge */
+/* mobile: the full screenshot can't stay legible this narrow, and a header-only crop is just a label with
+   no content behind it — not worth the scroll space, so skip it and end the hero at the CTA/trust row */
 @media(max-width:720px){
-  .hero-shot{width:min(320px,100%);aspect-ratio:254/77;flex-shrink:0}
-  .hero-shot img{width:754.7%;left:-41.73%;top:-335.06%}
+  .hero-visual{display:none}
 }
 
 /* product visuals section */
