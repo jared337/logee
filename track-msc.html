@@ -85,6 +85,16 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.6px;line-height:1.14;font-wei
 .related{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 .related a{border:1.5px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;color:#d7d7e6}
 .related a:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.08)}
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.sec.tint .faq{background:#fff}
+.faq[open]{border-color:#d7d7e0;box-shadow:var(--shadow-card)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{width:20px;height:20px;flex-shrink:0;color:var(--ink-faint);transition:transform .2s}
+.faq[open] summary .chev{transform:rotate(180deg);color:var(--blue)}
+.faq .ans{padding:0 20px 20px;font-size:14.5px;color:var(--ink-soft);line-height:1.65}
+.faq .ans a{color:var(--blue);font-weight:600}
 .ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:44px 40px;text-align:center}
 .ctaband h2{font-size:clamp(22px,2.8vw,30px);color:#fff}.ctaband p{font-size:16.5px;color:#cfcee0;margin:14px auto 24px;max-width:52ch}
 footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
@@ -115,7 +125,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 <meta name="twitter:description" content="Identify a MSC (Mediterranean Shipping Company) container or B/L number and go straight to their official tracker. See what an AI TMS catches automatically that a tracking lookup alone won't.">
 <meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I track an MSC container or shipment?","acceptedAnswer":{"@type":"Answer","text":"Enter your container number (starting MSCU or MEDU) or bill of lading on MSC's own tracker, linked above. logee also recognises the prefix automatically for shipments connected to your account."}},{"@type":"Question","name":"Why does my MSC tracking look unchanged for several days?","acceptedAnswer":{"@type":"Answer","text":"MSC shares less granular schedule data publicly than some rivals, so a shipment can look unchanged between real updates. That's normal on MSC lanes and not necessarily a sign of a delay."}},{"@type":"Question","name":"Is MSC part of a shipping alliance?","acceptedAnswer":{"@type":"Answer","text":"MSC previously partnered with Maersk in the 2M Alliance, which wound down in 2025. MSC now operates independently on most major trades, one reason its own schedule data is less predictable than an alliance carrier's."}},{"@type":"Question","name":"What does the MSCU or MEDU prefix mean?","acceptedAnswer":{"@type":"Answer","text":"It's the container's ISO 6346 owner code identifying MSC as the operator, the international standard every shipping line uses."}},{"@type":"Question","name":"Can logee track my MSC shipments automatically?","acceptedAnswer":{"@type":"Answer","text":"Yes. logee watches every MSC shipment you connect, cross-checking milestones and invoices rather than waiting on MSC's own portal to refresh."}}]}</script>
 </head>
 <body>
 
@@ -193,6 +203,19 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
   </section>
 
   <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Questions</span><h2>MSC tracking, answered</h2></div>
+      <div class="faq-list">
+        <details class="faq"><summary>How do I track an MSC container or shipment?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Enter your container number (starting MSCU or MEDU) or bill of lading on MSC's own tracker, linked above. logee also recognises the prefix automatically for shipments connected to your account.</div></details>
+        <details class="faq"><summary>Why does my MSC tracking look unchanged for several days?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">MSC shares less granular schedule data publicly than some rivals, so a shipment can look unchanged between real updates. That's normal on MSC lanes and not necessarily a sign of a delay.</div></details>
+        <details class="faq"><summary>Is MSC part of a shipping alliance?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">MSC previously partnered with Maersk in the 2M Alliance, which wound down in 2025. MSC now operates independently on most major trades, one reason its own schedule data is less predictable than an alliance carrier's.</div></details>
+        <details class="faq"><summary>What does the MSCU or MEDU prefix mean?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">It's the container's ISO 6346 owner code identifying MSC as the operator, the international standard every shipping line uses.</div></details>
+        <details class="faq"><summary>Can logee track my MSC shipments automatically?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Yes. logee watches every MSC shipment you connect, cross-checking milestones and invoices rather than waiting on MSC's own portal to refresh.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint">
     <div class="wrap"><div class="ctaband">
       <h2>Stop checking, start watching</h2>
       <p>logee watches every MSC shipment you have, alongside every other carrier and forwarder you use, and flags what needs you. Start free, then upgrade as you grow.</p>

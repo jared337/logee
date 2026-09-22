@@ -85,6 +85,16 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.6px;line-height:1.14;font-wei
 .related{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 .related a{border:1.5px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;color:#d7d7e6}
 .related a:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.08)}
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.sec.tint .faq{background:#fff}
+.faq[open]{border-color:#d7d7e0;box-shadow:var(--shadow-card)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{width:20px;height:20px;flex-shrink:0;color:var(--ink-faint);transition:transform .2s}
+.faq[open] summary .chev{transform:rotate(180deg);color:var(--blue)}
+.faq .ans{padding:0 20px 20px;font-size:14.5px;color:var(--ink-soft);line-height:1.65}
+.faq .ans a{color:var(--blue);font-weight:600}
 .ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:44px 40px;text-align:center}
 .ctaband h2{font-size:clamp(22px,2.8vw,30px);color:#fff}.ctaband p{font-size:16.5px;color:#cfcee0;margin:14px auto 24px;max-width:52ch}
 footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
@@ -115,7 +125,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 <meta name="twitter:description" content="Identify a Maersk (A.P. Moller - Maersk) container or B/L number and go straight to their official tracker. See what an AI TMS catches automatically that a tracking lookup alone won't.">
 <meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I track a Maersk container or shipment?","acceptedAnswer":{"@type":"Answer","text":"Enter your container number (starting MSKU or MAEU) or bill of lading directly on Maersk's own tracker, linked above. If the shipment is connected through your logee account, logee tracks it automatically alongside every other carrier you use."}},{"@type":"Question","name":"Why does my Maersk tracking show no updates for a few days?","acceptedAnswer":{"@type":"Answer","text":"This is usually a transshipment call: the container changes vessels partway through the voyage, and status can lag a day or two either side of that switch. It doesn't necessarily mean anything is wrong."}},{"@type":"Question","name":"Is Maersk part of a shipping alliance?","acceptedAnswer":{"@type":"Answer","text":"Yes. Maersk and Hapag-Lloyd formed the Gemini Cooperation alliance, so a Maersk booking can physically sail on a Hapag-Lloyd vessel and vice versa."}},{"@type":"Question","name":"What does the MSKU or MAEU prefix on my container mean?","acceptedAnswer":{"@type":"Answer","text":"It's the container's ISO 6346 owner code, the international standard that identifies Maersk as the operator, the same system every shipping line uses so containers can be identified anywhere in the world."}},{"@type":"Question","name":"Can logee track my Maersk shipments automatically, not just one at a time?","acceptedAnswer":{"@type":"Answer","text":"Yes. Connect your inbox and logee builds a live record of every Maersk shipment you have, watches free time, ETA changes and invoices, and flags what needs your attention without you looking anything up."}}]}</script>
 </head>
 <body>
 
@@ -193,6 +203,19 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
   </section>
 
   <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Questions</span><h2>Maersk tracking, answered</h2></div>
+      <div class="faq-list">
+        <details class="faq"><summary>How do I track a Maersk container or shipment?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Enter your container number (starting MSKU or MAEU) or bill of lading directly on Maersk's own tracker, linked above. If the shipment is connected through your logee account, logee tracks it automatically alongside every other carrier you use.</div></details>
+        <details class="faq"><summary>Why does my Maersk tracking show no updates for a few days?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">This is usually a transshipment call: the container changes vessels partway through the voyage, and status can lag a day or two either side of that switch. It doesn't necessarily mean anything is wrong.</div></details>
+        <details class="faq"><summary>Is Maersk part of a shipping alliance?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Yes. Maersk and Hapag-Lloyd formed the Gemini Cooperation alliance, so a Maersk booking can physically sail on a Hapag-Lloyd vessel and vice versa.</div></details>
+        <details class="faq"><summary>What does the MSKU or MAEU prefix on my container mean?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">It's the container's ISO 6346 owner code, the international standard that identifies Maersk as the operator, the same system every shipping line uses so containers can be identified anywhere in the world.</div></details>
+        <details class="faq"><summary>Can logee track my Maersk shipments automatically, not just one at a time?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ans">Yes. Connect your inbox and logee builds a live record of every Maersk shipment you have, watches free time, ETA changes and invoices, and flags what needs your attention without you looking anything up.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint">
     <div class="wrap"><div class="ctaband">
       <h2>Stop checking, start watching</h2>
       <p>logee watches every Maersk shipment you have, alongside every other carrier and forwarder you use, and flags what needs you. Start free, then upgrade as you grow.</p>
