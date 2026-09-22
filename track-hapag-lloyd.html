@@ -75,6 +75,16 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.6px;line-height:1.14;font-wei
 .carriercard:hover{border-color:#d7d7e0;box-shadow:var(--shadow);transform:translateY(-2px)}
 .carriercard b{font-size:16px;display:block;margin-bottom:4px}
 .carriercard span{font-size:13px;color:var(--ink-soft)}
+.prose{max-width:760px;margin:0 auto;font-size:15.5px;color:var(--ink-soft);line-height:1.75}
+.prose a{color:var(--blue);font-weight:600;text-decoration:underline;text-decoration-color:var(--blue-soft);text-underline-offset:2px}
+.prose a:hover{color:var(--blue-deep)}
+.valuebox{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 28px;box-shadow:var(--shadow-card)}
+.valuebox p{font-size:15.5px;color:var(--ink-soft);line-height:1.75}
+.valuebox p a{color:var(--blue);font-weight:600;text-decoration:underline;text-decoration-color:var(--blue-soft);text-underline-offset:2px}
+.valuebox p a:hover{color:var(--blue-deep)}
+.related{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.related a{border:1.5px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;color:#d7d7e6}
+.related a:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.08)}
 .ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:44px 40px;text-align:center}
 .ctaband h2{font-size:clamp(22px,2.8vw,30px);color:#fff}.ctaband p{font-size:16.5px;color:#cfcee0;margin:14px auto 24px;max-width:52ch}
 footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
@@ -162,23 +172,39 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 
   <section class="sec">
     <div class="wrap">
+      <div class="grouphead"><span class="kick">Using logee with Hapag-Lloyd</span><h2>Why pair Hapag-Lloyd with an AI TMS</h2></div>
+      <div class="valuebox">
+        <p>Since Hapag-Lloyd and Maersk share vessels under the Gemini Cooperation alliance, a Hapag-Lloyd booking can sail on a Maersk-operated ship, and the tracking experience can vary depending on which portal you check. logee tracks the shipment, not the portal, so which vessel it's actually on doesn't change how reliably you're notified, or how it's reflected in your <a href="capabilities.html">cost and document tracking</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint">
+    <div class="wrap">
       <div class="grouphead"><span class="kick">About Hapag-Lloyd</span><h2>Hapag-Lloyd at a glance</h2></div>
       <div class="factgrid">
         <div class="factcard"><div class="l">Headquarters</div><div class="v">Hamburg, Germany</div></div>
         <div class="factcard"><div class="l">Founded</div><div class="v">1970 (merger of two lines dating to 1847 and 1857)</div></div>
         <div class="factcard"><div class="l">Global rank</div><div class="v">5th-largest container carrier by capacity</div></div>
       </div>
-      <p class="prosecard" style="margin-top:26px;text-align:center">Hapag-Lloyd and Maersk share vessels under the Gemini Cooperation alliance, so a Hapag-Lloyd booking can physically sail on a Maersk ship. That kind of nuance is exactly why a plain number lookup can be less clear than it looks.</p>
+      <p class="prose" style="margin-top:26px">Hapag-Lloyd and Maersk share vessels under the Gemini Cooperation alliance, so a Hapag-Lloyd booking can physically sail on a Maersk ship. That kind of nuance is exactly why a plain number lookup can be less clear than it looks.</p>
+      <p class="prose" style="margin-top:16px">Hapag-Lloyd container numbers start with <b>HLXU</b> or <b>HLCU</b>. Transit times mirror its Gemini alliance partner <a href="track-maersk.html">Maersk</a> on shared strings, roughly 30-34 days Asia to North Europe. Because vessel-sharing means the ship carrying a Hapag-Lloyd booking may run under another carrier's operational schedule, the most reliable way to catch a slip is watching the booking itself rather than one carrier's own updates, which is the core of <a href="how-it-works.html">how logee's tracking works</a>.</p>
     </div>
   </section>
 
-  <section class="sec tint">
+  <section class="sec">
     <div class="wrap"><div class="ctaband">
       <h2>Stop checking, start watching</h2>
       <p>logee watches every Hapag-Lloyd shipment you have, alongside every other carrier and forwarder you use, and flags what needs you. Start free, then upgrade as you grow.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
-        <a href="track-trace.html" class="btn btn-white btn-lg">Track another carrier</a>
+        <a href="what-it-watches.html" class="btn btn-white btn-lg">See what it watches</a>
+      </div>
+      <div class="related">
+        <a href="track-maersk.html">Track Maersk →</a>
+        <a href="track-msc.html">Track MSC →</a>
+        <a href="track-one-line.html">Track ONE →</a>
+        <a href="track-trace.html">All carriers →</a>
       </div>
     </div></div>
   </section>
