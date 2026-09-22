@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What logee watches · logee.ai</title>
+<meta name="description" content="Every deadline, delay, document, cost, customs and follow-up risk logee checks on every shipment, every day, so the small things that turn into big bills get caught before they cost you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{--ink:#050038;--ink-soft:#54536e;--ink-faint:#8f8ea3;--yellow:#ffd02f;--yellow-deep:#f0bb00;--bg:#ffffff;--canvas:#f7f7f9;--line:#e9e9ee;--blue:#4262ff;--blue-deep:#2f4ad0;--blue-soft:#eef1ff;--green:#0ca678;--green-soft:#e6f6f0;--red:#e5484d;--red-soft:#fdecec;--amber:#e8930c;--amber-soft:#fdf3e1;--violet:#7b61ff;--violet-soft:#f0edff;--shadow:0 1px 2px rgba(5,0,56,.05),0 4px 14px rgba(5,0,56,.05);--shadow-lift:0 12px 40px rgba(5,0,56,.16);--shadow-card:0 1px 2px rgba(5,0,56,.04),0 10px 34px rgba(5,0,56,.08);--r-xl:20px;--r-lg:14px;--r-md:10px;--r-sm:8px;--maxw:1160px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:10px;padding:13px 22px;font-size:15px;transition:background .14s,border-color .14s,box-shadow .14s,transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(180deg,#4e69ff,#3d5af0);color:#fff}.btn-primary:hover{background:linear-gradient(180deg,#3d5af0,#2f4ad0);box-shadow:0 8px 22px rgba(66,98,255,.4)}
+.btn-ghost{border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink-faint);background:var(--canvas)}
+.btn-white{background:#fff;color:var(--ink)}.btn-white:hover{background:#f0f0f3}
+.btn-lg{padding:16px 30px;font-size:16.5px;border-radius:12px}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
+.nav-inner{display:flex;align-items:center;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.brand .mark{width:48px;height:26px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.brand .mark svg{width:25px;height:18px}.brand small{font-weight:600;color:#8494f2;font-size:14px;margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
+.nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);background:var(--canvas)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-signin{font-weight:600;font-size:14.5px;color:var(--ink-soft);padding:9px 12px;border-radius:8px}
+.nav-signin:hover{color:var(--ink);background:var(--canvas)}
+.hamburger{display:none;width:42px;height:42px;border-radius:9px;border:1.5px solid var(--line);align-items:center;justify-content:center}
+.hamburger svg{width:20px;height:20px}
+.page-hero{position:relative;padding:98px 0 86px;text-align:center;color:#fff;overflow:hidden;background:#050038}
+.page-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.page-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,0,56,.72),rgba(5,0,56,.9))}
+.page-hero .wrap{position:relative;z-index:1}
+.page-hero h1{color:#fff}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.05;letter-spacing:-1.2px;font-weight:900}
+.page-hero .lead{font-size:19px;color:#d7d7e6;margin:20px auto 0;max-width:62ch}
+.page-hero .hcta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+h2{font-size:clamp(24px,3.2vw,32px);letter-spacing:-.7px;line-height:1.12;font-weight:900}
+.sec{padding:56px 0}.sec.tint{background:var(--canvas)}
+.grouphead{max-width:800px;margin:0 auto 30px;text-align:center}
+.grouphead .kick{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.grouphead p{font-size:17px;color:var(--ink-soft);margin-top:12px;line-height:1.6}
+.capgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.capcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 22px 24px;transition:border-color .15s,box-shadow .15s,transform .15s}
+.sec.tint .capcard{background:#fff}
+.capcard:hover{border-color:#d7d7e0;box-shadow:var(--shadow);transform:translateY(-2px)}
+.capcard .ci{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;margin-bottom:14px;background:var(--blue-soft);color:var(--blue)}
+.capcard .ci svg{width:22px;height:22px}
+.capcard h3{font-size:16.5px;font-weight:800;margin-bottom:7px;letter-spacing:-.2px}
+.capcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-card);background:#fff;max-width:980px;margin:32px auto 0}
+.shot img{width:100%;display:block}
+.shot .cap{font-size:12.5px;color:var(--ink-faint);padding:10px 15px;border-top:1px solid var(--line);font-weight:600}
+.watch-foot{text-align:center;font-size:15.5px;color:var(--ink-soft);margin-top:30px}
+.watch-foot b{color:var(--ink)}
+.ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
+.ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:52ch}
+.faq{max-width:800px;margin:0 auto}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{width:22px;height:22px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:16px;color:var(--ink-soft);transition:transform .15s}
+.faq details[open] summary .plus{transform:rotate(45deg)}
+.faq p{font-size:14.5px;color:var(--ink-soft);margin-top:12px;line-height:1.6;max-width:70ch}
+footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-brand p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:34ch}
+.foot-col h5{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;color:var(--ink-soft);padding:5px 0}.foot-col a:hover{color:var(--ink)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap}
+.foot-bottom small{color:var(--ink-faint);font-size:13px}
+.foot-bottom .fb-links{display:flex;gap:18px}.foot-bottom .fb-links a{font-size:13px;color:var(--ink-faint)}.foot-bottom .fb-links a:hover{color:var(--ink)}
+@media(max-width:900px){.capgrid{grid-template-columns:1fr 1fr}.foot-grid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:720px){.nav-links,.nav-signin{display:none}.hamburger{display:flex}.nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 16px;box-shadow:var(--shadow)}.nav-links.open a{padding:12px 10px}.capgrid{grid-template-columns:1fr}.sec{padding:42px 0}.ctaband{padding:38px 24px}}
+@media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://logee.ai/what-it-watches.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffd02f">
+<meta property="og:site_name" content="logee.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://logee.ai/what-it-watches.html">
+<meta property="og:title" content="What logee watches · logee.ai">
+<meta property="og:description" content="Every deadline, delay, document, cost, customs and follow-up risk logee checks on every shipment, every day, so the small things that turn into big bills get caught before they cost you.">
+<meta property="og:image" content="https://logee.ai/img/ship.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What logee watches · logee.ai">
+<meta name="twitter:description" content="Every deadline, delay, document, cost, customs and follow-up risk logee checks on every shipment, every day, so the small things that turn into big bills get caught before they cost you.">
+<meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does logee replace my forwarder or customs broker?","acceptedAnswer":{"@type":"Answer","text":"No. logee watches your shipments, costs and documents and coordinates with the forwarders and brokers you already use. It drafts messages and flags risks; the people you work with still do the physical forwarding and clearance."}},
+{"@type":"Question","name":"How does logee know about a deadline like demurrage or a document cut-off?","acceptedAnswer":{"@type":"Answer","text":"It reads the booking and carrier data tied to each shipment, container free time, return dates, SI and VGM cut-offs, and checks them every day against the shipment's current stage, flagging anything approaching before it becomes a charge."}},
+{"@type":"Question","name":"Will it send emails to my forwarder without me approving them?","acceptedAnswer":{"@type":"Answer","text":"No. The agent drafts chasers and queries and puts them in the order thread for you to review. Nothing goes out without your approval."}},
+{"@type":"Question","name":"Does it catch cost problems, not just delays?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every freight invoice is checked line by line against its quote as it arrives, so an overcharge or duplicate charge is flagged immediately instead of surfacing at month-end reconciliation."}},
+{"@type":"Question","name":"What if I only care about some of these, like documents but not customs?","acceptedAnswer":{"@type":"Answer","text":"logee watches all of it by default because the categories interact, a missing document often causes a customs delay, which often causes a cost variance. You choose which alerts reach you by email, WhatsApp or the weekly digest in Settings."}}
+]}</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="logee.ai home"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+    <nav class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="what-it-watches.html" class="on">What it watches</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin">Sign in</a>
+      <a href="index.html#start" class="btn btn-primary">Start free</a>
+      <button class="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="bg" style="background-image:url('img/port.jpg')"></div>
+    <div class="ov"></div>
+    <div class="wrap">
+      <span class="eyebrow">Always on</span>
+      <h1>Your agent doesn't miss<br>what you might</h1>
+      <p class="lead">Every order, every day, logee checks the small things that turn into big bills, across six categories most teams only catch by accident, or too late.</p>
+      <div class="hcta">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="how-it-works.html" class="btn btn-white btn-lg">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deadlines -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Deadlines</span><h2>Every cut-off, tracked without a spreadsheet</h2><p>Free time, detention and document cut-offs rarely show up on one calendar. logee checks them against every shipment's real stage, every day.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Free time ending</h3><p>Flags a container's free time before it runs out, so demurrage never starts because nobody was watching the clock.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div><h3>Container return due</h3><p>Tracks the empty-return deadline separately from free time, so detention charges don't creep in unnoticed.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><h3>SI, VGM &amp; doc cut-offs</h3><p>Warns as shipping instruction, VGM and other cut-offs approach, so a booking never gets rolled for a missed paperwork deadline.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Delays & changes -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Delays &amp; changes</span><h2>Every shift in plan, flagged the moment it happens</h2><p>Plans change constantly in freight. logee catches the change itself, not just the eventual late arrival.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3 8 4-16 3 8h6"/></svg></div><h3>Vessel delays &amp; rolled bookings</h3><p>Picks up a delayed vessel or a booking rolled to the next sailing straight from the carrier feed, not from a status-check email.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Every ETA revision</h3><p>Keeps the full ETA history, not just today's guess, so you can see exactly how many times a date has already slipped.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="20" cy="18" r="1.6"/></svg></div><h3>Stalled at a stage</h3><p>Flags an order sitting at the same stage longer than that lane usually takes, before it becomes a surprise.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Documents</span><h2>The paperwork that actually blocks a shipment</h2><p>A missing or mismatched document is usually what turns a normal shipment into a delayed, expensive one.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><h3>B/L or telex release</h3><p>Flags when the bill of lading or telex release isn't in before the vessel arrives, the single most common cause of port storage charges.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H4v18h5M9 3h11v18H9M9 3v18"/></svg></div><h3>Packing list &amp; commercial invoice</h3><p>Checks that both are on file before they're needed for clearance, not discovered missing at the border.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></div><h3>Details that don't match</h3><p>Cross-checks figures across the commercial invoice, packing list and B/L, so a mismatch is caught before customs catches it for you.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Money -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Money</span><h2>The real cost, before month-end reconciliation</h2><p>Freight invoices rarely match the quote exactly. logee checks the gap the moment an invoice lands, not weeks later.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Invoice above quote</h3><p>Flags the variance line by line, ocean freight, fuel surcharge, handling, storage, so you know exactly which charge moved.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div><h3>Duplicate or unexpected charges</h3><p>Catches a charge that shouldn't be there at all, not just one that's higher than expected.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Landed cost as it lands</h3><p>Rolls up per-order landed cost as invoices arrive, so cash and cost are never a month-end surprise.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customs -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Customs</span><h2>Clearance risk, caught before the port does</h2><p>A hold at customs is expensive in both money and time. logee flags the conditions that usually cause one.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.5 8.5 9 10 5.5-1.5 9-5 9-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Clearance not lodged</h3><p>Flags when clearance hasn't been lodged with enough time before arrival, the most avoidable cause of port storage.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></div><h3>Hold or inspection flagged</h3><p>Surfaces a hold or inspection the moment it's flagged, so you're not finding out from a missed delivery date.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Duty &amp; GST to expect</h3><p>Estimates the duty and GST an order should attract, so it's a known number going in, not a surprise on the way out.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- People & follow-ups -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">People &amp; follow-ups</span><h2>The chases that fall through the cracks</h2><p>Most delays aren't caused by freight, they're caused by a reply nobody followed up on.</p></div>
+      <div class="capgrid">
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Forwarder hasn't replied</h3><p>Flags a thread that's gone quiet for two days, with a drafted nudge ready to send, not a mental note to chase it later.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div><h3>Supplier payment due</h3><p>Flags a supplier payment due before release, so a shipment doesn't sit waiting on an invoice nobody actioned.</p></div>
+        <div class="capcard"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div><h3>Weekly digest</h3><p>What's arriving now and what needs a decision, in one email, so nothing needs the app open to be seen.</p></div>
+      </div>
+      <p class="watch-foot">Every alert lands in the order thread with the next step attached. <b>Nothing goes out without your permission.</b></p>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">In the product</span><h2>What it looks like when logee catches something</h2><p>The morning briefing is where all six categories come together, in plain language, every day.</p></div>
+      <div class="shot"><img src="img/today.png" alt="logee morning briefing flagging active shipments needing attention, spend above quote and a missing document" loading="lazy"><div class="cap">Today · the agent's briefing, generated from the real event log</div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="grouphead"><span class="kick">Questions</span><h2>About what logee watches</h2></div>
+      <div class="faq">
+        <details open>
+          <summary>Does logee replace my forwarder or customs broker?<span class="plus">+</span></summary>
+          <p>No. logee watches your shipments, costs and documents and coordinates with the forwarders and brokers you already use. It drafts messages and flags risks; the people you work with still do the physical forwarding and clearance.</p>
+        </details>
+        <details>
+          <summary>How does logee know about a deadline like demurrage or a document cut-off?<span class="plus">+</span></summary>
+          <p>It reads the booking and carrier data tied to each shipment, container free time, return dates, SI and VGM cut-offs, and checks them every day against the shipment's current stage, flagging anything approaching before it becomes a charge.</p>
+        </details>
+        <details>
+          <summary>Will it send emails to my forwarder without me approving them?<span class="plus">+</span></summary>
+          <p>No. The agent drafts chasers and queries and puts them in the order thread for you to review. Nothing goes out without your approval.</p>
+        </details>
+        <details>
+          <summary>Does it catch cost problems, not just delays?<span class="plus">+</span></summary>
+          <p>Yes. Every freight invoice is checked line by line against its quote as it arrives, so an overcharge or duplicate charge is flagged immediately instead of surfacing at month-end reconciliation.</p>
+        </details>
+        <details>
+          <summary>What if I only care about some of these, like documents but not customs?<span class="plus">+</span></summary>
+          <p>logee watches all of it by default because the categories interact, a missing document often causes a customs delay, which often causes a cost variance. You choose which alerts reach you by email, WhatsApp or the weekly digest in Settings.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap"><div class="ctaband">
+      <h2>Stop finding out the hard way</h2>
+      <p>Connect your inbox and logee starts watching every shipment today. Start free, then upgrade as you grow.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
+        <a href="capabilities.html" class="btn btn-white btn-lg">See all capabilities</a>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
+      </div>
+      <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="what-it-watches.html">What it watches</a><a href="pricing.html">Pricing</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a><a href="security.html">Security</a></div>
+      <div class="foot-col"><h5>Get started</h5><a href="index.html#start">Start free</a><a href="signin.html">Sign in</a><a href="demo.html">Book a demo</a><a href="app/Dashboard.html">Dashboard</a></div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="year">2026</span> logee.ai · Made for importers &amp; exporters</small>
+      <div class="fb-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var nav=document.getElementById('nav');if(nav){window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8);},{passive:true});}var burger=document.querySelector('.hamburger'),links=document.querySelector('.nav-links');if(burger&&links){burger.addEventListener('click',function(){links.classList.toggle('open');});}var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
+</script>
+</body>
+</html>
