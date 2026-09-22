@@ -723,8 +723,8 @@ tbody tr:last-child td{border-bottom:none}
         <button class="btn btn-blue" onclick="addSkuRow()">＋ Add SKU</button>
       </div>
     </div>
-    <div class="big-note">CSV format: <b>code, name, HS code, unit kg, units/carton</b> — or just sync from your ERP. Every SKU here becomes one tap in the order wizard.</div>
-    <div class="tbl"><table aria-label="SKU catalog"><thead><tr><th>SKU</th><th>Description</th><th>HS code</th><th>Unit weight</th><th>Units / carton</th><th>In transit now</th></tr></thead><tbody id="skuRows"></tbody></table></div>
+    <div class="big-note">CSV format: <b>code, name, HS code, unit kg, units/carton</b> — plus optional <b>unit L, W, H · carton L, W, H · carton kg · packaging</b> (cm). Or just sync from your ERP. Every SKU here becomes one tap in the order wizard.</div>
+    <div class="tbl"><table aria-label="SKU catalog"><thead><tr><th>SKU</th><th>Description</th><th>HS code</th><th>Unit (kg · L×W×H)</th><th>Carton (units · L×W×H · kg)</th><th>Packaging</th><th>In transit now</th></tr></thead><tbody id="skuRows"></tbody></table></div>
   </section>
 
   <!-- ── REPORTS ── -->
@@ -974,6 +974,12 @@ tbody tr:last-child td{border-bottom:none}
         <div id="cargoLines"><div class="empty" id="cargoEmpty" style="padding:14px">No lines yet — add SKUs above, or a free-text line below.</div></div>
         <button class="chip-btn" style="margin-top:10px" onclick="addFreeLine()">＋ Add free-text line</button>
         <div class="totals" id="cargoTotals"></div>
+        <div class="field" style="margin-top:18px"><label>How is it packed?</label>
+          <div class="seg" id="segPack">
+            <button class="on">Homogeneous</button><button>Mixed pallet</button><button>Loose cartons</button>
+          </div>
+          <p style="color:var(--ink-soft);font-size:12px;margin-top:6px">Homogeneous = one SKU per carton/pallet. Mixed = different SKUs combined on a pallet. This tells the forwarder how to plan space and handling.</p>
+        </div>
       </div>
 
       <!-- Step 3 -->
@@ -1543,29 +1549,36 @@ function sendChat(){
 $("#chatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendChat();});
 
 /* ═════════ SKU catalog ═════════ */
+/* dims in cm. l/w/h = single unit · ctnL/ctnW/ctnH + ctnKg = master carton (holds cq units) · pack = how it palletises */
 const SKUS=[
- {code:"SKU-1042",name:"12V DC water pump",hs:"8413.70",kg:1.8,cq:24,transit:480},
- {code:"SKU-1097",name:"Aluminium mounting rail 2.1m",hs:"7610.90",kg:3.2,cq:10,transit:600},
- {code:"SKU-1120",name:"MC4 connector pair",hs:"8536.69",kg:0.06,cq:500,transit:12000},
- {code:"SKU-1188",name:"40A DC circuit breaker",hs:"8536.20",kg:0.35,cq:60,transit:0},
- {code:"SKU-1203",name:"Junction box IP67",hs:"8538.90",kg:0.9,cq:40,transit:1600},
- {code:"SKU-1250",name:"Solar cable 6mm² (100m roll)",hs:"8544.49",kg:9.5,cq:4,transit:80},
+ {code:"SKU-1042",name:"12V DC water pump",hs:"8413.70",kg:1.8,cq:24,l:12,w:9,h:9,ctnL:40,ctnW:30,ctnH:26,ctnKg:46,pack:"Homogeneous carton → pallet",transit:480},
+ {code:"SKU-1097",name:"Aluminium mounting rail 2.1m",hs:"7610.90",kg:3.2,cq:10,l:210,w:6,h:4,ctnL:215,ctnW:32,ctnH:22,ctnKg:34,pack:"Bundled — homogeneous",transit:600},
+ {code:"SKU-1120",name:"MC4 connector pair",hs:"8536.69",kg:0.06,cq:500,l:4,w:2,h:2,ctnL:40,ctnW:30,ctnH:20,ctnKg:32,pack:"Homogeneous carton",transit:12000},
+ {code:"SKU-1188",name:"40A DC circuit breaker",hs:"8536.20",kg:0.35,cq:60,l:8,w:7,h:7,ctnL:46,ctnW:30,ctnH:26,ctnKg:23,pack:"Homogeneous carton",transit:0},
+ {code:"SKU-1203",name:"Junction box IP67",hs:"8538.90",kg:0.9,cq:40,l:12,w:10,h:6,ctnL:44,ctnW:32,ctnH:34,ctnKg:38,pack:"Homogeneous carton → pallet",transit:1600},
+ {code:"SKU-1250",name:"Solar cable 6mm² (100m roll)",hs:"8544.49",kg:9.5,cq:4,l:30,w:30,h:15,ctnL:62,ctnW:32,ctnH:32,ctnKg:40,pack:"Palletised — homogeneous",transit:80},
 ];
+function hasUnitDims(s){return s.l&&s.w&&s.h;}
+function unitDimStr(s){return hasUnitDims(s)?`${s.l}×${s.w}×${s.h} cm`:"—";}
+function hasCtnDims(s){return s.ctnL&&s.ctnW&&s.ctnH;}
+function ctnDimStr(s){return hasCtnDims(s)?`${s.ctnL}×${s.ctnW}×${s.ctnH} cm`:"—";}
+function cartonCbm(s){return hasCtnDims(s)?(s.ctnL*s.ctnW*s.ctnH)/1e6:0;} // m³ per carton
 function renderSkus(){
   $("#skuRows").innerHTML=SKUS.map(s=>`
     <tr>
       <td><span class="ship-id">${s.code}</span></td>
       <td>${s.name}</td>
       <td style="color:var(--ink-soft)">${s.hs}</td>
-      <td>${s.kg} kg</td>
-      <td>${s.cq}</td>
+      <td>${s.kg} kg<br><span style="color:var(--ink-soft);font-size:12px">${unitDimStr(s)}</span></td>
+      <td>${s.cq} units<br><span style="color:var(--ink-soft);font-size:12px">${hasCtnDims(s)?`${ctnDimStr(s)} · ${s.ctnKg} kg`:"—"}</span></td>
+      <td><span class="tag plain">${s.pack||"—"}</span></td>
       <td>${s.transit>0?`<span class="tag blue">${s.transit.toLocaleString()} units</span>`:'<span class="tag plain">—</span>'}</td>
     </tr>`).join("");
   renderSkuPick();
 }
 function addSkuRow(){
   const code="SKU-"+(1300+Math.floor(Math.random()*600));
-  SKUS.push({code,name:"New product — edit me",hs:"0000.00",kg:1,cq:1,transit:0});
+  SKUS.push({code,name:"New product — edit me",hs:"0000.00",kg:1,cq:1,l:0,w:0,h:0,ctnL:0,ctnW:0,ctnH:0,ctnKg:0,pack:"—",transit:0});
   renderSkus();renderSetupProgress();toast(code+" added to catalog (demo — click into a real build to edit)");
 }
 $("#skuCsv").addEventListener("change",e=>{
@@ -1578,7 +1591,7 @@ $("#skuCsv").addEventListener("change",e=>{
       lines.forEach((l,i)=>{
         const p=l.split(",").map(x=>x.trim());
         if(p.length>=2&&p[0]&&!/^code$/i.test(p[0])){
-          SKUS.push({code:p[0],name:p[1]||"Imported SKU",hs:p[2]||"—",kg:parseFloat(p[3])||1,cq:parseInt(p[4])||1,transit:0});
+          SKUS.push({code:p[0],name:p[1]||"Imported SKU",hs:p[2]||"—",kg:parseFloat(p[3])||1,cq:parseInt(p[4])||1,l:parseFloat(p[5])||0,w:parseFloat(p[6])||0,h:parseFloat(p[7])||0,ctnL:parseFloat(p[8])||0,ctnW:parseFloat(p[9])||0,ctnH:parseFloat(p[10])||0,ctnKg:parseFloat(p[11])||0,pack:p[12]||"—",transit:0});
           added++;
         }
       });
@@ -1675,22 +1688,22 @@ function openWizard(){
 function closeWizard(){$("#wizScrim").classList.remove("open");}
 $("#wizScrim").addEventListener("click",e=>{if(e.target.id==="wizScrim")closeWizard();});
 function segVal(id){return $("#"+id+" button.on").textContent;}
-$$("#segType button, #segMode button").forEach(b=>b.addEventListener("click",()=>{
+$$("#segType button, #segMode button, #segPack button").forEach(b=>b.addEventListener("click",()=>{
   [...b.parentElement.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");
 }));
 function renderSkuPick(){
   const el=$("#skuPick");if(!el)return;
   el.innerHTML=SKUS.map((s,i)=>`
-    <div class="sku-opt"><div><b>${s.code}</b><span>${s.name} · ${s.kg} kg/unit · ${s.cq}/carton</span></div>
+    <div class="sku-opt"><div><b>${s.code}</b><span>${s.name} · ${s.kg} kg/unit${hasUnitDims(s)?` · ${s.l}×${s.w}×${s.h} cm`:""} · ${s.cq}/carton</span></div>
     <button class="add" onclick="addCargo(${i})" aria-label="Add ${s.code}">＋</button></div>`).join("");
 }
 function addCargo(i){
   const s=SKUS[i];
   const ex=cargo.find(c=>c.code===s.code);
-  if(ex){ex.qty+=s.cq;}else{cargo.push({code:s.code,name:s.name,kg:s.kg,qty:s.cq});}
+  if(ex){ex.qty+=s.cq;}else{cargo.push({code:s.code,name:s.name,kg:s.kg,qty:s.cq,cq:s.cq,ccbm:cartonCbm(s),pack:s.pack});}
   renderCargo();
 }
-function addFreeLine(){cargo.push({code:"FREE",name:"Free-text item",kg:1,qty:1,free:true});renderCargo();}
+function addFreeLine(){cargo.push({code:"FREE",name:"Free-text item",kg:1,qty:1,free:true,cq:1,ccbm:0,pack:"—"});renderCargo();}
 function rmCargo(i){cargo.splice(i,1);renderCargo();}
 function renderCargo(){
   const box=$("#cargoLines");
@@ -1698,14 +1711,17 @@ function renderCargo(){
   else{
     box.innerHTML=cargo.map((c,i)=>`
       <div class="cargo-line">
-        <div>${c.free?`<input value="${c.name}" onchange="cargo[${i}].name=this.value" aria-label="Item name">`:`<b>${c.code}</b> · ${c.name}`}</div>
+        <div>${c.free?`<input value="${c.name}" onchange="cargo[${i}].name=this.value" aria-label="Item name">`:`<b>${c.code}</b> · ${c.name}`}${(!c.free&&c.cq&&c.ccbm)?`<div style="color:var(--ink-soft);font-size:11px;margin-top:2px">${Math.ceil(c.qty/c.cq)} carton(s)${c.pack&&c.pack!=="—"?` · ${c.pack}`:""}</div>`:""}</div>
         <input type="number" min="1" value="${c.qty}" onchange="cargo[${i}].qty=parseInt(this.value)||1;renderCargo()" aria-label="Quantity">
         <button class="rm" onclick="rmCargo(${i})" aria-label="Remove line">✕</button>
       </div>`).join("");
   }
   const units=cargo.reduce((a,c)=>a+c.qty,0);
   const kg=cargo.reduce((a,c)=>a+c.qty*c.kg,0);
-  $("#cargoTotals").innerHTML=cargo.length?`<span>${cargo.length} lines</span><span>${units.toLocaleString()} units</span><span>≈ ${Math.round(kg).toLocaleString()} kg gross</span><span>≈ ${(kg/280).toFixed(1)} cbm (est.)</span>`:"";
+  const cartons=cargo.reduce((a,c)=>a+(c.cq?Math.ceil(c.qty/c.cq):0),0);
+  const cbm=cargo.reduce((a,c)=>a+(c.cq&&c.ccbm?Math.ceil(c.qty/c.cq)*c.ccbm:0),0);
+  const cbmStr=cbm>0?`≈ ${cbm.toFixed(2)} cbm`:`≈ ${(kg/280).toFixed(1)} cbm (est.)`;
+  $("#cargoTotals").innerHTML=cargo.length?`<span>${cargo.length} lines</span><span>${units.toLocaleString()} units</span><span>${cartons.toLocaleString()} cartons</span><span>≈ ${Math.round(kg).toLocaleString()} kg gross</span><span>${cbmStr}</span>`:"";
 }
 function wizDocAdd(){
   wizDocsArr.push(["Attachment "+(wizDocsArr.length+1)+".pdf","added just now"]);
@@ -1740,9 +1756,11 @@ function syncWiz(){
       :[$('.send-opt[data-send="direct"] .fwd-check.on')].filter(Boolean);
     const who=sel.length?sel.map(b=>`${b.dataset.co} (${primaryEmail(b.dataset.co)})`).join(", "):"(pick who to send to)";
     const units=cargo.reduce((a,c)=>a+c.qty,0);
+    const cartons=cargo.reduce((a,c)=>a+(c.cq?Math.ceil(c.qty/c.cq):0),0);
+    const cbm=cargo.reduce((a,c)=>a+(c.cq&&c.ccbm?Math.ceil(c.qty/c.cq)*c.ccbm:0),0);
     $("#wizSummary").innerHTML=`
       <div><b>${segVal("segType")}</b> · ${segVal("segMode")} · ${$("#wOrigin").value} → ${$("#wDest").value} · ${$("#wInco").value}</div>
-      <div>${cargo.length} lines · ${units.toLocaleString()} units · ready ${$("#wReady").value} · ref ${$("#wPo").value||"—"}</div>
+      <div>${cargo.length} lines · ${units.toLocaleString()} units · ${cartons} cartons${cbm>0?` · ≈ ${cbm.toFixed(2)} cbm`:""} · ${segVal("segPack")} packing · ready ${$("#wReady").value} · ref ${$("#wPo").value||"—"}</div>
       <div>Sending to: <b>${who}</b>${wizDocsArr.length?` · ${wizDocsArr.length} document(s) attached`:""}</div>`;
   }
 }
@@ -1905,18 +1923,21 @@ function submitOrder(){
   const who=sel.map(b=>b.dataset.co);
   const emails=who.map(c=>primaryEmail(c)).filter(Boolean);
   const id="LG-"+(nextId++);
+  const cartons=cargo.reduce((a,c)=>a+(c.cq?Math.ceil(c.qty/c.cq):0),0);
+  const cbm=cargo.reduce((a,c)=>a+(c.cq&&c.ccbm?Math.ceil(c.qty/c.cq)*c.ccbm:0),0);
+  const packLine=`${cartons} cartons${cbm>0?` · ≈ ${cbm.toFixed(2)} cbm`:""} · ${segVal("segPack")} packing`;
   SHIPMENTS.unshift({
     id, route:`${$("#wOrigin").value.split(",")[0]} → ${$("#wDest").value.split(",")[0]}`,
     mode:segVal("segMode"), fwd:who[0], status:"ontime", stage:3, daysLate:0,
     eta:`Awaiting ${mode==="quotes"?"quotes":"booking confirmation"} · ready ${$("#wReady").value}`,
     quoted:null, actual:null, po:$("#wPo").value||"—",
-    note:mode==="quotes"?`RFQ sent to ${emails.join(", ")}. Quotes usually land within 24–48h; they'll appear side-by-side here.`:`Booking request sent direct to ${who[0]} (${emails[0]}). Confirmation expected within 24h.`,
+    note:(mode==="quotes"?`RFQ sent to ${emails.join(", ")}. Quotes usually land within 24–48h; they'll appear side-by-side here.`:`Booking request sent direct to ${who[0]} (${emails[0]}). Confirmation expected within 24h.`)+` Cargo: ${packLine}.`,
     docs:wizDocsArr.map(d=>[d[0],"Attached at booking","today"]),
     lines:cargo.map(c=>[`${c.code!=="FREE"?c.code+" · ":""}${c.name} × ${c.qty}`,null,null]),
   });
   closeWizard();
   renderShips();renderTodayPanels();renderBilling();
-  addReport("blue",`New order ${id}: ${segVal("segType")} ${segVal("segMode")} ${$("#wOrigin").value} → ${$("#wDest").value} — sent to ${who.join(", ")}`,"Just now");
+  addReport("blue",`New order ${id}: ${segVal("segType")} ${segVal("segMode")} ${$("#wOrigin").value} → ${$("#wDest").value}, ${packLine}, sent to ${who.join(", ")}`,"Just now");
   showView("shipments");filterShips("all");
   toast(`${id} created — ${mode==="quotes"?"RFQ emailed to "+emails.join(", "):"booking emailed to "+emails[0]}`);
   setTimeout(()=>openDrawer(id),450);
