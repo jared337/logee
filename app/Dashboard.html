@@ -720,11 +720,11 @@ tbody tr:last-child td{border-bottom:none}
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <label class="btn btn-ghost" style="cursor:pointer">Upload CSV<input type="file" accept=".csv" id="skuCsv" style="display:none"></label>
         <button class="btn btn-ghost" onclick="toast('Syncing item master from Priority ERP… 6 SKUs already up to date (demo)')">Sync from Priority</button>
-        <button class="btn btn-blue" onclick="addSkuRow()">＋ Add SKU</button>
+        <button class="btn btn-blue" onclick="openSkuModal()">＋ Add SKU</button>
       </div>
     </div>
     <div class="big-note">CSV format: <b>code, name, HS code, unit kg, units/carton</b> — plus optional <b>unit L, W, H · carton L, W, H · carton kg · packaging</b> (cm). Or just sync from your ERP. Every SKU here becomes one tap in the order wizard.</div>
-    <div class="tbl"><table aria-label="SKU catalog"><thead><tr><th>SKU</th><th>Description</th><th>HS code</th><th>Unit (kg · L×W×H)</th><th>Carton (units · L×W×H · kg)</th><th>Packaging</th><th>In transit now</th></tr></thead><tbody id="skuRows"></tbody></table></div>
+    <div class="tbl"><table aria-label="SKU catalog"><thead><tr><th>SKU</th><th>Description</th><th>HS code</th><th>Unit (kg · L×W×H)</th><th>Carton (units · L×W×H · kg)</th><th>Packaging</th><th>In transit now</th><th></th></tr></thead><tbody id="skuRows"></tbody></table></div>
   </section>
 
   <!-- ── REPORTS ── -->
@@ -1022,6 +1022,53 @@ tbody tr:last-child td{border-bottom:none}
       <button class="btn btn-ghost" id="wizBack" onclick="wizNav(-1)" style="visibility:hidden">← Back</button>
       <div style="flex:1"></div>
       <button class="btn btn-blue" id="wizNext" onclick="wizNav(1)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Add / edit SKU modal ── -->
+<div class="modal-scrim" id="skuScrim">
+  <div class="wizard" style="max-width:560px">
+    <div class="wiz-head">
+      <div style="flex:1"><h2 id="skuModalTitle">Add SKU</h2><p>Weights and dimensions make quotes and load plans accurate. Dimensions are optional.</p></div>
+      <button class="drawer-close" onclick="closeSkuModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="wiz-body">
+      <div class="f-grid">
+        <div class="field"><label>SKU code</label><input id="skCode" placeholder="SKU-1300"></div>
+        <div class="field"><label>Description</label><input id="skName" placeholder="12V DC water pump"></div>
+        <div class="field"><label>HS code</label><input id="skHs" placeholder="8413.70"></div>
+        <div class="field"><label>Unit weight (kg)</label><input id="skKg" type="number" step="0.01" min="0" placeholder="1.8"></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label>Unit dimensions — L × W × H (cm)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <input id="skL" type="number" min="0" placeholder="L"><input id="skW" type="number" min="0" placeholder="W"><input id="skH" type="number" min="0" placeholder="H">
+        </div>
+      </div>
+      <div class="f-grid" style="margin-top:12px">
+        <div class="field"><label>Units per carton</label><input id="skCq" type="number" min="1" placeholder="24"></div>
+        <div class="field"><label>Carton gross weight (kg)</label><input id="skCtnKg" type="number" step="0.01" min="0" placeholder="46"></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label>Carton dimensions — L × W × H (cm)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <input id="skCtnL" type="number" min="0" placeholder="L"><input id="skCtnW" type="number" min="0" placeholder="W"><input id="skCtnH" type="number" min="0" placeholder="H">
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px"><label>Packaging</label>
+        <select id="skPack">
+          <option>Homogeneous carton</option>
+          <option>Homogeneous carton → pallet</option>
+          <option>Palletised — homogeneous</option>
+          <option>Bundled — homogeneous</option>
+          <option>Mixed pallet</option>
+          <option>Loose cartons</option>
+        </select>
+      </div>
+    </div>
+    <div class="wiz-foot">
+      <button class="btn btn-ghost" onclick="closeSkuModal()">Cancel</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-blue" onclick="saveSku()">Save SKU</button>
     </div>
   </div>
 </div>
@@ -1564,7 +1611,7 @@ function hasCtnDims(s){return s.ctnL&&s.ctnW&&s.ctnH;}
 function ctnDimStr(s){return hasCtnDims(s)?`${s.ctnL}×${s.ctnW}×${s.ctnH} cm`:"—";}
 function cartonCbm(s){return hasCtnDims(s)?(s.ctnL*s.ctnW*s.ctnH)/1e6:0;} // m³ per carton
 function renderSkus(){
-  $("#skuRows").innerHTML=SKUS.map(s=>`
+  $("#skuRows").innerHTML=SKUS.map((s,i)=>`
     <tr>
       <td><span class="ship-id">${s.code}</span></td>
       <td>${s.name}</td>
@@ -1573,14 +1620,42 @@ function renderSkus(){
       <td>${s.cq} units<br><span style="color:var(--ink-soft);font-size:12px">${hasCtnDims(s)?`${ctnDimStr(s)} · ${s.ctnKg} kg`:"—"}</span></td>
       <td><span class="tag plain">${s.pack||"—"}</span></td>
       <td>${s.transit>0?`<span class="tag blue">${s.transit.toLocaleString()} units</span>`:'<span class="tag plain">—</span>'}</td>
+      <td style="text-align:right"><button class="chip-btn" onclick="openSkuModal(${i})">Edit</button></td>
     </tr>`).join("");
   renderSkuPick();
 }
-function addSkuRow(){
-  const code="SKU-"+(1300+Math.floor(Math.random()*600));
-  SKUS.push({code,name:"New product — edit me",hs:"0000.00",kg:1,cq:1,l:0,w:0,h:0,ctnL:0,ctnW:0,ctnH:0,ctnKg:0,pack:"—",transit:0});
-  renderSkus();renderSetupProgress();toast(code+" added to catalog (demo — click into a real build to edit)");
+let skuEditIndex=null;
+function openSkuModal(i){
+  skuEditIndex=(typeof i==="number")?i:null;
+  const s=skuEditIndex!=null?SKUS[skuEditIndex]:null;
+  $("#skuModalTitle").textContent=s?"Edit SKU":"Add SKU";
+  const set=(id,v)=>{$(id).value=(v===0||v)?v:"";};
+  set("#skCode",s?s.code:"SKU-"+(1300+Math.floor(Math.random()*600)));
+  set("#skName",s?s.name:"");
+  set("#skHs",s?s.hs:"");
+  set("#skKg",s?s.kg:"");
+  set("#skL",s&&s.l?s.l:"");set("#skW",s&&s.w?s.w:"");set("#skH",s&&s.h?s.h:"");
+  set("#skCq",s?s.cq:"");
+  set("#skCtnKg",s&&s.ctnKg?s.ctnKg:"");
+  set("#skCtnL",s&&s.ctnL?s.ctnL:"");set("#skCtnW",s&&s.ctnW?s.ctnW:"");set("#skCtnH",s&&s.ctnH?s.ctnH:"");
+  $("#skPack").value=(s&&s.pack&&s.pack!=="—")?s.pack:"Homogeneous carton";
+  $("#skuScrim").classList.add("open");
+  setTimeout(()=>$("#skName").focus(),50);
 }
+function closeSkuModal(){$("#skuScrim").classList.remove("open");skuEditIndex=null;}
+function saveSku(){
+  const idx=skuEditIndex;
+  const code=$("#skCode").value.trim(), name=$("#skName").value.trim();
+  if(!code||!name){toast("Give the SKU a code and a description");return;}
+  const num=id=>parseFloat($(id).value)||0;
+  const rec={code,name,hs:$("#skHs").value.trim()||"—",kg:num("#skKg")||1,cq:parseInt($("#skCq").value)||1,
+    l:num("#skL"),w:num("#skW"),h:num("#skH"),ctnL:num("#skCtnL"),ctnW:num("#skCtnW"),ctnH:num("#skCtnH"),ctnKg:num("#skCtnKg"),
+    pack:$("#skPack").value||"—",transit:idx!=null?(SKUS[idx].transit||0):0};
+  if(idx!=null)SKUS[idx]=rec;else SKUS.push(rec);
+  closeSkuModal();renderSkus();renderSetupProgress();
+  toast(`${code} ${idx!=null?"updated":"added to catalog"}`);
+}
+$("#skuScrim").addEventListener("click",e=>{if(e.target.id==="skuScrim")closeSkuModal();});
 $("#skuCsv").addEventListener("change",e=>{
   const f=e.target.files[0];if(!f)return;
   const rd=new FileReader();
