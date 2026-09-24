@@ -66,6 +66,41 @@ h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-w
 .stage .sn{width:28px;height:28px;border-radius:7px;background:var(--blue-soft);color:var(--blue);font-weight:800;font-size:13px;display:grid;place-items:center;flex-shrink:0}
 .stage b{font-size:14.5px;display:block;margin-bottom:2px}
 .stage span{font-size:13px;color:var(--ink-soft);line-height:1.45}
+
+/* architecture diagram */
+.archband{position:relative;background:linear-gradient(160deg,#0b0759,#050038);border-radius:var(--r-xl);padding:52px 32px 44px;overflow:hidden;box-shadow:0 30px 80px rgba(5,0,56,.3)}
+.archband::before{content:"";position:absolute;inset:-30%;background:radial-gradient(45% 45% at 15% 15%,rgba(255,208,47,.14),transparent 70%),radial-gradient(45% 45% at 88% 85%,rgba(66,98,255,.22),transparent 70%);pointer-events:none}
+.arch-head{position:relative;z-index:1;text-align:center;max-width:720px;margin:0 auto}
+.arch-head .eyebrow{color:var(--yellow);margin-bottom:12px}
+.arch-head h2{color:#fff}
+.arch-head p{color:#b9b9d6;font-size:16px;margin-top:12px;line-height:1.6}
+.arch-diagram{position:relative;z-index:1;max-width:1100px;margin:44px auto 0;aspect-ratio:1100/580}
+.arch-lines{position:absolute;inset:0;width:100%;height:100%}
+.arch-kick{position:absolute;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#8e8eb8}
+.arch-pill{position:absolute;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:0 13px;font-size:13px;font-weight:700;color:#e6e6f2;line-height:1.2}
+.arch-pill .pi{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex-shrink:0;color:#c8c8e6}
+.arch-pill .pi svg{width:13px;height:13px}
+.arch-core{position:absolute;background:linear-gradient(180deg,#4e69ff,#2f4ad0);border-radius:16px;border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 50px rgba(66,98,255,.35);display:flex;flex-direction:column;padding:18px 18px 16px}
+.arch-core .ac-brand{display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:16px;margin-bottom:12px;letter-spacing:-.3px}
+.arch-core .ac-brand .m{width:28px;height:18px;border-radius:6px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.arch-core .ac-brand .m svg{width:16px;height:12px}
+.arch-cap{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;font-size:12px;font-weight:700;color:#d7d8ee;margin-bottom:5px;border:1px solid transparent}
+.arch-cap.on{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.arch-cap .dot{width:6px;height:6px;border-radius:50%;background:#aeafd6;flex-shrink:0}
+.arch-cap.on .dot{background:var(--yellow)}
+.arch-badges{display:flex;gap:5px;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
+.arch-badges span{font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#cfd0ef;background:rgba(255,255,255,.08);border-radius:999px;padding:4px 7px}
+.arch-out{position:absolute;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 15px;display:flex;flex-direction:column;justify-content:center}
+.arch-out b{color:#fff;font-size:14px;font-weight:800;margin-bottom:3px;letter-spacing:-.1px;line-height:1.25}
+.arch-out span{color:#a9aad0;font-size:11.5px;line-height:1.4}
+@media(max-width:820px){
+  .arch-diagram{aspect-ratio:auto}
+  .arch-lines{display:none}
+  .arch-diagram .arch-group{position:static!important;width:100%!important;height:auto!important;margin-bottom:28px}
+  .arch-diagram .arch-kick{position:static;display:block;margin-bottom:10px}
+  .arch-diagram .arch-pill,.arch-diagram .arch-out{position:static;width:100%!important;height:auto!important;padding:11px 14px;margin-bottom:8px}
+  .arch-diagram .arch-core{position:static;width:100%!important;height:auto!important}
+}
 .ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
 .ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:52ch}
 footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
@@ -129,6 +164,60 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       <div class="hcta">
         <a href="index.html#start" class="btn btn-primary btn-lg">Start free</a>
         <a href="demo.html" class="btn btn-white btn-lg">Book a demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture overview -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="archband">
+        <div class="arch-head">
+          <span class="eyebrow">The big picture</span>
+          <h2>Everything you already run, in. One agent watching it. Real outcomes, out.</h2>
+          <p>logee doesn't ask you to change how you work. It reads what you already have, runs every capability of an AI TMS on top of it, and turns that into outcomes you can feel, not another screen to check.</p>
+        </div>
+        <div class="arch-diagram">
+          <svg class="arch-lines" viewBox="0 0 1100 580" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M260,170 C345,170 345,290 430,290" stroke="#8a8ad8" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+            <path d="M260,230 C345,230 345,290 430,290" stroke="#8a8ad8" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+            <path d="M260,290 L430,290" stroke="#8a8ad8" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+            <path d="M260,350 C345,350 345,290 430,290" stroke="#8a8ad8" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+            <path d="M260,410 C345,410 345,290 430,290" stroke="#8a8ad8" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+            <path d="M670,290 C765,290 765,136 860,136" stroke="#ffd02f" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".7"/>
+            <path d="M670,290 L860,290" stroke="#ffd02f" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".7"/>
+            <path d="M670,290 C765,290 765,444 860,444" stroke="#ffd02f" stroke-width="1.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".7"/>
+          </svg>
+
+          <div class="arch-group">
+            <span class="arch-kick" style="left:3.64%;top:5%">Your systems</span>
+            <div class="arch-pill" style="left:3.64%;width:20%;top:25.52%;height:7.59%"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></span>Inbox (Gmail / M365)</div>
+            <div class="arch-pill" style="left:3.64%;width:20%;top:35.86%;height:7.59%"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/></svg></span>Priority ERP</div>
+            <div class="arch-pill" style="left:3.64%;width:20%;top:46.21%;height:7.59%"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>Your forwarders</div>
+            <div class="arch-pill" style="left:3.64%;width:20%;top:56.55%;height:7.59%"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>Shipping documents</div>
+            <div class="arch-pill" style="left:3.64%;width:20%;top:66.9%;height:7.59%"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg></span>SKU catalogue</div>
+          </div>
+
+          <div class="arch-group">
+            <span class="arch-kick" style="left:39.09%;top:5%">logee</span>
+            <div class="arch-core" style="left:39.09%;width:21.82%;top:12.07%;height:75.86%">
+              <div class="ac-brand"><span class="m"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>logee</div>
+              <div class="arch-cap"><span class="dot"></span>Shipment tracking</div>
+              <div class="arch-cap"><span class="dot"></span>Quotes &amp; booking</div>
+              <div class="arch-cap"><span class="dot"></span>Cost control</div>
+              <div class="arch-cap"><span class="dot"></span>Document filing</div>
+              <div class="arch-cap on"><span class="dot"></span>Agent &amp; alerts</div>
+              <div class="arch-badges"><span>Always on</span><span>Grounded</span><span>You decide</span></div>
+            </div>
+          </div>
+
+          <div class="arch-group">
+            <span class="arch-kick" style="left:78.18%;top:5%">The outcome</span>
+            <div class="arch-out" style="left:78.18%;width:20%;top:12.24%;height:22.41%"><b>No missed deadlines</b><span>Demurrage &amp; detention avoided</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:38.79%;height:22.41%"><b>No surprise invoices</b><span>Costs checked before you pay</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:65.34%;height:22.41%"><b>Hours back every week</b><span>No manual chasing or re-keying</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
