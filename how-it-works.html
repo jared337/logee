@@ -113,6 +113,43 @@ h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-w
   .arch-diagram .arch-pill,.arch-diagram .arch-out{position:static;width:100%!important;height:auto!important;padding:11px 14px;margin-bottom:8px}
   .arch-diagram .arch-core{position:static;width:100%!important;height:auto!important}
 }
+/* how-it-all-fits flow map */
+.flowmap{max-width:980px;margin:34px auto 0}
+.flow-layer{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
+.flow-tag{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+.flow-chips{display:flex;gap:10px;flex-wrap:wrap}
+.flow-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--canvas);border-radius:10px;padding:9px 13px;font-size:13.5px;font-weight:700;flex:1;min-width:150px;justify-content:center}
+.flow-chip svg{width:15px;height:15px;color:var(--blue);flex-shrink:0}
+.flow-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 6px;font-size:12.5px;font-weight:700;color:var(--ink-faint);text-align:center;flex-wrap:wrap}
+.flow-link .fa{color:var(--blue);font-weight:900}
+.flow-core{background:linear-gradient(180deg,#4e69ff,#2f4ad0);border-radius:var(--r-lg);padding:18px 18px 14px;color:#fff;box-shadow:0 18px 44px rgba(66,98,255,.32)}
+.fc-head{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;letter-spacing:-.3px;margin-bottom:14px}
+.fc-head .m{width:30px;height:19px;border-radius:6px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
+.fc-head .m svg{width:17px;height:13px}
+.fc-head em{font-style:normal;font-weight:700;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:#cdd4ff;background:rgba(255,255,255,.12);border-radius:999px;padding:4px 9px;margin-left:2px}
+.fc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fc-step{position:relative;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:11px 12px}
+.fc-step i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;background:var(--yellow);color:var(--ink);font-size:11px;font-weight:800;margin-bottom:7px}
+.fc-step b{display:block;font-size:13.5px;margin-bottom:3px}
+.fc-step span{display:block;font-size:11.5px;line-height:1.45;color:#d9ddf8}
+.fc-step::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.55);font-weight:900;font-size:12px}
+.fc-step:last-child::after{content:none}
+.fc-control{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px;padding:9px 12px;background:rgba(5,0,56,.28);border:1px solid rgba(255,255,255,.14);border-radius:10px;font-size:12.5px;color:#e6e8fb;text-align:center}
+.fc-control b{color:var(--yellow);font-size:12.5px}
+.flow-loop{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.flow-lstep{flex:1;min-width:130px;display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;border:1px solid var(--line);background:var(--canvas);border-radius:10px;padding:11px 10px;font-size:13px;font-weight:700}
+.flow-lstep.ok{background:var(--green-soft);border-color:#bfe8da;color:#0b7a58}
+.flow-lstep.ok svg{width:15px;height:15px;color:var(--green);flex-shrink:0}
+.la{align-self:center;color:var(--ink-faint);font-weight:900;font-size:13px}
+.flow-note{text-align:center;font-size:12.5px;color:var(--ink-faint);margin-top:16px}
+@media(max-width:880px){
+  .fc-steps{grid-template-columns:1fr 1fr}
+  .fc-step::after{content:none}
+  .flow-loop{flex-direction:column}
+  .flow-lstep{min-width:0}
+  .la{transform:rotate(90deg);margin:-2px 0}
+}
+@media(max-width:520px){.fc-steps{grid-template-columns:1fr}}
 .ctaband{background:linear-gradient(135deg,#0b0759,#050038);color:#fff;border-radius:var(--r-xl);padding:48px 40px;text-align:center}
 .ctaband h2{font-size:clamp(24px,3vw,34px)}.ctaband p{font-size:17px;color:#cfcee0;margin:14px auto 26px;max-width:52ch}
 footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
@@ -409,6 +446,52 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
         <div class="shot"><img src="img/contacts.png" alt="logee freight contacts directory grouped by company with roles" loading="lazy"><div class="cap">Team access and the freight-contacts directory</div></div>
       </div>
     </div></div>
+  </section>
+
+  <!-- 14 How it all fits -->
+  <section class="sec tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">How it all fits</span>
+        <h2>Nothing to replace. One loop that runs your freight.</h2>
+        <p>logee sits on top of what you already use. It reads, checks, recommends and follows through, and you approve anything that matters. That is the whole system.</p>
+      </div>
+      <div class="flowmap">
+        <div class="flow-layer">
+          <div class="flow-tag">What you already have</div>
+          <div class="flow-chips">
+            <div class="flow-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>Inbox (Gmail / M365)</div>
+            <div class="flow-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/></svg>Priority ERP</div>
+            <div class="flow-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Forwarders &amp; brokers</div>
+            <div class="flow-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Carrier tracking</div>
+            <div class="flow-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Shipping documents</div>
+          </div>
+        </div>
+        <div class="flow-link"><span class="fa">↓</span> logee reads all of it, nothing to install <span>·</span> alerts and answers come back to you <span class="fa">↑</span></div>
+        <div class="flow-core">
+          <div class="fc-head"><span class="m"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>logee<em>Your AI freight agent</em></div>
+          <div class="fc-steps">
+            <div class="fc-step"><i>1</i><b>Reads</b><span>every email, booking, document and status update.</span></div>
+            <div class="fc-step"><i>2</i><b>Checks</b><span>costs against quotes, deadlines, free time, missing papers.</span></div>
+            <div class="fc-step"><i>3</i><b>Recommends</b><span>the next best action, with the why behind it.</span></div>
+            <div class="fc-step"><i>4</i><b>Follows through</b><span>tracks, chases, files and confirms, automatically.</span></div>
+          </div>
+          <div class="fc-control"><b>You stay in charge:</b> logee proposes → you approve → it executes → you see proof</div>
+        </div>
+        <div class="flow-link"><span class="fa">↓</span> so every shipment, every day, runs like this</div>
+        <div class="flow-layer">
+          <div class="flow-tag">Every day, on autopilot</div>
+          <div class="flow-loop">
+            <div class="flow-lstep">New email or update</div><span class="la">→</span>
+            <div class="flow-lstep">One clear picture</div><span class="la">→</span>
+            <div class="flow-lstep">Next best action</div><span class="la">→</span>
+            <div class="flow-lstep">You approve</div><span class="la">→</span>
+            <div class="flow-lstep ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Done, filed, verified</div>
+          </div>
+        </div>
+        <div class="flow-note">logee never books, pays or replies without your approval. Your forwarders and carriers keep working with you exactly as they do today.</div>
+      </div>
+    </div>
   </section>
 
   <section class="sec">
