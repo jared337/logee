@@ -80,22 +80,28 @@ h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-w
 .arch-pill{position:absolute;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:0 13px;font-size:13px;font-weight:700;color:#e6e6f2;line-height:1.2}
 .arch-pill .pi{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex-shrink:0;color:#c8c8e6}
 .arch-pill .pi svg{width:13px;height:13px}
-.arch-core{position:absolute;background:linear-gradient(180deg,#4e69ff,#2f4ad0);border-radius:16px;border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 50px rgba(66,98,255,.35);display:flex;flex-direction:column;padding:18px 18px 16px}
-.arch-core .ac-brand{display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:16px;margin-bottom:12px;letter-spacing:-.3px}
+.arch-core{position:absolute;background:linear-gradient(180deg,#4e69ff,#2f4ad0);border-radius:16px;border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 50px rgba(66,98,255,.35);display:flex;flex-direction:column;padding:14px 16px 12px}
+.arch-core .ac-brand{display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:16px;margin-bottom:8px;letter-spacing:-.3px}
 .arch-core .ac-brand .m{width:28px;height:18px;border-radius:6px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
 .arch-core .ac-brand .m svg{width:16px;height:12px}
-.arch-cap{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;font-size:12px;font-weight:700;color:#d7d8ee;margin-bottom:5px;border:1px solid transparent}
-.arch-cap.on{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.arch-cap{display:block;padding:5px 9px;border-radius:8px;margin-bottom:3px;border:1px solid transparent}
+.arch-cap.on{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3)}
+.arch-cap .ct{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#d7d8ee}
+.arch-cap.on .ct{color:#fff}
+.arch-cap .cs{display:block;font-size:10px;font-weight:600;color:#a3a4e0;line-height:1.3;margin:2px 0 0 14px}
+.arch-cap.on .cs{color:#e2e3f8}
 .arch-cap .dot{width:6px;height:6px;border-radius:50%;background:#aeafd6;flex-shrink:0}
 .arch-cap.on .dot{background:var(--yellow)}
-.arch-badges{display:flex;gap:5px;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
+.arch-badges{display:flex;gap:5px;margin-top:auto;padding-top:8px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
 .arch-badges span{font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#cfd0ef;background:rgba(255,255,255,.08);border-radius:999px;padding:4px 7px}
 .arch-out{position:absolute;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 15px;display:flex;flex-direction:column;justify-content:center}
 .arch-out b{color:var(--yellow);font-size:20px;font-weight:800;letter-spacing:-.3px;line-height:1.1;display:block}
 .arch-out b .num{white-space:nowrap}
 .arch-out b small{color:#c7c8ea;font-size:12px;font-weight:700;margin-left:2px}
 .arch-out span{color:#a9aad0;font-size:11.5px;line-height:1.4;margin-top:4px;display:block}
-.arch-more{position:relative;z-index:1;text-align:center;margin-top:36px}
+.arch-tally{position:relative;z-index:1;text-align:center;margin-top:30px;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.arch-tally b{color:var(--yellow)}
+.arch-more{position:relative;z-index:1;text-align:center;margin-top:18px}
 .arch-more a{color:#d7d8ee;font-size:14px;font-weight:700;border-bottom:1.5px solid rgba(255,208,47,.5);padding-bottom:2px}
 .arch-more a:hover{color:#fff;border-color:var(--yellow)}
 .arch-source{position:relative;z-index:1;text-align:center;margin-top:14px;font-size:11.5px;color:#75759c}
@@ -206,24 +212,25 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 
           <div class="arch-group">
             <span class="arch-kick" style="left:39.09%;top:5%">logee</span>
-            <div class="arch-core" style="left:39.09%;width:21.82%;top:12.07%;height:75.86%">
+            <div class="arch-core" style="left:39.09%;width:21.82%;top:8.5%;height:83%">
               <div class="ac-brand"><span class="m"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>logee</div>
-              <div class="arch-cap"><span class="dot"></span>Shipment tracking</div>
-              <div class="arch-cap"><span class="dot"></span>Quotes &amp; booking</div>
-              <div class="arch-cap"><span class="dot"></span>Cost control</div>
-              <div class="arch-cap"><span class="dot"></span>Document filing</div>
-              <div class="arch-cap on"><span class="dot"></span>Agent &amp; alerts</div>
+              <div class="arch-cap"><span class="ct"><span class="dot"></span>Shipment tracking</span><span class="cs">Built from your emails. Every container, live.</span></div>
+              <div class="arch-cap"><span class="ct"><span class="dot"></span>Quotes &amp; booking</span><span class="cs">Forwarder quotes compared side by side.</span></div>
+              <div class="arch-cap"><span class="ct"><span class="dot"></span>Cost control</span><span class="cs">Every invoice audited against its quote, line by line.</span></div>
+              <div class="arch-cap"><span class="ct"><span class="dot"></span>Document filing</span><span class="cs">B/Ls, invoices and packing lists file themselves.</span></div>
+              <div class="arch-cap on"><span class="ct"><span class="dot"></span>Agent &amp; alerts</span><span class="cs">Watches deadlines, flags problems in time to act.</span></div>
               <div class="arch-badges"><span>Always on</span><span>Grounded</span><span>You decide</span></div>
             </div>
           </div>
 
           <div class="arch-group">
             <span class="arch-kick" style="left:78.18%;top:5%">The outcome</span>
-            <div class="arch-out" style="left:78.18%;width:20%;top:12.24%;height:22.41%"><b><span class="num">3-5%</span><small>of freight spend</small></b><span>lost to invoice errors on nearly every shipment, invisible until month-end. logee checks each charge as it lands.</span></div>
-            <div class="arch-out" style="left:78.18%;width:20%;top:38.79%;height:22.41%"><b><span class="num">$100-400+</span><small>/container/day</small></b><span>in demurrage &amp; detention at major ports. logee flags free time before it costs you.</span></div>
-            <div class="arch-out" style="left:78.18%;width:20%;top:65.34%;height:22.41%"><b><span class="num">$45k+</span><small>/year</small></b><span>the average coordinator salary logee helps you delay hiring for.</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:12.24%;height:22.41%"><b><span class="num">3-5%</span><small>of freight spend</small></b><span>leaks between quote and invoice. logee audits every charge as it lands. You recover it instead of discovering it.</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:38.79%;height:22.41%"><b><span class="num">$100-400+</span><small>/container/day</small></b><span>in demurrage &amp; detention when free time runs out. logee counts down every box and alerts you in time to act.</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:65.34%;height:22.41%"><b><span class="num">$45k+</span><small>/year</small></b><span>the coordinator you don't have to hire. logee does the chasing, filing and checking that fills that role's day.</span></div>
           </div>
         </div>
+        <div class="arch-tally">Ship $1M a year of freight? Invoice errors alone typically hide <b>$20-50k</b> of it.</div>
         <div class="arch-more"><a href="capabilities.html">This is the highlight reel, see every capability in detail →</a></div>
         <div class="arch-source">Figures are industry-wide benchmarks (container demurrage/detention rates, freight invoice audit data, US logistics coordinator pay), not logee-specific customer results.</div>
       </div>
