@@ -90,9 +90,13 @@ h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.7px;line-height:1.12;font-w
 .arch-cap.on .dot{background:var(--yellow)}
 .arch-badges{display:flex;gap:5px;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
 .arch-badges span{font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#cfd0ef;background:rgba(255,255,255,.08);border-radius:999px;padding:4px 7px}
-.arch-out{position:absolute;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 15px;display:flex;flex-direction:column;justify-content:center}
-.arch-out b{color:#fff;font-size:14px;font-weight:800;margin-bottom:3px;letter-spacing:-.1px;line-height:1.25}
-.arch-out span{color:#a9aad0;font-size:11.5px;line-height:1.4}
+.arch-out{position:absolute;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 15px;display:flex;flex-direction:column;justify-content:center}
+.arch-out b{color:var(--yellow);font-size:20px;font-weight:800;letter-spacing:-.3px;line-height:1.1;display:block}
+.arch-out b small{color:#c7c8ea;font-size:12px;font-weight:700;margin-left:2px}
+.arch-out span{color:#a9aad0;font-size:11.5px;line-height:1.4;margin-top:4px;display:block}
+.arch-more{position:relative;z-index:1;text-align:center;margin-top:36px}
+.arch-more a{color:#d7d8ee;font-size:14px;font-weight:700;border-bottom:1.5px solid rgba(255,208,47,.5);padding-bottom:2px}
+.arch-more a:hover{color:#fff;border-color:var(--yellow)}
 @media(max-width:1140px){
   .arch-diagram{aspect-ratio:auto}
   .arch-lines{display:none}
@@ -213,11 +217,12 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 
           <div class="arch-group">
             <span class="arch-kick" style="left:78.18%;top:5%">The outcome</span>
-            <div class="arch-out" style="left:78.18%;width:20%;top:12.24%;height:22.41%"><b>No missed free time</b><span>Demurrage &amp; detention flagged before they cost you</span></div>
-            <div class="arch-out" style="left:78.18%;width:20%;top:38.79%;height:22.41%"><b>No invoice surprises</b><span>Every charge checked against quote before you approve it</span></div>
-            <div class="arch-out" style="left:78.18%;width:20%;top:65.34%;height:22.41%"><b>5+ hours back a week</b><span>No more manual chasing, re-keying or status checks</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:12.24%;height:22.41%"><b>$100-300+<small>/container/day</small></b><span>in demurrage &amp; detention. logee flags free time before it costs you.</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:38.79%;height:22.41%"><b>$2,400+<small>/month</small></b><span>in invoice overcharges caught. Freight bills average 6% over quote.</span></div>
+            <div class="arch-out" style="left:78.18%;width:20%;top:65.34%;height:22.41%"><b>$50k+<small>/year</small></b><span>the coordinator hire logee helps you delay, by absorbing the manual chasing.</span></div>
           </div>
         </div>
+        <div class="arch-more"><a href="capabilities.html">This is the highlight reel, see every capability in detail →</a></div>
       </div>
     </div>
   </section>
