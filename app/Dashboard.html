@@ -236,6 +236,14 @@ tbody tr:last-child td{border-bottom:none}
 .drawer-body{flex:1;overflow-y:auto;padding:22px 26px 40px}
 .dsection{display:none}
 .dsection.on{display:block;animation:viewin .2s ease}
+/* decision card inside the drawer */
+.qitem.dec{margin-bottom:18px}
+.qitem.dec .dec-label{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px}
+.qitem.dec .dec-hint{font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.qitem.dec .qfoot{flex-wrap:wrap;row-gap:8px;gap:8px}
+.qitem.dec.done{background:var(--green-soft);border-color:transparent}
+.qitem.dec.done::before{background:var(--green)}
+.qitem.dec.done .qfoot{border-top:none;padding-top:0;margin-top:4px}
 
 /* timeline */
 .timeline{position:relative;margin:6px 0 6px 6px;padding-left:24px}
@@ -930,6 +938,7 @@ tbody tr:last-child td{border-bottom:none}
     <button class="dtab" data-dt="docs">Documents</button>
   </div>
   <div class="drawer-body">
+    <div id="dDecision"></div>
     <div class="dsection on" id="ds-timeline"></div>
     <div class="dsection" id="ds-activity"></div>
     <div class="dsection" id="ds-costs"></div>
@@ -1179,17 +1188,17 @@ const QUEUE = [
  {id:"q2",pri:"high",ship:"LG-2402",title:"Inftech invoice for LG-2402 is $610 above quote",
   why:"Fuel surcharge invoiced at $930 vs $500 quoted. No rate change was notified. You can accept, or ask the agent to query the forwarder with the quote attached.",
   tags:[["red","+$610 vs quote"],["plain","Invoice #7741"]],
-  a:"Query with forwarder", b:"Accept & schedule payment",
+  a:"Query with forwarder", b:"Accept & schedule payment", tab:"costs", send:"a", pay:"b",
   msg:"Hi Roy, invoice #7741 for LG-2402 shows a fuel surcharge of $930 vs the $500 on your quote, and we have no rate-change notice on file. Please send a corrected invoice or the notification that supports the new rate."},
  {id:"q3",pri:"med",ship:"LG-2431",title:"LG-2431 bill of lading still missing 3 days after pickup",
   why:"Without the B/L you can't clear customs at Haifa. Unifreight usually sends within 24h. The agent drafted a chaser referencing the booking number.",
   tags:[["amber","Missing B/L"],["plain","Unifreight"]],
-  a:"Send chaser", b:"I'll handle it",
+  a:"Send chaser", b:"I'll handle it", tab:"activity", send:"a",
   msg:"Hi Dana, we still haven't received the bill of lading for LG-2431 (booking UF-90233), picked up 3 days ago. We need it for customs clearance at Haifa — please send it today."},
  {id:"q4",pri:"low",ship:"LG-2436",title:"Invoice #7748 matches quote — approve for payment?",
   why:"Inftech's invoice for LG-2436 ($3,300) matches the quote line-for-line, documents complete. Safe to schedule for the next payment run.",
   tags:[["green","Matches quote"],["blue","Due 30 Sep"]],
-  a:"Schedule payment", b:"Review first",
+  a:"Schedule payment", b:"Review first", tab:"costs", pay:"a", review:true,
   msg:"Hi Roy, confirming invoice #7748 for LG-2436 is approved — it matches the quote line-for-line. It's scheduled on our 30 Sep payment run."},
 ];
 
@@ -1315,9 +1324,9 @@ function renderQueue(){
       <div class="impact">${q.tags.map(t=>`<span class="tag ${t[0]}">${t[1]}</span>`).join("")}</div>
       <div class="qfoot">
         ${q.resolved?`<span class="qdone">✓ ${q.done}</span>`:`
-        <button class="act primary" onclick="resolveQ('${q.id}','${q.a.replace(/'/g,"\\'")}')">${q.a}</button>
-        <button class="act line" onclick="resolveQ('${q.id}','${q.b.replace(/'/g,"\\'")}')">${q.b}</button>
-        ${(()=>{const sh=SHIPMENTS.find(x=>x.id===q.ship);return q.msg&&sh&&primaryEmail(sh.fwd)?`<button class="act line" onclick="messageFwd('${q.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:-2px;margin-right:4px"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Message ${sh.fwd}</button>`:""})()}
+        <button class="act primary" onclick="openDecision('${q.id}')">${q.a}</button>
+        <button class="act line" onclick="openDecision('${q.id}')">${q.b}</button>
+        ${qMsgBtn(q)}
         <span style="flex:1"></span>
         <button class="act link" onclick="openChatWith('Tell me more about ${q.ship}')">Ask agent →</button>`}
       </div>`;
@@ -1336,11 +1345,58 @@ function messageFwd(qid){
     toast(`Draft written by logee — edit if needed, then send to ${primaryEmail(sh.fwd)}`);
   },200);
 }
+function openDecision(qid){
+  const q=QUEUE.find(x=>x.id===qid);if(!q)return;
+  openDrawer(q.ship,q.tab||"timeline");
+}
+function qMsgBtn(q){
+  const sh=SHIPMENTS.find(x=>x.id===q.ship);
+  return q.msg&&sh&&primaryEmail(sh.fwd)?`<button class="act line" onclick="messageFwd('${q.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:-2px;margin-right:4px"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Message ${sh.fwd}</button>`:"";
+}
+function renderDecision(s){
+  const esc=t=>t.replace(/'/g,"\\'");
+  $("#dDecision").innerHTML=QUEUE.filter(q=>q.ship===s.id).map(q=>q.resolved
+    ?`<div class="qitem dec done p-${q.pri}"><div class="dec-label">Decision logged</div><h4>${q.title}</h4><div class="qfoot"><span class="qdone">✓ ${q.done}</span></div></div>`
+    :`<div class="qitem dec p-${q.pri}">
+      <div class="dec-label">Needs your decision</div>
+      <h4>${q.title}</h4>
+      <div class="why">${q.why}</div>
+      <div class="qfoot">
+        ${q.compare?`<span class="dec-hint">Book one of the quotes in the Timeline tab.</span>`:`<button class="act primary" onclick="resolveQ('${q.id}','${esc(q.a)}')">${q.a}</button>`}
+        ${q.review?"":`<button class="act line" onclick="resolveQ('${q.id}','${esc(q.b)}')">${q.b}</button>`}
+        ${qMsgBtn(q)}
+      </div>
+    </div>`).join("");
+}
+function postComm(id,entry){
+  const s=SHIPMENTS.find(x=>x.id===id);if(!s)return;
+  if(!COMMS[id])COMMS[id]=commsFor(s).slice();
+  COMMS[id].push(entry);
+}
+function markQ(q,label){q.resolved=true;q.done=label;renderQueue();}
+function refreshDrawer(id,keepDraft=true){
+  if(drawerShipId!==id||!$("#drawer").classList.contains("open"))return;
+  const s=SHIPMENTS.find(x=>x.id===id);
+  const inp=$("#commInput");const draft=inp?inp.value:"";
+  renderDecision(s);renderActivity(s);
+  const n=$("#commInput");
+  if(n&&draft&&keepDraft){n.value=draft;n.style.height="auto";n.style.height=Math.min(n.scrollHeight,220)+"px";}
+}
 function resolveQ(id,choice){
-  const q=QUEUE.find(x=>x.id===id);
-  if(q.compare&&choice==="Compare & book"){openDrawer(q.ship);return;}
-  q.resolved=true;q.done=choice;
-  renderQueue();toast(`Done — ${choice}. Logged to ${q.ship}.`);
+  const q=QUEUE.find(x=>x.id===id);if(!q||q.resolved)return;
+  const s=SHIPMENTS.find(x=>x.id===q.ship);
+  let note=`Done: ${choice}. Logged to ${q.ship}.`,sent=false;
+  if(q.pay&&choice===q[q.pay]&&s&&s.actual!=null&&s.payState!=="paid"){
+    s.payState="scheduled";renderCosts();
+    note=`Invoice approved. ${q.ship} is scheduled for the next payment run.`;
+  }
+  if(q.send&&choice===q[q.send]&&q.msg&&s){
+    postComm(q.ship,["out","You",q.msg,"Just now"]);sent=true;
+    note=`Sent to ${primaryEmail(s.fwd)||s.fwd}, filed on ${q.ship}.`;
+  }
+  postComm(q.ship,["sys","",`You chose: ${choice}`,"Just now"]);
+  markQ(q,choice);refreshDrawer(q.ship,!sent);
+  toast(note);
   addReport("green",`You: ${choice} (${q.ship})`,"Just now");
 }
 
@@ -1449,10 +1505,12 @@ function renderReports(){
 /* ═════════ Drawer ═════════ */
 function openDrawer(id,tab="timeline"){
   const s=SHIPMENTS.find(x=>x.id===id);if(!s)return;
+  const fresh=!$("#drawer").classList.contains("open")||drawerShipId!==id;
   drawerShipId=id;
   $("#dTitle").textContent=s.id;
   $("#dSub").textContent=`${s.route} · ${s.mode} · ${s.fwd} · linked orders: ${(s.pos||[s.po]).join(", ")}`;
   $("#dTags").innerHTML=statusChip(s.status,s.daysLate)+` <span class="tag plain">${STAGES[Math.min(s.stage,7)]}</span>`;
+  renderDecision(s);
   /* timeline */
   const tl=STAGES.map((st,i)=>{
     const n=i+1;let cls="",meta="",note="",chip="";
@@ -1514,6 +1572,7 @@ function openDrawer(id,tab="timeline"){
   $$(".dtab").forEach(t=>t.classList.toggle("on",t.dataset.dt===tab));
   $$(".dsection").forEach(x=>x.classList.remove("on"));
   $("#ds-"+tab).classList.add("on");
+  if(fresh)$(".drawer-body").scrollTop=0;
   $("#drawer").classList.add("open");$("#scrim").classList.add("open");
 }
 function closeDrawer(){$("#drawer").classList.remove("open");$("#scrim").classList.remove("open");}
@@ -1906,6 +1965,8 @@ function sendComm(){
   renderActivity(s);
   toast(`Sent to ${primaryEmail(s.fwd)||s.fwd} — filed on ${s.id}`);
   addReport("blue",`You emailed ${s.fwd} on ${s.id}: “${v.length>60?v.slice(0,60)+"…":v}”`,"Just now");
+  const sq=QUEUE.find(x=>x.ship===s.id&&x.send&&!x.resolved);
+  if(sq){markQ(sq,sq[sq.send]);renderDecision(s);}
 }
 
 
@@ -1917,6 +1978,8 @@ function bookQuote(id,qi){
   if(!COMMS[id])COMMS[id]=commsFor(s).slice();
   COMMS[id].push(["agent","logee agent",`Booked with ${q.co} at $${q.price.toLocaleString()} — the two other quotes were declined politely. Quote filed against this order for invoice matching later.`,"Just now"]);
   renderShips();renderTodayPanels();
+  const bq=QUEUE.find(x=>x.ship===id&&x.compare&&!x.resolved);
+  if(bq)markQ(bq,`Booked with ${q.co} at $${q.price.toLocaleString()}`);
   addReport("green",`${id} booked with ${q.co} at $${q.price.toLocaleString()} (${q.days} days)` ,"Just now");
   toast(`${id} booked with ${q.co} — $${q.price.toLocaleString()}`);
   openDrawer(id);
@@ -1935,6 +1998,8 @@ function confirmPOD(id){
 function approvePay(id){
   const s=SHIPMENTS.find(x=>x.id===id);
   if(!s||s.actual==null)return;
+  const pq=QUEUE.find(x=>x.ship===id&&x.pay&&!x.resolved);
+  if(pq){resolveQ(pq.id,pq[pq.pay]);return;}
   s.payState="scheduled";
   renderCosts();
   addReport("blue",`Invoice for ${id} approved — payment scheduled for the next run`,"Just now");
