@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact · logee.ai</title>
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="logo/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="logo/apple-touch-icon-180.png">
 <meta name="description" content="Get in touch with the logee team. Questions, feedback, or a demo for your import and export freight.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
@@ -53,8 +56,12 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);bac
 header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
 .nav-inner{display:flex;align-items:center;gap:14px;height:68px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
-.brand .mark{width:48px;height:26px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
-.brand .mark svg{width:25px;height:18px}
+.brand .mark{width:48px;height:26px;border-radius:13px;background:var(--yellow);display:block;flex-shrink:0}
+.brand .mark svg{width:48px;height:26px;display:block}
+.brand .wm{font-family:Manrope,Inter,sans-serif;font-weight:800;letter-spacing:-.03em}
+.brand .mark .eyes circle{transform-box:fill-box;transform-origin:center;animation:logeeBlink 5s ease-in-out infinite}
+@keyframes logeeBlink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+@media (prefers-reduced-motion:reduce){.brand .mark .eyes circle{animation:none}}
 .brand small{font-weight:600;color:#8494f2;font-size:14px;margin-left:1px}
 .nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
 .nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
@@ -198,15 +205,16 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 <meta name="twitter:title" content="Contact · logee.ai">
 <meta name="twitter:description" content="Get in touch with the logee team. Questions, feedback, or a demo for your import and export freight.">
 <meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/logo/app-icon-512.png","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap">
 </head>
 <body>
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="index.html" class="brand" aria-label="logee.ai home">
-      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span>
-      <span class="wm">logee<small>.ai</small></span>
+      <span class="mark"><svg class="eyes" viewBox="0 0 48 26" fill="none" aria-hidden="true"><circle cx="30" cy="13" r="3.4" fill="#050038"/><circle cx="38.2" cy="13" r="3.4" fill="#050038"/></svg></span>
+      <span class="wm">logee</span>
     </a>
     <nav class="nav-links">
       <a href="how-it-works.html">How it works</a>
@@ -284,7 +292,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <a href="index.html" class="brand"><span class="mark"><svg class="eyes" viewBox="0 0 48 26" fill="none" aria-hidden="true"><circle cx="30" cy="13" r="3.4" fill="#050038"/><circle cx="38.2" cy="13" r="3.4" fill="#050038"/></svg></span><span class="wm">logee</span></a>
         <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
       </div>
       <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="what-it-watches.html">What it watches</a><a href="track-trace.html">Track &amp; trace</a><a href="pricing.html">Pricing</a></div>

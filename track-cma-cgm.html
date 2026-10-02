@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Track a CMA CGM Container or Shipment · logee.ai</title>
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="logo/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="logo/apple-touch-icon-180.png">
 <meta name="description" content="Identify a CMA CGM (CMA CGM Group) container or B/L number and go straight to their official tracker. See what an AI TMS catches automatically that a tracking lookup alone won't.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
@@ -25,8 +28,13 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);bac
 header.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(5,0,56,.02)}
 .nav-inner{display:flex;align-items:center;gap:14px;height:68px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
-.brand .mark{width:48px;height:26px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;flex-shrink:0}
-.brand .mark svg{width:25px;height:18px}.brand small{font-weight:600;color:#8494f2;font-size:14px;margin-left:1px}
+.brand .mark{width:48px;height:26px;border-radius:13px;background:var(--yellow);display:block;flex-shrink:0}
+.brand .mark svg{width:48px;height:26px;display:block}
+.brand .wm{font-family:Manrope,Inter,sans-serif;font-weight:800;letter-spacing:-.03em}
+.brand .mark .eyes circle{transform-box:fill-box;transform-origin:center;animation:logeeBlink 5s ease-in-out infinite}
+@keyframes logeeBlink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+@media (prefers-reduced-motion:reduce){.brand .mark .eyes circle{animation:none}}
+.brand small{font-weight:600;color:#8494f2;font-size:14px;margin-left:1px}
 .nav-links{display:flex;align-items:center;gap:6px;margin-left:22px}
 .nav-links a{padding:8px 12px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
 .nav-links a:hover,.nav-links a.on{color:var(--ink);background:var(--canvas)}
@@ -124,14 +132,15 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 <meta name="twitter:title" content="Track a CMA CGM Container or Shipment · logee.ai">
 <meta name="twitter:description" content="Identify a CMA CGM (CMA CGM Group) container or B/L number and go straight to their official tracker. See what an AI TMS catches automatically that a tracking lookup alone won't.">
 <meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/img/ship.jpg","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/logo/app-icon-512.png","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I track a CMA CGM container or shipment?","acceptedAnswer":{"@type":"Answer","text":"Enter your container number (starting CMAU or CGMU) or bill of lading on CMA CGM's own tracker, linked above. logee recognises the prefix automatically for connected shipments."}},{"@type":"Question","name":"Why is my CMA CGM shipment's transit time longer than expected?","acceptedAnswer":{"@type":"Answer","text":"Outside the main Asia-Europe and trans-Pacific lanes, CMA CGM's African and Latin American services often run longer, fixed weekly schedules, so a few extra days can be normal rather than a delay."}},{"@type":"Question","name":"Is CMA CGM part of a shipping alliance?","acceptedAnswer":{"@type":"Answer","text":"Yes, CMA CGM sails in the Ocean Alliance alongside COSCO, OOCL and Evergreen, so vessels are shared across all four carriers on many routes."}},{"@type":"Question","name":"What does the CMAU or CGMU prefix mean?","acceptedAnswer":{"@type":"Answer","text":"It's the container's ISO 6346 owner code identifying CMA CGM as the operator, the international standard every shipping line uses."}},{"@type":"Question","name":"Can logee track my CMA CGM shipments automatically?","acceptedAnswer":{"@type":"Answer","text":"Yes. logee watches every CMA CGM shipment you connect, alongside every other carrier you use, and flags deadlines and cost variances without a manual lookup."}}]}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap">
 </head>
 <body>
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="index.html" class="brand" aria-label="logee.ai home"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+    <a href="index.html" class="brand" aria-label="logee.ai home"><span class="mark"><svg class="eyes" viewBox="0 0 48 26" fill="none" aria-hidden="true"><circle cx="30" cy="13" r="3.4" fill="#050038"/><circle cx="38.2" cy="13" r="3.4" fill="#050038"/></svg></span><span class="wm">logee</span></a>
     <nav class="nav-links">
       <a href="how-it-works.html">How it works</a>
       <a href="capabilities.html">Capabilities</a>
@@ -174,7 +183,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       <div class="grouphead"><span class="kick">Beyond the status number</span><h2>What a tracking lookup won't tell you</h2><p>A carrier tracker shows you where the container is right now. It won't tell you if that's a problem, or what to do about it.</p></div>
       <div class="example">
         <span class="tag">Illustrative example</span>
-        <div class="who"><div class="ic"><svg viewBox="0 0 24 24" style="width:62%;height:62%" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></div><b>logee agent</b></div>
+        <div class="who"><div class="ic"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></div><b>logee agent</b></div>
         <p><strong>Bill of lading still missing.</strong> The vessel arrives in 3 days and the B/L isn't on file yet. logee flags it now and can draft the chaser to your forwarder, so it isn't discovered at the port.</p>
       </div>
     </div>
@@ -237,7 +246,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="#050038" stroke-width="2.1" fill="none"/><path d="M9 8.6v6.8M15 8.6v6.8" stroke="#050038" stroke-width="2" stroke-linecap="round"/></svg></span><span class="wm">logee<small>.ai</small></span></a>
+        <a href="index.html" class="brand"><span class="mark"><svg class="eyes" viewBox="0 0 48 26" fill="none" aria-hidden="true"><circle cx="30" cy="13" r="3.4" fill="#050038"/><circle cx="38.2" cy="13" r="3.4" fill="#050038"/></svg></span><span class="wm">logee</span></a>
         <p>An AI agent that watches your shipments and keeps you on track. Tracking, chasing and flagging automatically.</p>
       </div>
       <div class="foot-col"><h5>Product</h5><a href="how-it-works.html">How it works</a><a href="capabilities.html">Capabilities</a><a href="what-it-watches.html">What it watches</a><a href="track-trace.html">Track &amp; trace</a><a href="pricing.html">Pricing</a></div>
