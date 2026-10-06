@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>logee.ai — TMS Light</title>
+<title>logee.ai · TMS Light</title>
 <link rel="icon" href="../logo/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../logo/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../logo/apple-touch-icon-180.png">
@@ -127,7 +127,7 @@ h1{font-size:24px;font-weight:800;letter-spacing:-.4px}
 .prog-title .tag{font-size:10px;padding:2px 7px}
 .prog-desc{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
 .prog-step .chip-btn{margin-top:8px}
-.setup-banner{display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:var(--r-md);padding:14px 18px;margin-bottom:18px;flex-wrap:wrap}
+.setup-banner{display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:var(--r-md);padding:8px 10px 8px 16px;margin-bottom:16px;flex-wrap:wrap}
 .setup-banner .sb-text{flex:1;min-width:220px}
 .setup-banner .sb-text b{font-size:13.5px;display:block}
 .setup-banner .sb-text span{font-size:12px;color:var(--ink-soft)}
@@ -206,7 +206,12 @@ table{width:100%;border-collapse:collapse}
 th{Text-align:left;font-size:11.5px;color:var(--ink-faint);font-weight:800;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg);letter-spacing:.2px}
 td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
 tbody tr{cursor:pointer;transition:background .12s}
-tbody tr:hover{background:var(--canvas)}
+tbody tr:hover{background:var(--blue-soft)}
+tbody tr:hover .ship-id{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+td.go{width:36px;padding-left:0;padding-right:14px;text-align:right;color:var(--ink-faint);font-size:20px;font-weight:600;line-height:1}
+tbody tr:hover td.go{color:var(--blue)}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(66,98,255,.55)}100%{box-shadow:0 0 0 10px rgba(66,98,255,0)}}
+.flash{animation:flash 1s ease-out 2}
 tbody tr:last-child td{border-bottom:none}
 .ship-id{font-weight:800}
 .route{color:var(--ink-soft);font-size:12.5px}
@@ -284,9 +289,46 @@ tbody tr:last-child td{border-bottom:none}
 .big-note{background:var(--bg);border:1px solid var(--line);border-left:6px solid var(--yellow);border-radius:var(--r-md);padding:16px 20px;margin-bottom:18px;font-size:14.5px;max-width:90ch}
 
 /* ── Reports view ─────────── */
-.report-item{display:flex;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;margin-bottom:9px;font-size:13.5px;align-items:flex-start}
-.rdot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.report-item{display:flex;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:11px 16px;margin-bottom:8px;font-size:13.5px;align-items:baseline}
+.report-item .tag{min-width:84px;text-align:center;flex-shrink:0}
 .report-item time{margin-left:auto;font-size:11.5px;color:var(--ink-faint);font-weight:700;white-space:nowrap}
+/* reports */
+.rp-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px}
+.rp-hero{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.rp-big .l{font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.rp-big .n{font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--green);line-height:1.1}
+.rp-split{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.rp-split div{background:var(--canvas);border-radius:var(--r-sm);padding:9px 14px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.rp-split b{display:block;font-size:17px;color:var(--ink);letter-spacing:-.3px}
+.rp-list .cline{grid-template-columns:70px 80px 1fr 90px}
+.ot{display:flex;align-items:center;gap:8px}
+.ot .bar-wrap{width:70px;margin-top:0;height:6px}
+/* trend chart: one series, bars from a zero baseline */
+.tr-chart{display:grid;grid-template-columns:36px 1fr;gap:8px;height:220px;margin-top:4px}
+.tr-axis{position:relative;font-size:11px;color:var(--ink-faint);font-weight:600}
+.tr-axis span{position:absolute;right:0;transform:translateY(-50%)}
+.tr-plot{position:relative;border-bottom:1px solid var(--ink-faint);display:grid;grid-template-columns:repeat(6,1fr);gap:2px;align-items:end}
+.tr-grid{position:absolute;left:0;right:0;border-top:1px dashed var(--line)}
+.tr-col{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:default}
+.tr-bar{width:min(46px,60%);background:var(--blue);border-radius:4px 4px 0 0;position:relative;z-index:1}
+.tr-bar.fc{background:repeating-linear-gradient(135deg,var(--blue) 0 4px,var(--blue-soft) 4px 8px);outline:1.5px solid var(--blue);outline-offset:-1.5px}
+.tr-col:hover .tr-bar,.tr-col:focus .tr-bar{background:var(--blue-deep)}
+.tr-col:hover .tr-bar.fc,.tr-col:focus .tr-bar.fc{background:repeating-linear-gradient(135deg,var(--blue-deep) 0 4px,var(--blue-soft) 4px 8px)}
+.tr-lbl{font-size:12px;font-weight:800;color:var(--ink);margin-bottom:4px;z-index:1;text-align:center;line-height:1.25}
+.tr-lbl small{display:block;font-size:10.5px;font-weight:700;color:var(--ink-faint)}
+.tr-x{display:grid;grid-template-columns:36px repeat(6,1fr);gap:2px 8px;font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:6px;text-align:center}
+.tr-x b{display:block;color:var(--ink);font-size:12px}
+.tr-x em{display:block;font-style:normal;font-weight:600;font-size:10.5px;color:var(--ink-faint);line-height:1.35}
+.tr-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:8px}
+.tr-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--blue);margin-right:6px;vertical-align:-1px}
+.tr-legend i.fc{background:repeating-linear-gradient(135deg,var(--blue) 0 3px,var(--blue-soft) 3px 6px);outline:1.5px solid var(--blue);outline-offset:-1.5px}
+.tr-legend span:last-child{font-weight:600;color:var(--ink-faint)}
+.tr-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.5;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .12s;z-index:3}
+.tr-col:hover .tr-tip,.tr-col:focus .tr-tip{opacity:1}
+.tr-grid + .tr-col .tr-tip{left:0;transform:none}
+.tr-col:last-child .tr-tip{left:auto;right:0;transform:none}
+.tr-note{font-size:12.5px;color:var(--ink-soft);margin-top:12px}
+@media(max-width:680px){.rp-list .cline{grid-template-columns:60px 1fr 70px}.rp-list .cline .hide-m{display:none}.rp-big .n{font-size:32px}}
 
 /* ── Settings ─────────────── */
 /* set up jump nav */
@@ -481,6 +523,115 @@ tbody tr:last-child td{border-bottom:none}
 .toast{background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:var(--shadow-lift);animation:toastin .25s ease}
 @keyframes toastin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
+/* heads-up: forecast warnings */
+.section-title .count.amber{background:var(--amber)}
+.section-title .sub{font-size:12.5px;font-weight:600;color:var(--ink-faint)}
+.hu{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 18px 12px 20px;position:relative;overflow:hidden;transition:opacity .3s}
+.hu::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--amber)}
+.hu.l-high::before{background:var(--red)}
+.hu.l-low::before{background:var(--violet)}
+.hu.fixed{background:var(--green-soft);border-color:transparent}
+.hu.fixed::before{background:var(--green)}
+.hu.snoozed{opacity:.5}
+.hu.in-drawer{margin-bottom:18px}
+.hu-when{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px}
+.hu.l-high .hu-when{color:var(--red)}
+.hu h4{font-size:14.5px;margin-bottom:3px}
+.hu .why{color:var(--ink-soft);font-size:13px;max-width:72ch}
+.hu-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.hu-box{border-radius:8px;padding:9px 12px;font-size:12.5px;line-height:1.45}
+.hu-box b{display:block;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.hu-box.bad{background:var(--red-soft)}
+.hu-box.bad b{color:var(--red)}
+.hu-box.good{background:var(--green-soft)}
+.hu-box.good b{color:var(--green)}
+.hu .qfoot{flex-wrap:wrap;row-gap:8px}
+.hu .qdone{font-size:12.5px;font-weight:700;color:var(--green)}
+/* Today: outcome row */
+.out-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:8px}
+.out-promise{background:var(--green-soft);color:var(--green);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
+.out-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.out{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.out:hover{border-color:#d5d5de;box-shadow:var(--shadow)}
+.out .l{font-size:12.5px;color:var(--ink-soft);font-weight:600}
+.out .n{font-size:26px;font-weight:800;letter-spacing:-.6px;line-height:1.25}
+.out .d{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;font-weight:700;color:var(--ink-faint);margin-top:2px}
+.out .bar-wrap{height:6px;margin-top:8px}
+/* Today: next best actions */
+.today-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+.nba{display:flex;flex-direction:column;gap:10px}
+.nb{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:4px 12px;align-items:start}
+.nb-num{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-size:12.5px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.nb-title{font-size:14px;font-weight:800;line-height:1.35}
+.nb-first{background:var(--blue);color:#fff;font-size:11px;font-weight:800;border-radius:999px;padding:2px 9px;margin-right:6px;vertical-align:1px;white-space:nowrap}
+.nb-line{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.nb-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.nb-side{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right;min-width:150px}
+.imp{font-size:12px;font-weight:800;border-radius:999px;padding:3px 11px}
+.imp.high{background:var(--red-soft);color:var(--red)}
+.imp.med{background:var(--amber-soft);color:var(--amber)}
+.imp.low{background:var(--violet-soft);color:var(--violet)}
+.imp.none{background:var(--green-soft);color:var(--green)}
+.nb-impsub{font-size:11.5px;color:var(--ink-faint);font-weight:600;max-width:230px}
+.nb-side .act{margin-top:6px}
+.nb-more{grid-column:2 / 4;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}
+.nb-more .hu-split{margin-top:0}
+.nb-more .why{font-size:13px;color:var(--ink-soft);max-width:72ch}
+.nb-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.nb-toggle{font-size:12px;font-weight:700;color:var(--ink-faint);padding:0;margin-top:6px}
+.nb-toggle:hover{color:var(--blue)}
+.nb.done{background:var(--canvas);border-color:transparent;padding:9px 16px}
+.nb.done .nb-num{background:var(--green)}
+.nb.done .nb-title{font-weight:700;color:var(--ink-soft)}
+.nb.done .nb-line{color:var(--green);font-weight:700}
+.nb.snoozed{opacity:.55}
+.nba-sep{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);margin:10px 0 0}
+/* Today: summary panel */
+.summary{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;position:sticky;top:0}
+.summary .s-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.summary .s-head b{font-size:13.5px}
+.summary .s-head .tag{font-size:10.5px}
+.summary h5{font-size:12px;font-weight:800;color:var(--ink-faint);margin:12px 0 4px}
+.summary p,.summary li{font-size:13px;line-height:1.55;color:var(--ink)}
+.summary ul{margin:0;padding-left:16px}
+.summary li{margin-bottom:4px}
+.summary li::marker{color:var(--red)}
+.summary .brief-actions{margin-top:14px;gap:6px}
+.summary .chip-btn{font-size:12px;padding:5px 11px}
+#view-today{container-type:inline-size}
+@container (max-width:980px){.today-grid{grid-template-columns:1fr}.summary{position:static}}
+@container (max-width:700px){.out-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){
+  .nb{grid-template-columns:26px minmax(0,1fr)}
+  .nb-side{grid-column:2;align-items:flex-start;text-align:left;min-width:0;flex-direction:row;flex-wrap:wrap;gap:6px;align-items:center}
+  .nb-side .act{margin-top:2px;width:100%}
+  .nb-more{grid-column:1 / 3}
+  .out .n{font-size:22px}
+}
+/* free-time meter */
+.ft{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px}
+.ft-top{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:800}
+.ft-sub{font-size:12px;color:var(--ink-soft);margin-top:6px}
+/* true-cost quote compare */
+.tc-rows{display:flex;flex-direction:column;gap:3px;margin:8px 0 10px;font-size:12px}
+.tc-rows div{display:flex;justify-content:space-between;gap:8px;color:var(--ink-soft)}
+.tc-rows div b{color:var(--ink)}
+.tc-rows .tot{border-top:1px dashed var(--line);padding-top:6px;margin-top:3px;font-size:12.5px;font-weight:700}
+.tc-rows .tot b{font-size:16px;letter-spacing:-.3px}
+.tc-rows .bad{color:var(--red)!important}
+.quote-card .qwarn{font-size:11px;font-weight:700;color:var(--amber)}
+.cost-grid.c3{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.cargo-sum{font-size:12.5px;color:var(--ink-soft);border:1px solid var(--line);border-radius:var(--r-md);padding:11px 14px;margin-top:14px}
+.cargo-sum b{color:var(--ink);display:block;margin-bottom:3px}
+/* month-end forecast */
+.mfc{background:var(--bg);border:1px solid var(--line);border-left:6px solid var(--violet);border-radius:var(--r-md);padding:16px 20px;margin-bottom:18px}
+.mfc .lead{font-size:14.5px;max-width:80ch}
+.mfc-bar{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--canvas);margin:12px 0 8px}
+.mfc-bar span{height:100%}
+.mfc-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.mfc-legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:0}
+@media(max-width:680px){.hu-split{grid-template-columns:1fr}.hu{padding:13px 14px 11px 16px}.section-title .sub{display:none}}
+
 /* misc */
 .empty{color:var(--ink-faint);font-weight:600;padding:26px;text-align:center}
 @media(max-width:900px){
@@ -613,35 +764,25 @@ tbody tr:last-child td{border-bottom:none}
   <section class="view active" id="view-today">
     <div class="view-head">
       <div><h1>Today</h1><p>Your operating summary for Thursday, 17 September</p></div>
-      <button class="btn btn-ghost" onclick="toast('Briefing refreshed — nothing new since 09:12')">Refresh briefing</button>
+      <button class="btn btn-ghost" onclick="toast('Briefing refreshed. Nothing new since 09:12')">Refresh briefing</button>
     </div>
 
     <div class="setup-banner" id="setupBanner" style="display:none"></div>
 
-    <div class="briefing">
-      <div class="who"><div class="agent-dot"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></div><div><b>Morning briefing</b><span>logee agent · updated 09:12</span></div></div>
-      <div class="text">
-        You have <strong>23 active shipments</strong>. 17 are progressing normally, 2 were resolved overnight, and
-        <strong>4 need your attention</strong> — two are meaningfully late, one invoice came in above quote, and one is missing its bill of lading.
-        Expected freight spend this month: <strong>$41,200</strong>, tracking 6% above quotes, mostly from LG-2418.
-      </div>
-      <div class="brief-actions">
-        <button class="chip-btn" onclick="openChatWith('Why is spend 6% above quotes?')">Why is spend above quote?</button>
-        <button class="chip-btn" onclick="showView('shipments');filterShips('late')">Show late shipments</button>
-        <button class="chip-btn" onclick="showView('reports')">What changed overnight?</button>
-      </div>
+    <!-- where the month ends up if nothing changes -->
+    <div class="out-head">
+      <span>If nothing changes, this is where September ends up</span>
+      <span class="out-promise" id="outPromise"></span>
     </div>
+    <div class="out-row" id="outRow"></div>
 
-    <div class="kpis">
-      <div class="kpi" onclick="showView('shipments');filterShips('all')"><div class="n">23</div><div class="l">Active shipments</div><div class="d flat">▪ 6 arriving this week</div></div>
-      <div class="kpi" onclick="showView('shipments');filterShips('late')"><div class="n" style="color:var(--red)">2</div><div class="l">Late &gt; 5 days</div><div class="d down">▲ 1 vs last week</div></div>
-      <div class="kpi" onclick="showView('costs')"><div class="n">$41.2K</div><div class="l">Spend this month</div><div class="d down">▲ 6% over quotes</div></div>
-      <div class="kpi" onclick="showView('costs')"><div class="n" style="color:var(--amber)">$2.4K</div><div class="l">Unexplained variance</div><div class="d flat">across 3 invoices</div></div>
-      <div class="kpi" onclick="showView('docs')"><div class="n">1</div><div class="l">Missing document</div><div class="d flat">B/L for LG-2431</div></div>
+    <div class="today-grid">
+      <div>
+        <div class="section-title" id="actTitle" style="margin-top:0">Next best actions <span class="count" id="queueCount">0</span> <span class="sub">Ranked by money and customer impact. Work from the top.</span></div>
+        <div class="nba" id="queue"></div>
+      </div>
+      <aside class="summary" id="summary" aria-label="Summary"></aside>
     </div>
-
-    <div class="section-title">Needs your decision <span class="count" id="queueCount">4</span></div>
-    <div class="queue" id="queue"></div>
 
     <div class="dash-grid">
       <div class="panel">
@@ -649,7 +790,7 @@ tbody tr:last-child td{border-bottom:none}
         <div id="arrivingList"></div>
       </div>
       <div class="panel">
-        <h3>Quote vs actual — September <button onclick="showView('costs')">Details →</button></h3>
+        <h3>Quote vs actual · September <button onclick="showView('costs')">Details →</button></h3>
         <div style="font-size:12.5px;color:var(--ink-soft);margin-bottom:10px">Actual charges as a share of quoted price, by forwarder</div>
         <div id="fwdBars"></div>
       </div>
@@ -660,23 +801,23 @@ tbody tr:last-child td{border-bottom:none}
   <section class="view" id="view-shipments">
     <div class="view-head">
       <div><h1>Shipments</h1><p>Every shipment, live. Click any row to open its timeline, documents and costs.</p></div>
-      <button class="btn btn-blue" onclick="openWizard()">＋ New order</button>
     </div>
     <div class="trackbox">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/></svg>
-      <input id="trackInput" placeholder="Track & trace anything — container, B/L or AWB number (try ZIMU3141592, or MSCU1234567)" onkeydown="if(event.key==='Enter')trackTrace()">
-      <button class="btn btn-blue" onclick="trackTrace()">Track</button>
+      <input id="trackInput" placeholder="Track & trace anything: container, B/L or AWB number (try ZIMU3141592, or MSCU1234567)" onkeydown="if(event.key==='Enter')trackTrace()">
+      <button class="btn btn-ghost" onclick="trackTrace()">Track</button>
     </div>
     <div class="filters" id="shipFilters">
       <button class="fchip on" data-f="all">All (23)</button>
       <button class="fchip" data-f="ontime">On time</button>
       <button class="fchip" data-f="watch">Watch</button>
+      <button class="fchip" data-f="risk">⚠ At risk</button>
       <button class="fchip" data-f="late">Late &gt;5 days</button>
       <button class="fchip" data-f="done">Delivered</button>
     </div>
     <div class="tbl">
       <table aria-label="Shipments">
-        <thead><tr><th>Shipment</th><th>Route</th><th>Status</th><th>Stage</th><th>ETA</th><th>Quoted → Actual</th></tr></thead>
+        <thead><tr><th>Shipment</th><th>Route</th><th>Status</th><th>Stage</th><th>ETA</th><th>Quoted → Likely final</th><th aria-label="Open"></th></tr></thead>
         <tbody id="shipRows"></tbody>
       </table>
     </div>
@@ -685,9 +826,10 @@ tbody tr:last-child td{border-bottom:none}
   <!-- ── COSTS ── -->
   <section class="view" id="view-costs">
     <div class="view-head">
-      <div><h1>Costs</h1><p>What you were quoted, what you were actually charged, and what still needs to be paid — per shipment, in real time. No more month-end surprises.</p></div>
+      <div><h1>Costs</h1><p>What you were quoted, what you were actually charged, and what still needs to be paid, per shipment, in real time. No more month-end surprises.</p></div>
     </div>
-    <div class="big-note"><b>This month so far:</b> quoted <b>$38,850</b> · actual charges <b>$41,200</b> · variance <b style="color:var(--red)">+$2,350 (+6%)</b>. Two invoices drive most of it — LG-2418 (storage &amp; detention) and LG-2402 (fuel surcharge).</div>
+    <div class="mfc" id="monthFc"></div>
+    <div class="big-note"><b>This month so far:</b> quoted <b>$38,850</b> · actual charges <b>$41,200</b> · variance <b style="color:var(--red)">+$2,350 (+6%)</b>. Two invoices drive most of it: LG-2418 (storage &amp; detention) and LG-2402 (fuel surcharge).</div>
     <div class="kpis">
       <div class="kpi"><div class="n">$41.2K</div><div class="l">Charged to date</div><div class="d flat">14 invoices received</div></div>
       <div class="kpi"><div class="n" style="color:var(--red)">+$2.35K</div><div class="l">Over quotes</div><div class="d down">+6% vs quoted</div></div>
@@ -701,9 +843,9 @@ tbody tr:last-child td{border-bottom:none}
   <!-- ── DOCS ── -->
   <section class="view" id="view-docs">
     <div class="view-head">
-      <div><h1>Documents</h1><p>Every shipping document, attached to its shipment — no more digging through email.</p></div>
+      <div><h1>Documents</h1><p>Every shipping document, attached to its shipment. No more digging through email.</p></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="toast('Forward any shipping email to docs@logee.ai — the agent files it to the right shipment')">Email-in address</button>
+        <button class="btn btn-ghost" onclick="toast('Forward any shipping email to docs@logee.ai and the agent files it to the right shipment')">Email-in address</button>
         <label class="btn btn-blue" style="cursor:pointer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
           Add document
@@ -713,11 +855,11 @@ tbody tr:last-child td{border-bottom:none}
     </div>
     <div class="panel" style="margin-bottom:14px">
       <h3>Missing documents <span class="tag red">1 open</span></h3>
-      <div class="mini-row" onclick="openDrawer('LG-2431','docs')"><div><span class="mr-id">LG-2431</span> · Bill of lading not received <span class="stage-label">Picked up 3 days ago from Ningbo — forwarder usually sends B/L within 24h</span></div><button class="chip-btn" onclick="event.stopPropagation();toast('Reminder sent to Unifreight for LG-2431 B/L')">Nudge forwarder</button></div>
+      <div class="mini-row" onclick="openDrawer('LG-2431','docs')"><div><span class="mr-id">LG-2431</span> · Bill of lading not received <span class="stage-label">Picked up 3 days ago from Ningbo. Forwarder usually sends B/L within 24h</span></div><button class="chip-btn" onclick="event.stopPropagation();toast('Reminder sent to Unifreight for LG-2431 B/L')">Nudge forwarder</button></div>
     </div>
     <div class="trackbox">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-      <input id="docSearch" placeholder="Search documents — name, shipment or type…" oninput="renderDocs()">
+      <input id="docSearch" placeholder="Search documents by name, shipment or type…" oninput="renderDocs()">
     </div>
     <div class="filters" id="docFilters">
       <button class="fchip on" data-df="all">All types</button>
@@ -733,36 +875,57 @@ tbody tr:last-child td{border-bottom:none}
   <!-- ── SKUS ── -->
   <section class="view" id="view-skus">
     <div class="view-head">
-      <div><h1>SKU catalog</h1><p>Your products, ready to drop into any order — weights, dimensions and HS codes included so quotes come back accurate.</p></div>
+      <div><h1>SKU catalog</h1><p>Your products, ready to drop into any order, with weights, dimensions and HS codes included so quotes come back accurate.</p></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <label class="btn btn-ghost" style="cursor:pointer">Upload CSV<input type="file" accept=".csv" id="skuCsv" style="display:none"></label>
         <button class="btn btn-ghost" onclick="toast('Syncing item master from Priority ERP… 6 SKUs already up to date (demo)')">Sync from Priority</button>
         <button class="btn btn-blue" onclick="openSkuModal()">＋ Add SKU</button>
       </div>
     </div>
-    <div class="big-note">CSV format: <b>code, name, HS code, unit kg, units/carton</b> — plus optional <b>unit L, W, H · carton L, W, H · carton kg · packaging</b> (cm). Or just sync from your ERP. Every SKU here becomes one tap in the order wizard.</div>
+    <div class="big-note">CSV format: <b>code, name, HS code, unit kg, units/carton</b>, plus optional <b>unit L, W, H · carton L, W, H · carton kg · packaging</b> (cm). Or just sync from your ERP. Every SKU here becomes one tap in the order wizard.</div>
     <div class="tbl"><table aria-label="SKU catalog"><thead><tr><th>SKU</th><th>Description</th><th>HS code</th><th>Unit (kg · L×W×H)</th><th>Carton (units · L×W×H · kg)</th><th>Packaging</th><th>In transit now</th><th></th></tr></thead><tbody id="skuRows"></tbody></table></div>
   </section>
 
   <!-- ── REPORTS ── -->
   <section class="view" id="view-reports">
     <div class="view-head">
-      <div><h1>What changed</h1><p>Everything that moved, slipped or landed — newest first. This is the report the agent reads before writing your morning briefing.</p></div>
-      <button class="btn btn-ghost" onclick="toast('Weekly change report exported (demo)')">Export weekly report</button>
+      <div><h1>Reports</h1><p>What logee saved you, how each forwarder really performs, and whether the gap to quote is closing. September 2026.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="toast('September report exported as PDF (demo)')">Export PDF</button>
+        <button class="btn btn-ghost" onclick="toast('Report data exported as CSV (demo)')">Export CSV</button>
+      </div>
     </div>
-    <div class="filters">
-      <button class="fchip on">All changes</button>
-      <button class="fchip" onclick="toast('Filter applied (demo)')">Delays</button>
-      <button class="fchip" onclick="toast('Filter applied (demo)')">Cost changes</button>
-      <button class="fchip" onclick="toast('Filter applied (demo)')">Documents</button>
-      <button class="fchip" onclick="toast('Filter applied (demo)')">Milestones</button>
+
+    <!-- 1 · savings -->
+    <div class="rp-card" id="rpSavings"></div>
+
+    <!-- 2 · forwarder scorecard -->
+    <div class="section-title">Forwarder scorecard <span class="sub">Last 90 days · this is where the "likely total" on quotes comes from</span></div>
+    <div class="tbl"><table aria-label="Forwarder scorecard">
+      <thead><tr><th>Forwarder</th><th>Shipments</th><th>On time</th><th>Avg days late</th><th>Charged vs quote</th><th>Avg extras / shipment</th><th>In short</th></tr></thead>
+      <tbody id="rpFwd"></tbody>
+    </table></div>
+
+    <!-- 3 · spend vs quote by month -->
+    <div class="section-title">How far over quote, by month <span class="sub">Actual freight spend vs what you were quoted</span></div>
+    <div class="rp-card" id="rpTrend"></div>
+
+    <!-- 4 · activity log -->
+    <div class="section-title">Activity log <span class="sub">Everything that moved, slipped or landed, newest first</span></div>
+    <div class="filters" id="logFilters">
+      <button class="fchip on" data-lf="all">All</button>
+      <button class="fchip" data-lf="saved">Saved</button>
+      <button class="fchip" data-lf="delay">Delays</button>
+      <button class="fchip" data-lf="cost">Costs</button>
+      <button class="fchip" data-lf="doc">Documents</button>
+      <button class="fchip" data-lf="milestone">Milestones</button>
     </div>
     <div id="reportList"></div>
   </section>
 
   <!-- ── SETTINGS ── -->
   <section class="view" id="view-settings">
-    <div class="view-head"><div><h1>Settings</h1><p>Connections, contacts, billing and team access — everything that keeps logee running.</p></div></div>
+    <div class="view-head"><div><h1>Settings</h1><p>Connections, contacts, billing and team access: everything that keeps logee running.</p></div></div>
 
     <div class="jumpnav-wrap">
       <div class="jumpnav" id="settingsJumpnav">
@@ -780,33 +943,33 @@ tbody tr:last-child td{border-bottom:none}
     <div class="set-card" id="jsProgress">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:4px">
         <h3 style="margin:0">Setup progress</h3>
-        <span class="prog-count" id="progCount">— of — done</span>
+        <span class="prog-count" id="progCount">0 of 5 done</span>
       </div>
-      <p>Each step unlocks part of logee — skip one and you'll hit its limit the moment you need it.</p>
+      <p>Each step unlocks part of logee. Skip one and you'll hit its limit the moment you need it.</p>
       <div class="bar-wrap" style="margin-bottom:16px"><div class="bar" id="progBar" style="background:var(--blue)"></div></div>
       <div id="progSteps"></div>
     </div>
 
     <div class="set-card" id="jsCreate">
       <h3>How shipments get created</h3>
-      <p>No data entry. Forward any shipping email to <b>ship@logee.ai</b> (or just CC it) — the agent reads it, creates the order, and files the documents. Try it:</p>
+      <p>No data entry. Forward any shipping email to <b>ship@logee.ai</b> (or just CC it). The agent reads it, creates the order, and files the documents. Try it:</p>
       <button class="btn btn-blue" onclick="simulateEmail()">Simulate a forwarded email</button>
     </div>
 
     <div class="set-card" id="jsConn">
       <h3>Connections</h3>
-      <p>logee reads updates from your forwarders, your ERP and your inbox. No heavy integration project — most connections take minutes.</p>
+      <p>logee reads updates from your forwarders, your ERP and your inbox. No heavy integration project: most connections take minutes.</p>
       <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div><div><b>Email inbox (jared@…)</b><span>The agent reads shipping emails and builds the shipment view automatically</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Email agent')"></button></div>
-      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><div><b>Priority ERP</b><span>Orders &amp; SKUs sync in — invoices link back to POs</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Priority ERP')"></button></div>
+      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><div><b>Priority ERP</b><span>Orders &amp; SKUs sync in, and invoices link back to POs</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Priority ERP')"></button></div>
       <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div><b>Unifreight</b><span>Forwarder · milestones + documents</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Unifreight')"></button></div>
       <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div><b>Inftech Logistics</b><span>Forwarder · milestones + documents</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Inftech')"></button></div>
       <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div><b>ICL Freight</b><span>Forwarder · invited, waiting to accept</span></div><button class="chip-btn cstate" onclick="toast('Invite resent to ICL Freight')">Resend invite</button></div>
-      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div><b>SAP / Oracle</b><span>Not connected — available on request</span></div><button class="chip-btn cstate" onclick="toast('We\'ll be in touch about SAP/Oracle (demo)')">Request</button></div>
+      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div><b>SAP / Oracle</b><span>Not connected · available on request</span></div><button class="chip-btn cstate" onclick="toast('We\'ll be in touch about SAP/Oracle (demo)')">Request</button></div>
     </div>
 
     <div class="set-card" id="jsContacts">
       <h3>Freight contacts</h3>
-      <p>Who quotes, emails and threads go to. Every company you work with needs at least one contact — the agent also learns new contacts automatically from incoming email.</p>
+      <p>Who quotes, emails and threads go to. Every company you work with needs at least one contact. The agent also learns new contacts automatically from incoming email.</p>
       <div id="contactsBody"></div>
       <div class="contact-add">
         <select id="caCo" aria-label="Company"></select>
@@ -818,15 +981,15 @@ tbody tr:last-child td{border-bottom:none}
 
     <div class="set-card" id="jsNotify">
       <h3>Where logee reaches you</h3>
-      <p>Alerts only work if they arrive where you already are. logee comes to you — the app is for digging deeper.</p>
-      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div><div><b>Daily digest email</b><span>One email at 07:30 — what changed, what needs a decision</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Daily digest')"></button></div>
+      <p>Alerts only work if they arrive where you already are. logee comes to you. The app is for digging deeper.</p>
+      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div><div><b>Daily digest email</b><span>One email at 07:30: what changed, what needs a decision</span></div><button class="toggle on cstate" onclick="flipToggle(this,'Daily digest')"></button></div>
       <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-3.9-.9L3 21l2-5.4a8.3 8.3 0 0 1-1-4A8.4 8.4 0 0 1 12.5 3a8.4 8.4 0 0 1 8.5 8.5Z"/></svg></div><div><b>WhatsApp alerts</b><span>Real-time, only for things past your alert threshold</span></div><button class="toggle on cstate" onclick="flipToggle(this,'WhatsApp alerts')"></button></div>
-      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 16V9"/><path d="M13 16V5"/><path d="M8 16v-4"/></svg></div><div><b>Weekly summary</b><span>Monday morning — spend vs quotes, on-time rate by forwarder</span></div><button class="toggle cstate" onclick="flipToggle(this,'Weekly summary')"></button></div>
+      <div class="conn"><div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 16V9"/><path d="M13 16V5"/><path d="M8 16v-4"/></svg></div><div><b>Weekly summary</b><span>Monday morning: spend vs quotes, on-time rate by forwarder</span></div><button class="toggle cstate" onclick="flipToggle(this,'Weekly summary')"></button></div>
       <button class="chip-btn" style="margin-top:12px" onclick="$('#digestPrev').classList.toggle('on')">Preview today's digest</button>
       <div class="digest-preview" id="digestPrev">
-        <div class="dp-subj">logee daily · Thu 17 Sep — 2 decisions waiting, 1 arrival tomorrow</div>
-        <li><b>LG-2418</b> slipped again (ETA 20 Sep). Transship option expires today — <u>decide</u></li>
-        <li><b>Inftech invoice #7741</b> is $610 over quote — <u>query or accept</u></li>
+        <div class="dp-subj">logee daily · Thu 17 Sep · 2 decisions waiting, 1 arrival tomorrow</div>
+        <li><b>LG-2418</b> slipped again (ETA 20 Sep). Transship option expires today: <u>decide</u></li>
+        <li><b>Inftech invoice #7741</b> is $610 over quote: <u>query or accept</u></li>
         <li><b>LG-2436</b> (air) lands tomorrow 09:40 at TLV</li>
         <li>Spend vs quotes this month: <b>+6%</b> · everything else on track</li>
       </div>
@@ -870,7 +1033,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="conn" style="margin-top:6px">
         <div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
         <div><b>Visa •••• 4471</b><span>Expires 08/28 · billing to Jared, jared@company.com</span></div>
-        <button class="chip-btn cstate" onclick="toast('Update payment method — handled by your card provider, logee never stores full card numbers (demo)')">Update</button>
+        <button class="chip-btn cstate" onclick="toast('Update payment method. Handled by your card provider; logee never stores full card numbers (demo)')">Update</button>
       </div>
       <div class="conn">
         <div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 13h6M9 17h4"/></svg></div>
@@ -903,7 +1066,7 @@ tbody tr:last-child td{border-bottom:none}
         <button onclick="toggleChat(false)" aria-label="Close chat">✕</button>
       </div>
       <div class="chat-log" id="chatLog">
-        <div class="msg bot">Hi Jared 👋 I'm watching your shipments, costs and documents. Ask me anything — or tap a suggestion below.</div>
+        <div class="msg bot">Hi Jared 👋 I'm watching your shipments, costs and documents. Ask me anything, or tap a suggestion below.</div>
       </div>
       <div class="suggests">
         <button class="sug" onclick="openChatWith('Create a new order')">Create a new order</button>
@@ -951,7 +1114,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="wizard" role="dialog" aria-label="New freight order">
     <div class="wiz-head">
       <div class="agent-dot"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></div>
-      <div style="flex:1"><h2>New freight order</h2><p>Fill in what you know — the agent fills the rest from your documents and ERP.</p></div>
+      <div style="flex:1"><h2>New freight order</h2><p>Fill in what you know. The agent fills the rest from your documents and ERP.</p></div>
       <button class="drawer-close" onclick="closeWizard()" aria-label="Close">✕</button>
     </div>
     <div class="wiz-steps">
@@ -989,7 +1152,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="field" style="margin-bottom:10px"><label>Pick from your SKU catalog</label></div>
         <div class="sku-pick" id="skuPick"></div>
         <div class="field" style="margin-bottom:6px"><label>Order lines</label></div>
-        <div id="cargoLines"><div class="empty" id="cargoEmpty" style="padding:14px">No lines yet — add SKUs above, or a free-text line below.</div></div>
+        <div id="cargoLines"><div class="empty" id="cargoEmpty" style="padding:14px">No lines yet. Add SKUs above, or a free-text line below.</div></div>
         <button class="chip-btn" style="margin-top:10px" onclick="addFreeLine()">＋ Add free-text line</button>
         <div class="totals" id="cargoTotals"></div>
         <div class="field" style="margin-top:18px"><label>How is it packed?</label>
@@ -1002,10 +1165,10 @@ tbody tr:last-child td{border-bottom:none}
 
       <!-- Step 3 -->
       <div class="wpane" id="wp3">
-        <p style="color:var(--ink-soft);font-size:13px;margin-bottom:12px">Attach anything you already have — commercial invoice, packing list, MSDS. Optional now; the agent will chase whatever's missing at pickup.</p>
+        <p style="color:var(--ink-soft);font-size:13px;margin-bottom:12px">Attach anything you already have: commercial invoice, packing list, MSDS. Optional now; the agent will chase whatever's missing at pickup.</p>
         <div class="upload-zone" onclick="wizDocAdd()">＋ Drop files here or click to attach (demo)</div>
         <div class="doclist" id="wizDocs" style="margin-top:12px"></div>
-        <div class="field" style="margin-top:16px"><label>Notes for the forwarder</label><textarea id="wNotes" rows="3" placeholder="e.g. fragile — top-load only; deliver to warehouse B"></textarea></div>
+        <div class="field" style="margin-top:16px"><label>Notes for the forwarder</label><textarea id="wNotes" rows="3" placeholder="e.g. fragile, top-load only; deliver to warehouse B"></textarea></div>
       </div>
 
       <!-- Step 4 -->
@@ -1017,7 +1180,7 @@ tbody tr:last-child td{border-bottom:none}
         </div>
         <div class="send-opt" data-send="direct" onclick="pickSend(this)">
           <b>Book direct with a carrier</b>
-          <p>Skip the forwarder — send the booking straight to the line. You handle customs &amp; local charges.</p>
+          <p>Skip the forwarder and send the booking straight to the line. You handle customs &amp; local charges.</p>
           <div class="fwd-checks" id="carrierChecks"></div>
         </div>
         <div class="wiz-addc" id="wizAddc" style="display:none;margin-top:14px;padding:14px;border:1.5px dashed var(--line,#e3e3ee);border-radius:12px;background:var(--canvas,#f7f7f9)">
@@ -1058,7 +1221,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="field"><label>HS code</label><input id="skHs" placeholder="8413.70"></div>
         <div class="field"><label>Unit weight (kg)</label><input id="skKg" type="number" step="0.01" min="0" placeholder="1.8"></div>
       </div>
-      <div class="field" style="margin-top:12px"><label>Unit dimensions — L × W × H (cm)</label>
+      <div class="field" style="margin-top:12px"><label>Unit dimensions: L × W × H (cm)</label>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
           <input id="skL" type="number" min="0" placeholder="L"><input id="skW" type="number" min="0" placeholder="W"><input id="skH" type="number" min="0" placeholder="H">
         </div>
@@ -1067,7 +1230,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="field"><label>Units per carton</label><input id="skCq" type="number" min="1" placeholder="24"></div>
         <div class="field"><label>Carton gross weight (kg)</label><input id="skCtnKg" type="number" step="0.01" min="0" placeholder="46"></div>
       </div>
-      <div class="field" style="margin-top:12px"><label>Carton dimensions — L × W × H (cm)</label>
+      <div class="field" style="margin-top:12px"><label>Carton dimensions: L × W × H (cm)</label>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
           <input id="skCtnL" type="number" min="0" placeholder="L"><input id="skCtnW" type="number" min="0" placeholder="W"><input id="skCtnH" type="number" min="0" placeholder="H">
         </div>
@@ -1076,8 +1239,8 @@ tbody tr:last-child td{border-bottom:none}
         <select id="skPack">
           <option>Homogeneous carton</option>
           <option>Homogeneous carton → pallet</option>
-          <option>Palletised — homogeneous</option>
-          <option>Bundled — homogeneous</option>
+          <option>Palletised, homogeneous</option>
+          <option>Bundled, homogeneous</option>
           <option>Mixed pallet</option>
           <option>Loose cartons</option>
         </select>
@@ -1096,13 +1259,29 @@ tbody tr:last-child td{border-bottom:none}
   <div class="wizard" style="max-width:640px">
     <div class="wiz-head">
       <div class="avatar">U</div>
-      <div style="flex:1"><h2>Unifreight's view</h2><p>Forwarders see only their own shipments — no costs, no other forwarders, no invoices.</p></div>
+      <div style="flex:1"><h2>Unifreight's view</h2><p>Forwarders see only their own shipments. No costs, no other forwarders, no invoices.</p></div>
       <button class="drawer-close" onclick="$('#fwdViewScrim').classList.remove('open')" aria-label="Close">✕</button>
     </div>
     <div class="wiz-body">
       <div class="tbl"><table><thead><tr><th>Shipment</th><th>Route</th><th>Stage</th><th>Needs from you</th></tr></thead><tbody id="fwdViewRows"></tbody></table></div>
-      <div class="comm-hint" style="margin-top:10px">Unifreight can update milestones and upload documents here — or keep replying by email; both land on the same order thread.</div>
+      <div class="comm-hint" style="margin-top:10px">Unifreight can update milestones and upload documents here, or keep replying by email; both land on the same order thread.</div>
     </div>
+  </div>
+</div>
+
+<!-- customer update -->
+<div class="modal-scrim" id="custScrim">
+  <div class="wizard" style="max-width:560px" role="dialog" aria-label="Update your customer">
+    <div class="wiz-head">
+      <div style="flex:1"><h2>Update your customer</h2><p id="custSub">Drafted by logee. Edit anything, then send.</p></div>
+      <button class="drawer-close" onclick="closeCust()" aria-label="Close">✕</button>
+    </div>
+    <div class="wiz-body">
+      <div class="field"><label for="custTo">To</label><input id="custTo"></div>
+      <div class="field" style="margin-top:12px"><label for="custMsg">Message</label><textarea id="custMsg" rows="7" style="resize:vertical;line-height:1.5"></textarea></div>
+      <div class="comm-hint" style="margin-top:10px">Customers forgive a delay they hear about early. They don't forgive one they discover themselves.</div>
+    </div>
+    <div class="wiz-foot"><span style="flex:1"></span><button class="btn btn-ghost" onclick="closeCust()">Cancel</button><button class="btn btn-blue" onclick="sendCust()">Send update</button></div>
   </div>
 </div>
 
@@ -1114,50 +1293,63 @@ const STAGES = ["Origin & type","SKUs & quantities","Pickup request","Confirmati
 
 const SHIPMENTS = [
  {id:"LG-2447", route:"Shanghai → Ashdod", mode:"Sea FCL", fwd:"Awaiting choice", status:"ontime", stage:3, daysLate:0,
-  eta:"3 quotes in — pick one to book · cargo ready 25 Sep", quoted:null, actual:null, po:"PO-88158", pos:["PO-88158","PO-88159"],
+  eta:"3 quotes in · pick one to book · cargo ready 25 Sep", quoted:null, actual:null, po:"PO-88158", pos:["PO-88158","PO-88159"],
   note:"RFQ went out yesterday; all three quotes are back. Compare and book below.",
   docs:[["Commercial invoice","Supplier · Hengda Ltd","yesterday"],["Packing list","Supplier","yesterday"]],
   lines:[["SKU-1097 · Aluminium mounting rail × 400",null,null],["SKU-1250 · Solar cable 6mm² × 40",null,null]],
   quotes:[
-    {co:"Unifreight",price:4250,days:26,note:"Direct sailing · 2 free storage days at Ashdod"},
-    {co:"Inftech",price:3980,days:31,note:"Cheapest · transship via Piraeus"},
-    {co:"Maersk (direct)",price:4560,days:23,note:"Fastest · you handle customs & local charges"}],
-  rec:"Inftech is $270 cheaper but 5 days slower and transships — and their on-time rate on this lane is 71% vs Unifreight's 92%. Unless this cargo is price-critical, book Unifreight: direct sailing, mid price, reliable."},
+    {co:"Unifreight",price:4250,days:26,note:"Direct sailing · 2 free storage days at Ashdod",
+     extras:120,extrasWhy:"small local fees",likelyDays:27,onTime:92},
+    {co:"Inftech",price:3980,days:31,note:"Cheapest · transship via Piraeus",
+     extras:640,extrasWhy:"transship fees & fuel surcharges",likelyDays:35,onTime:71},
+    {co:"Maersk (direct)",price:4560,days:23,note:"Fastest · you handle customs & local charges",
+     extras:450,extrasWhy:"customs & local charges you pay separately",likelyDays:23,onTime:90}],
+  rec:"Inftech looks cheapest at $3,980, but on this lane its shipments have ended up ~$640 higher (transship fees, fuel surcharges) and ~4 days later than promised. Counting that, <b>Unifreight is the best real value at ~$4,370</b>: direct sailing, 92% on time."},
  {id:"LG-2418", route:"Ningbo → Ashdod", mode:"Sea FCL", fwd:"Unifreight", status:"late", stage:5, daysLate:8,
   eta:"Was 12 Sep → now 20 Sep", quoted:4100, actual:5240, po:"PO-88112", pos:["PO-88112","PO-88119"], payState:"awaiting", etaHistory:["12 Sep","18 Sep","20 Sep"],
+  fc:{cost:5620,eta:"20–24 Sep",why:"storage keeps adding ~$95/day until the cargo moves"},
+  ft:{where:"Ningbo terminal",used:100,head:"Free time used up",sub:"Storage & detention accruing at ~$95/day since 9 Sep."},
   refs:{container:"ZIMU3141592",bl:"ZIMUNGB884521",vessel:"ZIM Shanghai · V.42E",carrier:"ZIM"},
-  events:[["28 Aug 16:40","Ningbo, Beilun T3","Gate in — container received at terminal"],["2 Sep 06:15","Ningbo","Loaded on ZIM Shanghai V.42E"],["2 Sep 21:30","Ningbo","Vessel departed"],["9 Sep 05:00","Port Said anchorage","Missed Suez convoy slot — waiting"],["16 Sep 14:20","Port Said anchorage","Still at anchor · next convoy 18 Sep (carrier data)"]],
+  events:[["28 Aug 16:40","Ningbo, Beilun T3","Gate in: container received at terminal"],["2 Sep 06:15","Ningbo","Loaded on ZIM Shanghai V.42E"],["2 Sep 21:30","Ningbo","Vessel departed"],["9 Sep 05:00","Port Said anchorage","Missed Suez convoy slot, waiting"],["16 Sep 14:20","Port Said anchorage","Still at anchor · next convoy 18 Sep (carrier data)"]],
   note:"Vessel missed Suez slot; +$690 detention & storage accruing at Ningbo terminal.",
   docs:[["Bill of lading","B/L · Unifreight","2 Sep"],["Commercial invoice","Supplier · Hengda Ltd","1 Sep"],["Packing list","Supplier","1 Sep"],["Freight invoice #INV-5521","Unifreight · $5,240","15 Sep"]],
   lines:[["Ocean freight",3400,3400],["Fuel surcharge (BAF)",380,520],["Terminal handling",320,320],["Storage & detention",0,690],["Documentation fee",0,310]]},
  {id:"LG-2431", route:"Ningbo → Haifa", mode:"Sea LCL", fwd:"Unifreight", status:"watch", stage:4, daysLate:2,
-  eta:"28 Sep (±2 days)", quoted:1850, actual:null, po:"PO-88134", pos:["PO-88134"],
+  eta:"28 Sep (±2 days)", quoted:1850, actual:null, po:"PO-88134", pos:["PO-88134"], cust:"Galil Hardware · purchasing@galilhardware.co.il",
+  fc:{cost:2110,eta:"30 Sep",why:"customs can't start without the B/L, so cargo waits in the warehouse"},
+  ft:{where:"Haifa CFS warehouse",used:0,head:"Last free day: Wed 30 Sep",sub:"Free time starts when it lands on 28 Sep · then ~$65/day."},
   refs:{container:"LCL · consol UF-90233",bl:"pending",vessel:"COSCO Pride · V.118W",carrier:"COSCO"},
   events:[["14 Sep 14:30","Ningbo consol WH","Cargo received at consolidation warehouse"],["15 Sep 09:00","Ningbo","Stuffed into consol container"],["16 Sep 20:10","Ningbo","Vessel departed"]],
-  note:"Picked up on time, but bill of lading not received yet — agent nudged the forwarder.",
+  note:"Picked up on time, but bill of lading not received yet. Agent nudged the forwarder.",
   docs:[["Commercial invoice","Supplier · Ruian Parts","13 Sep"],["Packing list","Supplier","13 Sep"]],
   lines:[["Ocean freight (quote)",1450,null],["Handling & docs (quote)",400,null]]},
  {id:"LG-2402", route:"Shenzhen → Los Angeles", mode:"Sea FCL", fwd:"Inftech", status:"late", stage:6, daysLate:6,
   eta:"Was 10 Sep → now 16 Sep, at anchor", quoted:5200, actual:5810, po:"PO-88097", pos:["PO-88097"], payState:"awaiting", etaHistory:["10 Sep","14 Sep","16 Sep"],
+  fc:{cost:5810,eta:"17 Sep berth",why:"trucking is booked for discharge day, so no extra storage expected"},
+  ft:{where:"LA terminal",used:0,head:"Last free day: Mon 21 Sep",sub:"Truck booked for discharge day · ~$175/day after free time."},
   refs:{container:"CMAU7284461",bl:"CMDUSZX771904",vessel:"CMA CGM Marco Polo · V.09E",carrier:"CMA CGM"},
-  events:[["23 Aug 11:20","Shenzhen, Yantian","Gate in"],["25 Aug 04:50","Shenzhen","Loaded · vessel departed"],["8 Sep 19:00","San Pedro anchorage","Arrived LA anchorage — berth queue"],["16 Sep 07:30","San Pedro anchorage","At anchor · berth ETA 17 Sep PM (carrier data)"]],
+  events:[["23 Aug 11:20","Shenzhen, Yantian","Gate in"],["25 Aug 04:50","Shenzhen","Loaded · vessel departed"],["8 Sep 19:00","San Pedro anchorage","Arrived LA anchorage, berth queue"],["16 Sep 07:30","San Pedro anchorage","At anchor · berth ETA 17 Sep PM (carrier data)"]],
   note:"Port congestion at LA; fuel surcharge invoiced above quote (+$430). Customer delivery at risk.",
   docs:[["Bill of lading","B/L · Inftech","25 Aug"],["Commercial invoice","Supplier","24 Aug"],["Freight invoice #7741","Inftech · $5,810","14 Sep"]],
   lines:[["Ocean freight",4300,4300],["Fuel surcharge",500,930],["Terminal & chassis",400,400],["Docs",0,180]]},
  {id:"LG-2440", route:"Ashdod → Rotterdam", mode:"Sea FCL", fwd:"ICL Freight", status:"ontime", stage:3, daysLate:0,
-  eta:"4 Oct", quoted:2900, actual:null, po:"PO-88150",
+  eta:"4 Oct", quoted:2900, actual:null, po:"PO-88150", cust:"Van Dijk Installatie BV · inkoop@vandijk-installatie.nl",
+  fc:{cost:2900,eta:"7 Oct",why:"the vessel is running behind and Rotterdam berths are backed up"},
   note:"Export shipment. Pickup confirmed for tomorrow 08:00.",
   docs:[["Booking confirmation","ICL Freight","15 Sep"]],
   lines:[["Ocean freight (quote)",2300,null],["Export docs (quote)",600,null]]},
  {id:"LG-2436", route:"Shanghai → Ashdod", mode:"Air", fwd:"Inftech", status:"ontime", stage:5, daysLate:0,
   eta:"19 Sep", quoted:3300, actual:3300, po:"PO-88141", pos:["PO-88141"], payState:"awaiting",
+  fc:{cost:3300,eta:"19 Sep",why:"on schedule and invoiced on quote"},
   refs:{awb:"114-4829 0067",flight:"LY086 · PVG→TLV",carrier:"EL AL Cargo"},
   events:[["14 Sep 22:05","Shanghai PVG","AWB accepted · export cleared"],["15 Sep 21:40","Shanghai PVG","Departed on LY086"],["Arriving 19 Sep 09:40","Tel Aviv TLV","Scheduled arrival"]],
   note:"Urgent replacement parts. On schedule, invoice matches quote exactly.",
   docs:[["Air waybill","AWB · Inftech","14 Sep"],["Commercial invoice","Supplier","14 Sep"],["Freight invoice #7748","Inftech · $3,300","16 Sep"]],
   lines:[["Air freight",2900,2900],["Handling",400,400]]},
  {id:"LG-2429", route:"Ningbo → Ashdod", mode:"Sea FCL", fwd:"Unifreight", status:"ontime", stage:6, daysLate:1,
-  eta:"21 Sep", quoted:4050, actual:null, po:"PO-88120", pos:["PO-88120","PO-88134"],
+  eta:"21 Sep", quoted:4050, actual:null, po:"PO-88120", pos:["PO-88120","PO-88134"], cust:"Negev Solar Ltd · orders@negevsolar.co.il",
+  fc:{cost:4610,eta:"25 Sep",why:"customs can't clear without the commercial invoice, and no truck is booked"},
+  ft:{where:"Ashdod port",used:0,head:"Last free day: Tue 22 Sep",sub:"Free time starts at discharge on 18 Sep · then ~$140/day."},
   refs:{container:"MSKU8830125",bl:"MAEUNGB120988",vessel:"Maersk Hangzhou · V.36W",carrier:"Maersk"},
   events:[["30 Aug 08:10","Ningbo","Gate in"],["31 Aug 23:45","Ningbo","Loaded · departed"],["17 Sep 06:12","Ashdod anchorage","Arrived anchorage · berth within 24h"]],
   note:"Arrived at Ashdod anchorage; berth expected within 24h.",
@@ -1165,51 +1357,97 @@ const SHIPMENTS = [
   lines:[["Ocean freight (quote)",3350,null],["Local charges (quote)",700,null]]},
  {id:"LG-2395", route:"Qingdao → Haifa", mode:"Sea FCL", fwd:"Unifreight", status:"done", stage:8, daysLate:0,
   eta:"Delivered 9 Sep · POD received", quoted:3980, actual:4010, po:"PO-88071", pos:["PO-88071"], payState:"paid",
-  note:"Closed. Small $30 variance on local charges — within tolerance.",
+  note:"Closed. Small $30 variance on local charges, within tolerance.",
   docs:[["Bill of lading","B/L","12 Aug"],["POD","Signed 9 Sep","9 Sep"],["Freight invoice #INV-5488","Unifreight · $4,010 · paid","11 Sep"]],
   lines:[["Ocean freight",3300,3300],["Local charges",680,710]]},
  {id:"LG-2390", route:"Shenzhen → Los Angeles", mode:"Sea FCL", fwd:"Inftech", status:"done", stage:8, daysLate:3,
   eta:"Delivered 6 Sep · POD received", quoted:5150, actual:5150, po:"PO-88055", pos:["PO-88055"], payState:"paid",
-  note:"Closed on quote. Was 3 days late — under your 5-day alert threshold.",
+  note:"Closed on quote. Was 3 days late, under your 5-day alert threshold.",
   docs:[["Bill of lading","B/L","2 Aug"],["POD","Signed 6 Sep","6 Sep"],["Freight invoice #7712","Inftech · $5,150 · paid","8 Sep"]],
   lines:[["Ocean freight",4250,4250],["Fuel & locals",900,900]]},
 ];
 
 const QUEUE = [
  {id:"q0",pri:"low",ship:"LG-2447",title:"All 3 quotes are in for LG-2447 (Shanghai → Ashdod)",
-  why:"Unifreight $4,250 / 26d direct · Inftech $3,980 / 31d via Piraeus · Maersk direct $4,560 / 23d. Agent leans Unifreight on price-to-reliability. Cargo ready 25 Sep — booking today keeps the schedule comfortable.",
-  tags:[["blue","3 quotes in"],["plain","Ready 25 Sep"]],
-  a:"Compare & book", b:"Remind me tomorrow", compare:true},
+  why:"Inftech is cheapest on paper ($3,980) but on this lane usually ends up ~$4,620 after extras, and 4 days late. Unifreight is the best real value at ~$4,370 (92% on time). Cargo ready 25 Sep, so booking today keeps the schedule comfortable.",
+  tags:[["blue","3 quotes in"],["green","Best value: Unifreight ~$4,370"],["plain","Ready 25 Sep"]],
+  a:"Compare & book", b:"Remind me tomorrow", compare:true, tab:"costs",
+  rank:4, imp:"med", impSub:"~$250 better value than the cheapest quote", money:250,
+  line:"All 3 quotes are back. The cheapest on paper isn't the cheapest in practice.", by:["plain","Book by 18 Sep"]},
  {id:"q1",pri:"high",ship:"LG-2418",title:"LG-2418 is 8 days late and accruing storage at Ningbo",
   why:"Vessel missed its Suez slot. Detention & storage are adding ~$95/day. Option A: transship via Piraeus, arrives 20 Sep, +$380. Option B: hold current routing, arrives 24 Sep, storage continues.",
   tags:[["red","8 days late"],["amber","+$690 accrued"],["plain","Unifreight"]],
   a:"Approve transship (+$380)", b:"Hold current routing",
-  msg:"Hi Dana, re LG-2418 — before we approve the Piraeus transship, please confirm the +$380 is all-in (no extra terminal or doc fees) and that the 20 Sep ETA holds. Also confirm storage stops accruing once transshipped."},
+  rank:1, imp:"high", impSub:"~$285 saved · arrives 4 days sooner", money:285,
+  line:"Missed its Suez slot. Storage adds ~$95/day until it moves. Transship now or wait until 24 Sep.", by:["red","Unifreight needs your call today"],
+  msg:"Hi Dana, re LG-2418: before we approve the Piraeus transship, please confirm the +$380 is all-in (no extra terminal or doc fees) and that the 20 Sep ETA holds. Also confirm storage stops accruing once transshipped."},
  {id:"q2",pri:"high",ship:"LG-2402",title:"Inftech invoice for LG-2402 is $610 above quote",
   why:"Fuel surcharge invoiced at $930 vs $500 quoted. No rate change was notified. You can accept, or ask the agent to query the forwarder with the quote attached.",
   tags:[["red","+$610 vs quote"],["plain","Invoice #7741"]],
   a:"Query with forwarder", b:"Accept & schedule payment", tab:"costs", send:"a", pay:"b",
+  rank:3, imp:"med", impSub:"$610 to recover before you pay", money:610,
+  line:"Fuel surcharge billed at $930 vs $500 quoted, with no rate-change notice.", by:["amber","Before the 30 Sep payment run"],
   msg:"Hi Roy, invoice #7741 for LG-2402 shows a fuel surcharge of $930 vs the $500 on your quote, and we have no rate-change notice on file. Please send a corrected invoice or the notification that supports the new rate."},
  {id:"q3",pri:"med",ship:"LG-2431",title:"LG-2431 bill of lading still missing 3 days after pickup",
   why:"Without the B/L you can't clear customs at Haifa. Unifreight usually sends within 24h. The agent drafted a chaser referencing the booking number.",
   tags:[["amber","Missing B/L"],["plain","Unifreight"]],
   a:"Send chaser", b:"I'll handle it", tab:"activity", send:"a",
-  msg:"Hi Dana, we still haven't received the bill of lading for LG-2431 (booking UF-90233), picked up 3 days ago. We need it for customs clearance at Haifa — please send it today."},
- {id:"q4",pri:"low",ship:"LG-2436",title:"Invoice #7748 matches quote — approve for payment?",
+  msg:"Hi Dana, we still haven't received the bill of lading for LG-2431 (booking UF-90233), picked up 3 days ago. We need it for customs clearance at Haifa, so please send it today."},
+ {id:"q4",pri:"low",ship:"LG-2436",title:"Invoice #7748 matches quote. Approve for payment?",
   why:"Inftech's invoice for LG-2436 ($3,300) matches the quote line-for-line, documents complete. Safe to schedule for the next payment run.",
   tags:[["green","Matches quote"],["blue","Due 30 Sep"]],
   a:"Schedule payment", b:"Review first", tab:"costs", pay:"a", review:true,
-  msg:"Hi Roy, confirming invoice #7748 for LG-2436 is approved — it matches the quote line-for-line. It's scheduled on our 30 Sep payment run."},
+  rank:7, imp:"none", impLabel:"No issue", impSub:"Matches the quote line for line", money:0,
+  line:"Inftech's invoice ($3,300) matches the quote and the documents are complete.", by:["plain","Due 30 Sep"],
+  msg:"Hi Roy, confirming invoice #7748 for LG-2436 is approved. It matches the quote line-for-line. It's scheduled on our 30 Sep payment run."},
 ];
+
+/* Heads-up: things the agent forecasts will go wrong, while they can still be prevented.
+   cost = money avoided by acting now; fixEta = likely arrival once fixed. */
+const HEADSUPS = [
+ {id:"h1",lvl:"high",ship:"LG-2429",tab:"costs",when:"Last free day Tue 22 Sep · 5 days away",
+  rank:2, imp:"high", impSub:"~$560 at risk · customer 4 days late",
+  line:"Commercial invoice missing and no truck booked, with free time ending Tue 22 Sep.", by:["red","Act by Tue 22 Sep"],
+  title:"LG-2429 will probably sit in Ashdod port past its free time",
+  why:"Customs can't clear it yet: the commercial invoice isn't on file. No delivery truck is booked either, and Ashdod trucks are booking 3–4 days out this week.",
+  cost:560, ifNothing:"~$560 in port storage (4 days × $140), and your customer gets it ~4 days late.",
+  fixLabel:"Request invoice & book truck", fixTxt:"Ask the supplier for the invoice today and pre-book a truck for 21 Sep. Extra cost: $0.", fixEta:"21 Sep",
+  done:"Asked the supplier for the commercial invoice and pre-booked delivery for 21 Sep. Customs will be lodged the moment the invoice lands.",
+  short:"port storage on LG-2429",
+  custMsg:"Hi,\n\nA quick update on your order PO-88120: the container has arrived at Ashdod on schedule. We're finalising customs paperwork now and expect to deliver on 21 Sep.\n\nIf anything changes, we'll let you know straight away.\n\nBest regards"},
+ {id:"h2",lvl:"med",ship:"LG-2431",tab:"docs",when:"Lands Haifa Mon 28 Sep · B/L needed by Fri 25 Sep",queue:"q3",
+  rank:5, imp:"med", impSub:"~$260 at risk · customer 2 days late",
+  line:"B/L is 3 days overdue from Unifreight, so customs can't start before it lands.", by:["amber","B/L needed by Fri 25 Sep"],
+  title:"LG-2431 is heading for a customs hold at Haifa",
+  why:"The bill of lading is 3 days overdue from Unifreight. Without it, customs clearance (≈2 days) can't start, so the cargo will sit in the warehouse after it lands.",
+  cost:260, ifNothing:"~$260 in warehouse storage, and a 2-day delay to your customer.",
+  fixLabel:"Chase the B/L now", fixTxt:"Send the drafted chaser to Unifreight, then pre-lodge customs as soon as the B/L lands. Extra cost: $0.", fixEta:"28 Sep",
+  done:"Chaser sent to Unifreight for the B/L. Customs will be pre-lodged as soon as it arrives, so clearance is ready when the cargo lands.",
+  short:"customs hold on LG-2431",
+  custMsg:"Hi,\n\nA quick update on your order PO-88134: it's on the water from Ningbo and due in Haifa on 28 Sep. We're getting customs paperwork ready in advance so it can be delivered shortly after.\n\nWe'll confirm the delivery date once it's cleared.\n\nBest regards"},
+ {id:"h3",lvl:"low",ship:"LG-2440",tab:"activity",when:"Rotterdam ETA drifting · 4 Oct → likely 7 Oct",custFix:true,
+  rank:6, imp:"low", impSub:"No extra cost · customer 3 days late", unsure:true,
+  line:"Vessel running behind and Rotterdam berths backed up. The carrier's ETA hasn't caught up yet.", by:["plain","Tell them this week"],
+  title:"LG-2440 will probably reach Rotterdam 3 days late",
+  why:"The vessel is running 2 days behind on its current rotation, and Rotterdam berth waits are 1–2 days this week. The forwarder's ETA hasn't caught up yet.",
+  cost:0, ifNothing:"No extra freight cost, but your customer is planning around 4 Oct and will find out late.",
+  fixLabel:"Tell my customer (new ETA 7 Oct)", fixTxt:"Send your customer a heads-up today, so they can re-plan now instead of chasing you on 4 Oct.", fixEta:"7 Oct",
+  done:"Customer told about the new ETA (7 Oct) 17 days ahead.",
+  short:"a surprise delay for Van Dijk Installatie",
+  custMsg:"Hi,\n\nA heads-up on your order PO-88150 (Ashdod → Rotterdam): it's being picked up tomorrow, but the vessel is running behind schedule and Rotterdam is congested this week. We now expect arrival around 7 Oct rather than 4 Oct.\n\nWe're telling you early so you can plan around it, and we'll update you if the date improves.\n\nBest regards"},
+];
+const SAVED_EARLIER = 1460; /* demo: savings from heads-ups acted on earlier this month */
+let savedNow = 0;
+const MONTH = {quoted:40100, charged:41200, toCome:2600}; /* toCome includes the open heads-up costs */
 
 const REPORTS = [
  ["red","LG-2418 ETA slipped again: 18 Sep → 20 Sep (missed Suez slot)","Today 08:40"],
  ["amber","Inftech invoice #7741 received: $5,810 vs $5,200 quoted (LG-2402)","Today 07:55"],
- ["green","LG-2429 arrived at Ashdod anchorage — on schedule","Today 06:12"],
+ ["green","LG-2429 arrived at Ashdod anchorage on schedule","Today 06:12"],
  ["blue","POD received & filed for LG-2395 (Qingdao → Haifa)","Yesterday 17:20"],
  ["amber","LG-2431 flagged: bill of lading not received 72h after pickup","Yesterday 14:05"],
  ["green","LG-2440 pickup confirmed by ICL Freight for 18 Sep 08:00","Yesterday 11:30"],
- ["blue","Freight invoice #7748 auto-matched to quote for LG-2436 — no variance","Yesterday 09:48"],
+ ["blue","Freight invoice #7748 auto-matched to quote for LG-2436, no variance","Yesterday 09:48"],
  ["green","LG-2436 departed Shanghai on schedule (air)","15 Sep 22:10"],
 ];
 
@@ -1254,15 +1492,15 @@ function goToSettings(cardId){
 const CHECKMARK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 const SETUP_STEPS=[
   {id:"connections",title:"Connect a way to get updates",required:true,
-    desc:"Without an email inbox, ERP or forwarder connected, shipments won't update themselves — you're back to checking email by hand.",
+    desc:"Without an email inbox, ERP or forwarder connected, shipments won't update themselves, and you're back to checking email by hand.",
     check:()=>$$("#jsConn .toggle").length===0||[...$$("#jsConn .toggle")].some(t=>t.classList.contains("on")),
     action:()=>goToSettings("jsConn"),label:"Go to Connections"},
   {id:"contacts",title:"Add a contact for every company you work with",required:true,
-    desc:()=>{const missing=CONTACTS.filter(c=>c.people.length===0);return missing.length?`${missing.map(c=>c.co).join(", ")} ${missing.length>1?"have":"has"} no contact yet — logee can't send them quotes, RFQs or messages until you add one.`:"Every company has at least one contact — quotes and order messages can go out.";},
+    desc:()=>{const missing=CONTACTS.filter(c=>c.people.length===0);return missing.length?`${missing.map(c=>c.co).join(", ")} ${missing.length>1?"have":"has"} no contact yet, so logee can't send them quotes, RFQs or messages until you add one.`:"Every company has at least one contact, so quotes and order messages can go out.";},
     check:()=>CONTACTS.every(c=>c.people.length>0),
     action:()=>goToSettings("jsContacts"),label:"Add contacts"},
   {id:"skus",title:"Add your SKU catalog",required:true,
-    desc:"Without SKUs, new orders can only use free-text lines — no weights, HS codes or carton counts for accurate quotes.",
+    desc:"Without SKUs, new orders can only use free-text lines, with no weights, HS codes or carton counts for accurate quotes.",
     check:()=>SKUS.length>0,
     action:()=>showView("skus"),label:"Add SKUs"},
   {id:"threshold",title:"Set your late-shipment alert threshold",required:false,
@@ -1305,36 +1543,259 @@ function renderSetupBanner(steps){
   const firstMissing=missing[0];
   banner.style.display="flex";
   banner.innerHTML=`
-    <div class="sb-text"><b>Finish setting up logee — ${done}/${steps.length} done</b><span>Next: ${firstMissing.title.toLowerCase()}</span></div>
-    <div class="bar-wrap"><div class="bar" style="width:${done/steps.length*100}%;background:var(--blue)"></div></div>
-    <button class="btn btn-blue" onclick="goToSettings('jsProgress')">Finish setup</button>`;
+    <div class="sb-text"><span><b style="display:inline">Setup ${done}/${steps.length} done</b> · Next: ${firstMissing.title.toLowerCase()}</span></div>
+    <div class="bar-wrap" style="margin-top:0"><div class="bar" style="width:${done/steps.length*100}%;background:var(--blue)"></div></div>
+    <button class="chip-btn" onclick="goToSettings('jsProgress')">Finish setup →</button>`;
 }
 
 /* ═════════ Today: queue ═════════ */
-function renderQueue(){
-  const wrap=$("#queue");wrap.innerHTML="";
-  let open=0;
-  QUEUE.forEach(q=>{
-    const el=document.createElement("div");
-    el.className="qitem p-"+q.pri+(q.resolved?" resolved":"");
-    if(!q.resolved)open++;
-    el.innerHTML=`
-      <h4>${q.title}</h4>
-      <div class="why">${q.why}</div>
-      <div class="impact">${q.tags.map(t=>`<span class="tag ${t[0]}">${t[1]}</span>`).join("")}</div>
-      <div class="qfoot">
-        ${q.resolved?`<span class="qdone">✓ ${q.done}</span>`:`
-        <button class="act primary" onclick="openDecision('${q.id}')">${q.a}</button>
-        <button class="act line" onclick="openDecision('${q.id}')">${q.b}</button>
-        ${qMsgBtn(q)}
-        <span style="flex:1"></span>
-        <button class="act link" onclick="openChatWith('Tell me more about ${q.ship}')">Ask agent →</button>`}
-      </div>`;
-    wrap.appendChild(el);
-  });
-  $("#queueCount").textContent=open;
-  $("#pipToday").style.display=open?"block":"none";
+/* One ranked list: forecasts (HEADSUPS) and decisions (QUEUE) together, ordered by the agent's rank.
+   Decisions already covered by a forecast (h.queue) are folded into it. */
+const IMP_LABEL={high:"High impact",med:"Medium impact",low:"Low impact",none:"No issue"};
+const nbOpen=new Set();
+function actionItems(){
+  const folded=HEADSUPS.map(h=>h.queue).filter(Boolean);
+  const hs=HEADSUPS.map(h=>({k:"h",id:h.id,o:h,ship:h.ship,rank:h.rank,money:h.cost,
+    state:h.state==="fixed"?"done":h.state==="snoozed"?"snoozed":"open"}));
+  const qs=QUEUE.filter(q=>!folded.includes(q.id)).map(q=>({k:"q",id:q.id,o:q,ship:q.ship,rank:q.rank,money:q.money||0,
+    state:q.resolved?"done":"open"}));
+  const order={open:0,snoozed:1,done:2};
+  return [...hs,...qs].sort((a,b)=>order[a.state]-order[b.state]||a.rank-b.rank);
 }
+function openAction(ship,tab){
+  openDrawer(ship,tab);
+  $(".drawer-body").scrollTop=0;
+  const card=$("#dDecision").firstElementChild;
+  if(card){card.classList.remove("flash");void card.offsetWidth;card.classList.add("flash");}
+}
+function nbToggle(id){nbOpen.has(id)?nbOpen.delete(id):nbOpen.add(id);renderQueue();}
+function nbRow(it,n,first){
+  const o=it.o,esc=t=>t.replace(/'/g,"\\'");
+  if(it.state==="done")return `<div class="nb done"><div class="nb-num">✓</div>
+      <div><div class="nb-title">${o.title}</div><div class="nb-line">${it.k==="h"?`Prevented${o.cost?` · ~${fmt(o.cost)} saved`:""}`:`Done: ${o.done}`}</div></div><div></div></div>`;
+  if(it.state==="snoozed")return `<div class="nb snoozed"><div class="nb-num" style="background:var(--ink-faint)">z</div>
+      <div><div class="nb-title">${o.title}</div><div class="nb-line">Snoozed until tomorrow 08:00</div></div>
+      <div class="nb-side"><button class="act line" onclick="huSnooze('${o.id}',false)">Undo snooze</button></div></div>`;
+  /* the main button opens the shipment on the tab where you act, with the decision card highlighted */
+  const primary=`<button class="act primary" onclick="openAction('${o.ship}','${o.tab||"timeline"}')">${it.k==="h"?o.fixLabel:o.a} ›</button>`;
+  const more=nbOpen.has(it.id);
+  const detail=it.k==="h"
+    ?`<div class="hu-split"><div class="hu-box bad"><b>If nothing changes</b>${o.ifNothing}</div><div class="hu-box good"><b>Fix now</b>${o.fixTxt}</div></div>
+      <div class="nb-acts">
+        ${o.custFix?"":o.custSent?`<span class="qdone" style="font-size:12.5px;font-weight:700;color:var(--green)">✓ Customer updated</span>`:`<button class="act line" onclick="openCust('${o.id}')">Tell my customer</button>`}
+        <button class="act line" onclick="huSnooze('${o.id}',true)">Snooze</button>
+        <span style="flex:1"></span>
+        <button class="act link" onclick="openDrawer('${o.ship}','costs')">Open ${o.ship} →</button>
+        <button class="act link" onclick="openChatWith('Why is ${o.ship} at risk?')">Why? →</button>
+      </div>`
+    :`<div class="why">${o.why}</div>
+      <div class="nb-acts">
+        ${o.review||o.compare?"":`<button class="act line" onclick="resolveQ('${o.id}','${esc(o.b)}')">${o.b}</button>`}
+        ${qMsgBtn(o)}
+        <span style="flex:1"></span>
+        <button class="act link" onclick="openDrawer('${o.ship}','${o.tab||"timeline"}')">Open ${o.ship} →</button>
+        <button class="act link" onclick="openChatWith('Tell me more about ${o.ship}')">Ask agent →</button>
+      </div>`;
+  return `<div class="nb">
+      <div class="nb-num">${n}</div>
+      <div>
+        <div class="nb-title">${first?`<span class="nb-first">Do this first</span>`:""}${o.title}</div>
+        <div class="nb-line">${o.line}</div>
+        <div class="nb-meta">
+          <span class="tag ${o.by[0]}">${o.by[1]}</span>
+          <span class="tag plain">${o.ship}</span>
+          ${it.k==="h"?`<span class="tag violet">Forecast</span>`:""}
+          ${o.unsure?`<span class="tag plain" title="Based on vessel schedule and port congestion. The carrier hasn't confirmed it.">Likely, not certain</span>`:""}
+        </div>
+        <button class="nb-toggle" onclick="nbToggle('${it.id}')" aria-expanded="${more}">${more?"Hide details ▴":"Details ▾"}</button>
+      </div>
+      <div class="nb-side">
+        <span class="imp ${o.imp}">${o.impLabel||IMP_LABEL[o.imp]}</span>
+        <span class="nb-impsub">${o.impSub}</span>
+        ${primary}
+      </div>
+      ${more?`<div class="nb-more">${detail}</div>`:""}
+    </div>`;
+}
+function renderQueue(){
+  const items=actionItems(),open=items.filter(i=>i.state==="open");
+  let n=0,sep=false;
+  $("#queue").innerHTML=items.map(it=>{
+    const head=it.state==="done"&&!sep?(sep=true,`<div class="nba-sep">Done today</div>`):"";
+    return head+nbRow(it,it.state==="open"?++n:"",it.state==="open"&&n===1);
+  }).join("")||`<div class="empty">Nothing needs you right now.</div>`;
+  $("#queueCount").textContent=open.length;
+  $("#queueCount").style.display=open.length?"":"none";
+  $("#pipToday").style.display=open.length?"block":"none";
+  renderOutcome();renderSummary();
+}
+/* top row: where September ends up */
+function monthNumbers(){
+  const avoidable=openHU().reduce((a,h)=>a+h.cost,0);
+  const likely=MONTH.charged+MONTH.toCome-savedNow;
+  return {avoidable,likely,over:likely-MONTH.quoted};
+}
+function renderOutcome(){
+  const m=monthNumbers(),pct=Math.round(m.over/MONTH.quoted*100);
+  const active=23,lateNow=SHIPMENTS.filter(s=>s.status==="late").length;
+  const slipping=HEADSUPS.filter(h=>h.state!=="fixed"||h.custFix).length;
+  const onTime=active-lateNow-slipping;
+  const open=actionItems().filter(i=>i.state==="open");
+  const stake=open.reduce((a,i)=>a+i.money,0);
+  const fixable=HEADSUPS.filter(h=>h.state!=="fixed"&&!h.custFix).length;
+  $("#outPromise").textContent=open.length
+    ?`Work the list: ~${fmt(stake)} saved or recovered${fixable?`, ${onTime+fixable} of ${active} on time`:""}`
+    :`List cleared. Nothing left on the table.`;
+  $("#outPromise").style.display="";
+  $("#outRow").innerHTML=`
+    <div class="out" onclick="showView('costs')">
+      <div class="l">Likely September spend</div>
+      <div class="n" style="color:${m.over>0?"var(--red)":"var(--ink)"}">${fmtK(m.likely)}</div>
+      <div class="d"><span>${m.over>0?"+":""}${pct}% vs ${fmtK(MONTH.quoted)} quoted</span></div>
+      <div class="bar-wrap"><div class="bar" style="width:${Math.min(100,MONTH.quoted/m.likely*100)}%;background:var(--red)"></div></div>
+    </div>
+    <div class="out" onclick="showView('shipments');filterShips('${slipping?"risk":"late"}')">
+      <div class="l">Likely on time</div>
+      <div class="n" style="color:${onTime/active<.85?"var(--amber)":"var(--ink)"}">${onTime} <span style="font-size:15px;color:var(--ink-faint)">of ${active}</span></div>
+      <div class="d"><span>${lateNow} late now · ${slipping} slipping</span></div>
+      <div class="bar-wrap"><div class="bar" style="width:${onTime/active*100}%;background:var(--green)"></div></div>
+    </div>
+    <div class="out" onclick="document.getElementById('actTitle').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="l">Preventable costs</div>
+      <div class="n" style="color:${m.avoidable?"var(--amber)":"var(--green)"}">${fmt(m.avoidable)}</div>
+      <div class="d"><span>${m.avoidable?"Storage & delays you can still stop":"Nothing preventable left open"}</span></div>
+    </div>
+    <div class="out" onclick="showView('reports')">
+      <div class="l">Saved this month</div>
+      <div class="n" style="color:var(--green)">${fmtK(SAVED_EARLIER+savedNow)}</div>
+      <div class="d"><span>by acting before it went wrong</span></div>
+    </div>`;
+}
+/* right panel: Where you are / About to go wrong / Do this next */
+function renderSummary(){
+  const m=monthNumbers(),open=actionItems().filter(i=>i.state==="open");
+  const late=SHIPMENTS.filter(s=>s.status==="late");
+  const risks=HEADSUPS.filter(h=>!h.state);
+  const next=open[0];
+  $("#summary").innerHTML=`
+    <div class="s-head"><b>Your summary</b><span class="tag violet">logee agent · 09:12</span></div>
+    <h5>Where you are</h5>
+    <p><b>23 active shipments.</b> ${late.length} ${late.length===1?"is":"are"} more than 5 days late (${late.map(s=>s.id).join(", ")}). September is heading for <b>${fmt(m.likely)}</b>, ${Math.round(m.over/MONTH.quoted*100)}% over quotes.</p>
+    <h5>About to go wrong</h5>
+    ${risks.length?`<ul>${risks.map(h=>`<li><b>${h.ship}</b>: ${h.impSub.replace(" at risk","")}</li>`).join("")}</ul>`:`<p style="color:var(--green);font-weight:700">Nothing. Every forecast problem has been handled.</p>`}
+    <h5>Do this next</h5>
+    <p>${next?`Work the list from the top. <b>#1: ${next.o.title}.</b> ${next.o.impSub.replace(/^./,c=>c.toUpperCase())}.`:"You're clear. logee keeps watching and will flag anything new."}</p>
+    <div class="brief-actions">
+      <button class="chip-btn" onclick="openChatWith('Why is spend 6% above quotes?')">Why is spend above quote?</button>
+      <button class="chip-btn" onclick="showView('reports')">What changed overnight?</button>
+    </div>`;
+}
+/* ═════════ Today: heads-up (forecast) ═════════ */
+const fmtK=n=>n>=1000?"$"+(n/1000).toFixed(1).replace(".0","")+"K":"$"+n;
+const openHU=()=>HEADSUPS.filter(h=>!h.state);
+const atRisk=id=>HEADSUPS.some(h=>h.ship===id&&!h.state);
+function huCard(h,inDrawer){
+  const cls=`hu l-${h.lvl}${h.state==="fixed"?" fixed":h.state==="snoozed"?" snoozed":""}${inDrawer?" in-drawer":""}`;
+  if(h.state==="fixed")return `<div class="${cls}">
+      <div class="hu-when" style="color:var(--green)">✓ Prevented${h.cost?` · ~${fmt(h.cost)} saved`:""}</div>
+      <h4>${h.title}</h4><div class="why">${h.done}</div></div>`;
+  if(h.state==="snoozed")return `<div class="${cls}">
+      <div class="hu-when">Snoozed until tomorrow 08:00</div><h4>${h.title}</h4>
+      <div class="qfoot"><button class="act line" onclick="huSnooze('${h.id}',false)">Undo snooze</button></div></div>`;
+  return `<div class="${cls}">
+      <div class="hu-when">${h.when}</div>
+      <h4>${h.title}</h4>
+      <div class="why">${h.why}</div>
+      <div class="hu-split">
+        <div class="hu-box bad"><b>If nothing changes</b>${h.ifNothing}</div>
+        <div class="hu-box good"><b>Fix now</b>${h.fixTxt}</div>
+      </div>
+      <div class="qfoot">
+        <button class="act primary" onclick="huFix('${h.id}')">${h.fixLabel}</button>
+        ${h.custFix?"":h.custSent?`<span class="qdone">✓ Customer updated</span>`:`<button class="act line" onclick="openCust('${h.id}')">Tell my customer</button>`}
+        <button class="act line" onclick="huSnooze('${h.id}',true)">Snooze</button>
+        <span style="flex:1"></span>
+        ${inDrawer?"":`<button class="act link" onclick="openDrawer('${h.ship}','costs')">Open ${h.ship} →</button>`}
+        <button class="act link" onclick="openChatWith('Why is ${h.ship} at risk?')">Why? →</button>
+      </div>
+    </div>`;
+}
+function renderRisk(id){
+  renderQueue();renderShips();renderMonthForecast();
+  if(id&&drawerShipId===id&&$("#drawer").classList.contains("open"))openDrawer(id,($(".dtab.on")||{}).dataset?.dt||"timeline");
+}
+function huFix(id){
+  const h=HEADSUPS.find(x=>x.id===id);if(!h||h.state==="fixed")return;
+  if(h.custFix){openCust(id);return;}
+  applyFix(h);
+}
+function applyFix(h){
+  const s=SHIPMENTS.find(x=>x.id===h.ship);
+  if(h.queue){const q=QUEUE.find(x=>x.id===h.queue);if(q&&!q.resolved)resolveQ(q.id,q.a);}
+  h.state="fixed";savedNow+=h.cost;
+  if(s.fc){s.fc.cost-=h.cost;s.fc.eta=h.fixEta;s.fc.why="fixed early, so it's back on plan";}
+  if(s.ft&&h.cost)s.ft.sub+=" Fix in place, so no storage is expected.";
+  postComm(s.id,["agent","logee agent",h.done,"Just now"]);
+  addReport("green",`Prevented ${h.short} (${s.id})${h.cost?` · ~${fmt(h.cost)} saved`:""}`,"Just now");
+  renderRisk(s.id);
+  toast(h.cost?`Prevented: ~${fmt(h.cost)} saved on ${s.id}`:`Done: your customer heard about ${s.id} early`);
+}
+function huSnooze(id,on){
+  const h=HEADSUPS.find(x=>x.id===id);if(!h)return;
+  h.state=on?"snoozed":null;
+  renderRisk(h.ship);
+  if(on)toast("Snoozed. logee will remind you tomorrow at 08:00");
+}
+/* customer update modal */
+let custHu=null;
+function openCust(id){
+  const h=HEADSUPS.find(x=>x.id===id),s=SHIPMENTS.find(x=>x.id===h.ship);
+  custHu=id;
+  $("#custTo").value=s.cust||"";
+  $("#custMsg").value=h.custMsg;
+  $("#custSub").textContent=`About ${s.id} · ${s.route}. Drafted by logee. Edit anything, then send.`;
+  $("#custScrim").classList.add("open");
+  setTimeout(()=>{const m=$("#custMsg");m.focus();m.setSelectionRange(0,0);m.scrollTop=0;},150);
+}
+function closeCust(){$("#custScrim").classList.remove("open");custHu=null;}
+function sendCust(){
+  const h=HEADSUPS.find(x=>x.id===custHu);if(!h)return;
+  const s=SHIPMENTS.find(x=>x.id===h.ship);
+  const to=$("#custTo").value.trim(),msg=$("#custMsg").value.trim();
+  if(!to){toast("Add who the update goes to");return;}
+  if(!msg){toast("The message is empty");return;}
+  const name=to.split("·")[0].trim();
+  h.custSent=true;
+  postComm(s.id,["out",`You → ${name}`,msg.replace(/</g,"&lt;").replace(/\n/g,"<br>"),"Just now"]);
+  addReport("blue",`Customer updated early on ${s.id} (${name})`,"Just now");
+  closeCust();
+  if(h.custFix)applyFix(h);
+  else{renderRisk(s.id);toast(`Update sent to ${name}, filed on ${s.id}`);}
+}
+
+/* ═════════ Costs: month-end forecast ═════════ */
+function renderMonthForecast(){
+  const avoidable=openHU().reduce((a,h)=>a+h.cost,0);
+  const likely=MONTH.charged+MONTH.toCome-savedNow;
+  const over=likely-MONTH.quoted,pct=Math.round(over/MONTH.quoted*100);
+  const known=likely-avoidable;
+  $("#monthFc").innerHTML=`
+    <div class="lead"><b>Month-end forecast:</b> September will likely finish at <b>${fmt(likely)}</b> against <b>${fmt(MONTH.quoted)}</b> quoted
+      (<b style="color:${over>0?"var(--red)":"var(--green)"}">${over>0?"+":""}${fmt(over).replace("$-","-$")}, ${over>0?"+":""}${pct}%</b>).
+      ${avoidable?`<b>${fmt(avoidable)}</b> of that is still avoidable. Work the Next best actions list on Today.`:`Nothing avoidable is left open.`}</div>
+    <div class="mfc-bar" aria-hidden="true">
+      <span style="width:${MONTH.charged/likely*100}%;background:var(--ink)"></span>
+      <span style="width:${(known-MONTH.charged)/likely*100}%;background:var(--ink-faint)"></span>
+      <span style="width:${avoidable/likely*100}%;background:var(--amber)"></span>
+    </div>
+    <div class="mfc-legend">
+      <span><i style="background:var(--ink)"></i>Charged so far ${fmt(MONTH.charged)}</span>
+      <span><i style="background:var(--ink-faint)"></i>Still to be invoiced ${fmt(known-MONTH.charged)}</span>
+      <span><i style="background:var(--amber)"></i>Avoidable ${fmt(avoidable)}</span>
+      ${avoidable?`<button class="chip-btn" style="margin-left:auto" onclick="showView('today');setTimeout(()=>$('#actTitle').scrollIntoView({behavior:'smooth'}),60)">Show what to do →</button>`:""}
+    </div>`;
+}
+
 function messageFwd(qid){
   const q=QUEUE.find(x=>x.id===qid);if(!q)return;
   openDrawer(q.ship,"activity");
@@ -1342,7 +1803,7 @@ function messageFwd(qid){
     const inp=$("#commInput");
     if(inp){inp.value=q.msg;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,220)+'px';inp.focus();inp.setSelectionRange(0,0);}
     const sh=SHIPMENTS.find(x=>x.id===q.ship);
-    toast(`Draft written by logee — edit if needed, then send to ${primaryEmail(sh.fwd)}`);
+    toast(`Draft written by logee. Edit if needed, then send to ${primaryEmail(sh.fwd)}`);
   },200);
 }
 function openDecision(qid){
@@ -1355,14 +1816,14 @@ function qMsgBtn(q){
 }
 function renderDecision(s){
   const esc=t=>t.replace(/'/g,"\\'");
-  $("#dDecision").innerHTML=QUEUE.filter(q=>q.ship===s.id).map(q=>q.resolved
+  $("#dDecision").innerHTML=HEADSUPS.filter(h=>h.ship===s.id).map(h=>huCard(h,true)).join("")+QUEUE.filter(q=>q.ship===s.id).map(q=>q.resolved
     ?`<div class="qitem dec done p-${q.pri}"><div class="dec-label">Decision logged</div><h4>${q.title}</h4><div class="qfoot"><span class="qdone">✓ ${q.done}</span></div></div>`
     :`<div class="qitem dec p-${q.pri}">
       <div class="dec-label">Needs your decision</div>
       <h4>${q.title}</h4>
       <div class="why">${q.why}</div>
       <div class="qfoot">
-        ${q.compare?`<span class="dec-hint">Book one of the quotes in the Timeline tab.</span>`:`<button class="act primary" onclick="resolveQ('${q.id}','${esc(q.a)}')">${q.a}</button>`}
+        ${q.compare?`<button class="act primary" onclick="showDrawerTab('costs',true)">Compare &amp; book</button>`:`<button class="act primary" onclick="resolveQ('${q.id}','${esc(q.a)}')">${q.a}</button>`}
         ${q.review?"":`<button class="act line" onclick="resolveQ('${q.id}','${esc(q.b)}')">${q.b}</button>`}
         ${qMsgBtn(q)}
       </div>
@@ -1424,18 +1885,32 @@ function filterShips(f){shipFilter=f;
 }
 $$("#shipFilters .fchip").forEach(c=>c.addEventListener("click",()=>filterShips(c.dataset.f)));
 function renderShips(){
-  const rows=SHIPMENTS.filter(s=>shipFilter==="all"||s.status===shipFilter);
+  const rows=SHIPMENTS.filter(s=>shipFilter==="all"||(shipFilter==="risk"?atRisk(s.id):s.status===shipFilter));
   $("#shipRows").innerHTML=rows.length?rows.map(s=>{
-    const v=s.actual!=null?s.actual-s.quoted:null;
-    return `<tr onclick="openDrawer('${s.id}')">
+    return `<tr onclick="openDrawer('${s.id}'${atRisk(s.id)||s.quotes?",'costs'":""})">
       <td><span class="ship-id">${s.id}</span><br><span class="route">${s.fwd} · ${s.mode}</span></td>
       <td>${s.route}<br><span class="route">${(s.pos||[s.po]).join(', ')}</span></td>
-      <td>${statusChip(s.status,s.daysLate)}</td>
+      <td>${statusChip(s.status,s.daysLate)}${atRisk(s.id)?`<br><span class="tag amber" style="display:inline-block;margin-top:5px">⚠ At risk</span>`:""}</td>
       <td class="progress-cell">${s.quotes?`<span class="tag blue" style="margin-bottom:4px;display:inline-block">${s.quotes.length} quotes in</span>`:``}<div class="bar-wrap"><div class="bar" style="width:${s.stage/8*100}%;background:${s.status==="late"?"var(--red)":s.status==="watch"?"var(--amber)":s.status==="done"?"var(--blue)":"var(--green)"}"></div></div><span class="stage-label">${s.stage}/8 · ${STAGES[Math.min(s.stage,7)]}</span></td>
-      <td style="font-size:12.5px">${s.eta}</td>
-      <td class="cost-cell"><b>${fmt(s.quoted)} → ${fmt(s.actual)}</b>${v!=null?`<span class="var" style="color:${v>0?"var(--red)":v<0?"var(--green)":"var(--ink-faint)"}">${v>0?"+":""}${fmt(v).replace("$-","-$")} vs quote</span>`:`<span class="var" style="color:var(--ink-faint)">not yet invoiced</span>`}</td>
+      <td style="font-size:12.5px">${s.eta}${s.fc&&s.fc.eta&&s.status!=="done"&&!s.eta.includes(s.fc.eta)?`<span class="var" style="display:block;color:${atRisk(s.id)?"var(--amber)":"var(--ink-faint)"};font-weight:700">likely ${s.fc.eta}</span>`:""}</td>
+      <td class="cost-cell">${costCell(s)}</td>
+      <td class="go" aria-hidden="true">›</td>
     </tr>`;
-  }).join(""):`<tr><td colspan="6" class="empty">No shipments match this filter.</td></tr>`;
+  }).join(""):`<tr><td colspan="7" class="empty">No shipments match this filter.</td></tr>`;
+}
+
+/* quoted → likely final cost, for the Shipments table */
+function costCell(s){
+  const dv=v=>`${v>0?"+":""}${fmt(v).replace("$-","-$")}`;
+  if(s.quotes){const best=Math.min(...s.quotes.map(q=>q.price+(q.extras||0)));
+    return `<b>from ${fmt(Math.min(...s.quotes.map(q=>q.price)))}</b><span class="var" style="color:var(--blue)">best value ~${fmt(best)} all-in</span>`;}
+  if(s.quoted==null)return `<b>—</b><span class="var" style="color:var(--ink-faint)">awaiting quotes</span>`;
+  if(s.status==="done"){const v=s.actual-s.quoted;
+    return `<b>${fmt(s.quoted)} → ${fmt(s.actual)}</b><span class="var" style="color:${v>0?"var(--red)":v<0?"var(--green)":"var(--ink-faint)"}">final · ${dv(v)} vs quote</span>`;}
+  const f=s.fc?s.fc.cost:(s.actual!=null?s.actual:s.quoted),v=f-s.quoted;
+  const settled=s.actual!=null&&f===s.actual;
+  const known=s.actual==null?"":settled?" · invoiced":` · ${fmt(s.actual)} invoiced`;
+  return `<b>${fmt(s.quoted)} → ${fmt(f)}</b><span class="var" style="color:${v>0?(atRisk(s.id)?"var(--amber)":"var(--red)"):"var(--green)"}">${v>0?`${settled?"":"likely "}${dv(v)} vs quote`:"on quote"}${known}</span>`;
 }
 
 /* ═════════ Costs ═════════ */
@@ -1486,7 +1961,7 @@ $("#docUpload")?.addEventListener("change",e=>{
   const names=SHIPMENTS.map(s=>s.id).join(", ");
   const target=prompt(`Attach ${files.length>1?files.length+" files":"“"+files[0].name+"”"} to which shipment? (e.g. ${SHIPMENTS[0].id})\\n\\nActive shipments: ${names}`,SHIPMENTS[0].id);
   const s=SHIPMENTS.find(x=>x.id===(target||"").trim().toUpperCase());
-  if(!s){toast("No matching shipment — upload cancelled");e.target.value="";return;}
+  if(!s){toast("No matching shipment, upload cancelled");e.target.value="";return;}
   files.forEach(f=>s.docs.push([f.name,"Uploaded by you","just now"]));
   renderDocs();
   if(drawerShipId===s.id)renderActivity(s);
@@ -1496,11 +1971,116 @@ $("#docUpload")?.addEventListener("change",e=>{
 });
 
 /* ═════════ Reports ═════════ */
-function addReport(color,text,time){REPORTS.unshift([color,text,time]);renderReports();}
-function renderReports(){
-  $("#reportList").innerHTML=REPORTS.map(r=>`
-    <div class="report-item"><span class="rdot" style="background:var(--${r[0]})"></span><div>${r[1]}</div><time>${r[2]}</time></div>`).join("");
+/* demo: savings logged earlier this month (they add up to SAVED_EARLIER) */
+const SAVINGS_EARLIER=[
+ ["3 Sep","LG-2388","Truck pre-booked before Ashdod free time ran out","prevented",420],
+ ["7 Sep","LG-2391","B/L chased before arrival, customs pre-lodged","prevented",260],
+ ["10 Sep","LG-2385","Duplicate documentation fee queried and credited","recovered",180],
+ ["12 Sep","LG-2390","Customer told about a 3-day delay 6 days ahead","customer",0],
+ ["14 Sep","LG-2393","Booked best value instead of cheapest quote","chosen",600],
+];
+/* demo: last 90 days per forwarder */
+const FWD_STATS=[
+ {co:"Unifreight",n:14,onTime:86,late:1.8,vsQuote:108,extras:310,note:["amber","Reliable, but storage fees add up"]},
+ {co:"Inftech",n:9,onTime:71,late:3.4,vsQuote:107,extras:420,note:["red","Cheapest quotes, most extras"]},
+ {co:"ICL Freight",n:5,onTime:100,late:0,vsQuote:100,extras:0,note:["green","Best record (small sample)"]},
+ {co:"Maersk (direct)",n:3,onTime:100,late:0.3,vsQuote:104,extras:180,note:["plain","You handle customs yourself"]},
+];
+/* demo: past months; September is the live forecast */
+const MONTHS_PAST=[["Apr",32600,36190,18,"Fuel surcharges"],["May",35100,38260,20,"Port storage"],["Jun",38400,42240,22,"Peak-season surcharge"],["Jul",36900,39480,19,"Fuel surcharges"],["Aug",39200,41160,21,"Documentation fees"]];
+const SEP_SHIPMENTS=23, SEP_CAUSE="Storage (LG-2418 Suez delay)";
+
+function renderSavings(){
+  const live=HEADSUPS.filter(h=>h.state==="fixed").map(h=>["Today",h.ship,h.done.split(". ")[0],h.custFix?"customer":"prevented",h.cost]);
+  const custLive=HEADSUPS.filter(h=>h.custSent&&!h.custFix).map(h=>["Today",h.ship,"Customer updated early","customer",0]);
+  const rows=[...live,...custLive,...SAVINGS_EARLIER.slice().reverse()];
+  const total=SAVED_EARLIER+savedNow;
+  const sum=k=>rows.filter(r=>r[3]===k).reduce((a,r)=>a+r[4],0);
+  const kindTag={prevented:["green","Prevented"],recovered:["blue","Recovered"],chosen:["violet","Better choice"],customer:["plain","Customer"]};
+  $("#rpSavings").innerHTML=`
+    <div class="rp-hero">
+      <div class="rp-big"><div class="l">Saved in September so far</div><div class="n">${fmt(total)}</div></div>
+    </div>
+    <div class="rp-split">
+      <div><b>${fmt(sum("prevented"))}</b>Storage &amp; delays prevented</div>
+      <div><b>${fmt(sum("recovered"))}</b>Overcharges recovered</div>
+      <div><b>${fmt(sum("chosen"))}</b>From better quote choices</div>
+      <div><b>${rows.filter(r=>r[3]==="customer").length}</b>Customers warned early</div>
+    </div>
+    <div class="cost-lines rp-list">
+      <div class="cline head"><span>When</span><span class="hide-m">Shipment</span><span>What happened</span><span class="num">Saved</span></div>
+      ${rows.map(r=>`<div class="cline"><span>${r[0]}</span><span class="hide-m"><span class="ship-id">${r[1]}</span></span><span>${r[2]} <span class="tag ${kindTag[r[3]][0]}" style="margin-left:4px">${kindTag[r[3]][1]}</span></span><span class="num" style="color:${r[4]?"var(--green)":"var(--ink-faint)"}">${r[4]?fmt(r[4]):"n/a"}</span></div>`).join("")}
+    </div>`;
 }
+function renderFwdScore(){
+  $("#rpFwd").innerHTML=FWD_STATS.map(f=>`<tr>
+    <td><b>${f.co}</b></td>
+    <td>${f.n}</td>
+    <td><div class="ot"><b>${f.onTime}%</b><div class="bar-wrap"><div class="bar" style="width:${f.onTime}%;background:${f.onTime<80?"var(--amber)":"var(--green)"}"></div></div></div></td>
+    <td>${f.late?f.late.toFixed(1)+" days":"0"}</td>
+    <td style="font-weight:800;color:${f.vsQuote>105?"var(--red)":"var(--ink)"}">${f.vsQuote}%</td>
+    <td>${f.extras?"+"+fmt(f.extras):"$0"}</td>
+    <td><span class="tag ${f.note[0]}">${f.note[1]}</span></td>
+  </tr>`).join("");
+}
+function renderTrend(){
+  const m=monthNumbers();
+  const data=[...MONTHS_PAST.map(([mo,q,a,n,cause])=>({mo,q,a,n,cause,fc:false})),
+      {mo:"Sep",q:MONTH.quoted,a:m.likely,n:SEP_SHIPMENTS,cause:SEP_CAUSE,fc:true}]
+    .map(d=>({...d,over:d.a-d.q,pct:Math.round((d.a-d.q)/d.q*1000)/10}));
+  const max=Math.max(12,Math.ceil((Math.max(...data.map(d=>d.pct))+2.5)/4)*4);
+  const ticks=[0,max/4,max/2,max*3/4,max];
+  const past=data.filter(d=>!d.fc);
+  const totalOver=data.reduce((a,d)=>a+d.over,0),totalQ=data.reduce((a,d)=>a+d.q,0);
+  const best=past.reduce((a,b)=>b.pct<a.pct?b:a),first=past[0],last=past[past.length-1];
+  const sep=data[data.length-1];
+  $("#rpTrend").innerHTML=`
+    <div class="rp-split">
+      <div><b>${fmt(totalOver)}</b>Paid over quote, Apr–Sep (${Math.round(totalOver/totalQ*100)}% of quotes)</div>
+      <div><b style="color:var(--green)">▼ ${(first.pct-last.pct).toFixed(0)} pts</b>Gap ${first.mo} → ${last.mo} (+${first.pct}% → +${last.pct}%)</div>
+      <div><b>${best.mo} +${best.pct}%</b>Best month so far</div>
+      <div><b style="color:${sep.pct>last.pct?"var(--red)":"var(--green)"}">+${sep.pct}%</b>September forecast (${sep.pct>last.pct?"up":"down"} from ${last.mo})</div>
+    </div>
+    <div class="tr-legend"><span><i></i>Actual, month closed</span><span><i class="fc"></i>Forecast, month still open</span><span style="margin-left:auto">Bar height = % over quote · hover a bar for details</span></div>
+    <div class="tr-chart" role="img" aria-label="Percent over quote by month: ${data.map(d=>`${d.mo} ${d.pct}% (${fmt(d.over)})`).join(", ")}">
+      <div class="tr-axis">${ticks.map(t=>`<span style="top:${100-t/max*100}%">${t}%</span>`).join("")}</div>
+      <div class="tr-plot">
+        ${ticks.slice(1).map(t=>`<div class="tr-grid" style="bottom:${t/max*100}%"></div>`).join("")}
+        ${data.map(d=>`<div class="tr-col" tabindex="0">
+          <span class="tr-lbl">+${d.pct}%<small>+${fmtK(d.over)}</small></span>
+          <div class="tr-bar${d.fc?" fc":""}" style="height:${Math.max(d.pct/max*100,1)}%">
+            <div class="tr-tip"><b>${d.mo}${d.fc?" (forecast)":""}: +${d.pct}% over quote</b><br>Quoted ${fmt(d.q)} · ${d.fc?"likely":"actual"} ${fmt(d.a)}<br>${fmt(d.over)} over across ${d.n} shipments<br>Main cause: ${d.cause}</div>
+          </div>
+        </div>`).join("")}
+      </div>
+    </div>
+    <div class="tr-x"><span></span>${data.map(d=>`<span><b>${d.mo}${d.fc?" (forecast)":""}</b><em>${fmtK(d.a)} vs ${fmtK(d.q)}</em><em>${d.cause}</em></span>`).join("")}</div>
+    <div class="tr-note"><b>What it means:</b> the gap fell from +${first.pct}% in ${first.mo} to +${last.pct}% in ${last.mo} as forwarder extras were caught and queried earlier. September jumped back up because of LG-2418's missed Suez slot. The forecast bar drops as you work the Today list${m.avoidable?`: ${fmt(m.avoidable)} of it is still preventable`:""}.</div>`;
+}
+/* activity log */
+let logFilter="all";
+function reportKind(t){
+  t=t.toLowerCase();
+  if(t.startsWith("prevented")||t.includes("saved")||t.includes("updated early"))return "saved";
+  if(/eta|slipp|late|delay|missed/.test(t))return "delay";
+  if(/b\/l|bill of lading|pod|document/.test(t))return "doc";
+  if(/invoice|quote|\$|payment|surcharge/.test(t))return "cost";
+  return "milestone";
+}
+const KIND_TAG={saved:["green","Saved"],delay:["red","Delay"],cost:["amber","Cost"],doc:["blue","Document"],milestone:["plain","Milestone"]};
+$$("#logFilters .fchip").forEach(c=>c.addEventListener("click",()=>{
+  logFilter=c.dataset.lf;
+  $$("#logFilters .fchip").forEach(x=>x.classList.toggle("on",x===c));
+  renderLog();
+}));
+function renderLog(){
+  const rows=REPORTS.map(r=>[reportKind(r[1]),r[1],r[2]]).filter(r=>logFilter==="all"||r[0]===logFilter);
+  $("#reportList").innerHTML=rows.length?rows.map(r=>`
+    <div class="report-item"><span class="tag ${KIND_TAG[r[0]][0]}">${KIND_TAG[r[0]][1]}</span><div>${r[1]}</div><time>${r[2]}</time></div>`).join("")
+    :`<div class="empty">Nothing in this category yet.</div>`;
+}
+function addReport(color,text,time){REPORTS.unshift([color,text,time]);renderReports();}
+function renderReports(){renderSavings();renderFwdScore();renderTrend();renderLog();}
 
 /* ═════════ Drawer ═════════ */
 function openDrawer(id,tab="timeline"){
@@ -1524,18 +2104,15 @@ function openDrawer(id,tab="timeline"){
     if(n===7){meta+=" · "+s.eta; if(s.etaHistory)note=(note?note+" ":"")+"ETA history: "+s.etaHistory.join(" → ");}
     return `<div class="tstep ${cls}"><b>${n}. ${st}</b>${chip}<div class="tmeta">${meta}</div>${note?`<div class="tnote">${note}</div>`:""}</div>`;
   }).join("");
-  const quotesHtml=s.quotes?`
-    <div class="section-title" style="margin:0 0 4px">Quotes received <span class="count" style="background:var(--blue)">${s.quotes.length}</span></div>
-    <div class="quote-grid">${s.quotes.map((q,qi)=>{
-      const best=q.co===(s.rec&&s.rec.includes("Unifreight")?"Unifreight":s.quotes.slice().sort((a,b)=>a.price-b.price)[0].co);
-      return `<div class="quote-card${best?" best":""}">
-        <span class="qco">${q.co}${best?' <span class="tag blue">agent pick</span>':""}</span>
-        <span class="qprice">$${q.price.toLocaleString()}</span>
-        <span class="qdays">${q.days} days door-to-door</span>
-        <span class="qnote">${q.note}</span>
-        <button class="act primary" onclick="bookQuote('${s.id}',${qi})">Book ${q.co.split(" ")[0]}</button>
-      </div>`;}).join("")}</div>
-    <div class="cm cm-agent" style="max-width:100%;margin-bottom:18px"><div class="cm-head"><span class="cm-avatar agent"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></span><b>logee agent</b></div>${s.rec||""}</div>`:"";
+  /* Timeline only points to the quote comparison; the full comparison lives in Costs & invoices */
+  const quotesHtml=s.quotes?(()=>{
+    const total=q=>q.price+(q.extras||0);
+    const best=s.quotes.reduce((a,b)=>total(b)<total(a)?b:a);
+    const cheap=s.quotes.reduce((a,b)=>b.price<a.price?b:a);
+    return `<div class="big-note" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;max-width:none">
+      <div style="flex:1;min-width:220px;font-size:13.5px"><b>${s.quotes.length} quotes are in.</b> Best value: <b>${best.co} at ~${fmt(total(best))} all-in</b>.${cheap!==best?` The cheapest on paper (${cheap.co}, ${fmt(cheap.price)}) likely ends up at ~${fmt(total(cheap))}.`:""}</div>
+      <button class="act primary" onclick="showDrawerTab('costs',true)">Compare &amp; book</button>
+    </div>`;})():"";
   const refsHtml=s.refs?`<div class="refbar">${Object.entries({container:"Container",bl:"B/L",awb:"AWB",vessel:"Vessel",flight:"Flight",carrier:"Carrier"}).filter(([k])=>s.refs[k]).map(([k,lab])=>`
       <div class="refchip"><span>${lab}</span><b>${s.refs[k]}</b>${["container","bl","awb"].includes(k)&&s.refs[k].length>6?`<button onclick="copyRef('${s.refs[k]}')">Copy</button>`:""}</div>`).join("")}</div>`:"";
   const traceHtml=s.events?`<div class="trace">
@@ -1545,29 +2122,14 @@ function openDrawer(id,tab="timeline"){
   const podBtn=(s.stage>=6&&s.status!=="done")?`<button class="act primary" style="margin-top:14px;margin-right:8px" onclick="confirmPOD('${s.id}')">Confirm delivery (POD) & close</button>`:"";
   $("#ds-timeline").innerHTML=`${quotesHtml}${refsHtml}${traceHtml}<div class="timeline">${tl}</div>${podBtn}
     <button class="chip-btn" style="margin-top:14px" onclick="openChatWith('Tell me more about ${s.id}')">Ask the agent about this shipment</button>`;
-  /* costs */
-  const v=s.actual!=null?s.actual-s.quoted:null;
-  $("#ds-costs").innerHTML=`
-    <div class="cost-grid">
-      <div class="cost-card"><div class="lab">Quoted</div><div class="amt">${fmt(s.quoted)}</div></div>
-      <div class="cost-card"><div class="lab">Actual charged</div><div class="amt" style="color:${v>0?"var(--red)":"var(--ink)"}">${fmt(s.actual)}</div>
-      ${v!=null?`<div class="tag ${v>0?"red":v<0?"green":"plain"}" style="margin-top:6px;display:inline-block">${v>0?"+":""}${fmt(v).replace("$-","-$")} vs quote</div>`:`<div class="tag plain" style="margin-top:6px;display:inline-block">Invoice not received yet</div>`}</div>
-    </div>
-    <div class="cost-lines">
-      <div class="cline head"><span>Line item</span><span class="num">Quoted</span><span class="num">Actual</span><span class="num">Δ</span></div>
-      ${s.lines.map(l=>{const d=l[2]!=null?l[2]-l[1]:null;
-        return `<div class="cline"><span>${l[0]}</span><span class="num">${fmt(l[1])}</span><span class="num">${fmt(l[2])}</span><span class="num ${d>0?"delta-bad":d<0?"delta-good":""}">${d==null?"—":(d>0?"+":"")+fmt(d).replace("$-","-$")}</span></div>`;}).join("")}
-    </div>
-    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-      <button class="chip-btn" onclick="approvePay('${s.id}')">Approve & schedule payment</button>
-      <button class="chip-btn" onclick="toast('Query drafted to ${s.fwd} with quote attached (demo)')">Query variance with forwarder</button>
-    </div>`;
+  /* costs: changes with the shipment's stage */
+  $("#ds-costs").innerHTML=costsTabHtml(s);
   /* activity thread */
   renderActivity(s);
   /* docs */
   $("#ds-docs").innerHTML=`<div class="doclist">${s.docs.map(d=>`
     <div class="doc"><div class="dicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></div><div><b>${d[0]}</b><span>${d[1]} · received ${d[2]}</span></div><button onclick="toast('Opening ${d[0]} (demo)')">Open</button></div>`).join("")}</div>
-    <div class="upload-zone" onclick="toast('Drop a file or forward the email to docs@logee.ai — the agent files it here (demo)')">＋ Drop a document here, or forward the email — the agent files it automatically</div>`;
+    <div class="upload-zone" onclick="toast('Drop a file or forward the email to docs@logee.ai and the agent files it here (demo)')">＋ Drop a document here, or forward the email, and the agent files it automatically</div>`;
   /* tabs */
   $$(".dtab").forEach(t=>t.classList.toggle("on",t.dataset.dt===tab));
   $$(".dsection").forEach(x=>x.classList.remove("on"));
@@ -1575,13 +2137,81 @@ function openDrawer(id,tab="timeline"){
   if(fresh)$(".drawer-body").scrollTop=0;
   $("#drawer").classList.add("open");$("#scrim").classList.add("open");
 }
+const AGENT_EYES='<span class="cm-avatar agent"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></span>';
+/* quotes side by side, judged on likely total cost (quote + this forwarder's typical extras on the lane) */
+function quoteCompareHtml(s){
+  if(!s.quotes)return "";
+  const total=q=>q.price+(q.extras||0);
+  const best=s.quotes.reduce((a,b)=>total(b)<total(a)?b:a);
+  const cheapest=s.quotes.reduce((a,b)=>b.price<a.price?b:a);
+  return `
+    <div class="section-title" style="margin:0 0 4px">Compare the real cost, not just the price <span class="count" style="background:var(--blue)">${s.quotes.length}</span></div>
+    <div style="font-size:12.5px;color:var(--ink-soft)">Likely total = the quote plus what this forwarder has typically added on this lane.</div>
+    <div class="quote-grid">${s.quotes.map((q,qi)=>{
+      const isBest=q===best,hist=q.onTime!=null;
+      return `<div class="quote-card${isBest?" best":""}">
+        <span class="qco">${q.co}${isBest?' <span class="tag blue">best value</span>':""}</span>
+        ${q===cheapest&&!isBest?`<span class="qwarn">Cheapest on paper</span>`:""}
+        <div class="tc-rows">
+          <div><span>Quoted</span><b>${fmt(q.price)}</b></div>
+          <div><span>Typical extras</span><b class="${q.extras>300?"bad":""}">${hist?"+"+fmt(q.extras||0):"no history yet"}</b></div>
+          <div class="tot"><span>Likely total</span><b>${fmt(total(q))}</b></div>
+          <div><span>Promised / likely</span><b>${q.days}d / ${hist?"~"+(q.likelyDays||q.days)+"d":"?"}</b></div>
+          <div><span>On time, this lane</span><b class="${hist&&q.onTime<80?"bad":""}">${hist?q.onTime+"%":"—"}</b></div>
+        </div>
+        <span class="qnote">${q.note}${q.extrasWhy?` · extras are usually ${q.extrasWhy}`:""}</span>
+        <button class="act primary" onclick="bookQuote('${s.id}',${qi})">Book ${q.co.split(" ")[0]}</button>
+      </div>`;}).join("")}</div>
+    <div class="cm cm-agent" style="max-width:100%;margin-bottom:18px"><div class="cm-head">${AGENT_EYES}<b>logee agent</b></div>${s.rec||""}</div>`;
+}
+function costsTabHtml(s){
+  const dv=v=>`${v>0?"+":""}${fmt(v).replace("$-","-$")}`;
+  const cargo=lines=>`<div class="cargo-sum"><b>Cargo</b>${lines.map(l=>l[0]).join("<br>")}</div>`;
+  /* 1 · quoting: compare quotes on likely total cost, book right here */
+  if(s.quotes)return quoteCompareHtml(s)+cargo(s.lines);
+  if(s.quoted==null)return `<div class="big-note" style="margin-bottom:0">Quotes aren't in yet. When they arrive they'll appear here side by side, with each forwarder's <b>likely total cost</b> based on its track record, not just its quoted price.</div>${cargo(s.lines)}`;
+  const lines=`<div class="cost-lines">
+      <div class="cline head"><span>Line item</span><span class="num">Quoted</span><span class="num">Invoiced</span><span class="num">Δ</span></div>
+      ${s.lines.map(l=>{const d=l[2]!=null?l[2]-l[1]:null;
+        return `<div class="cline"><span>${l[0]}</span><span class="num">${fmt(l[1])}</span><span class="num">${fmt(l[2])}</span><span class="num ${d>0?"delta-bad":d<0?"delta-good":""}">${d==null?"—":dv(d)}</span></div>`;}).join("")}
+    </div>`;
+  const v=s.actual!=null?s.actual-s.quoted:null;
+  const payBtns=s.actual!=null&&s.payState==="awaiting"?`<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="chip-btn" onclick="approvePay('${s.id}')">Approve & schedule payment</button>
+      ${v>0?`<button class="chip-btn" onclick="toast('Query drafted to ${s.fwd} with quote attached (demo)')">Query variance with forwarder</button>`:""}
+    </div>`:"";
+  /* 3 · delivered: final quoted vs actual */
+  if(s.status==="done")return `<div class="cost-grid">
+      <div class="cost-card"><div class="lab">Quoted</div><div class="amt">${fmt(s.quoted)}</div></div>
+      <div class="cost-card"><div class="lab">Final cost</div><div class="amt" style="color:${v>0?"var(--red)":"var(--ink)"}">${fmt(s.actual)}</div>
+        <div class="tag ${v>0?"red":v<0?"green":"plain"}" style="margin-top:6px;display:inline-block">${dv(v)} vs quote</div></div>
+    </div>${lines}${payBtns}`;
+  /* 2 · in transit: quoted vs likely final, plus the free-time clock */
+  const f=s.fc?s.fc.cost:(s.actual!=null?s.actual:s.quoted),fv=f-s.quoted;
+  const ft=s.ft?`<div class="ft">
+      <div class="ft-top"><span>Free time · ${s.ft.where}</span><span style="color:${s.ft.used>=100?"var(--red)":atRisk(s.id)?"var(--amber)":"var(--ink)"}">${s.ft.head}</span></div>
+      <div class="bar-wrap"><div class="bar" style="width:${Math.max(s.ft.used,3)}%;background:${s.ft.used>=100?"var(--red)":"var(--green)"}"></div></div>
+      <div class="ft-sub">${s.ft.sub}</div>
+    </div>`:"";
+  return `<div class="cost-grid c3">
+      <div class="cost-card"><div class="lab">Quoted</div><div class="amt">${fmt(s.quoted)}</div></div>
+      <div class="cost-card"><div class="lab">Invoiced so far</div><div class="amt">${fmt(s.actual)}</div>
+        <div class="tag plain" style="margin-top:6px;display:inline-block">${s.actual!=null?"Invoice received":"Not invoiced yet"}</div></div>
+      <div class="cost-card"><div class="lab">Likely final cost</div><div class="amt" style="color:${fv>0?(atRisk(s.id)?"var(--amber)":"var(--red)"):"var(--ink)"}">${fmt(f)}</div>
+        <div class="tag ${fv>0?(atRisk(s.id)?"amber":"red"):"green"}" style="margin-top:6px;display:inline-block">${fv>0?dv(fv)+" vs quote":"On quote"}</div></div>
+    </div>
+    ${s.fc?`<div style="font-size:12.5px;color:var(--ink-soft);margin:-6px 0 14px">Forecast: ${s.fc.why}.${atRisk(s.id)?" Act on the heads-up above to bring it back to quote.":""}</div>`:""}
+    ${ft}${lines}${payBtns}`;
+}
 function closeDrawer(){$("#drawer").classList.remove("open");$("#scrim").classList.remove("open");}
-$$(".dtab").forEach(t=>t.addEventListener("click",()=>{
-  $$(".dtab").forEach(x=>x.classList.remove("on"));t.classList.add("on");
+function showDrawerTab(tab,jump){
+  $$(".dtab").forEach(x=>x.classList.toggle("on",x.dataset.dt===tab));
   $$(".dsection").forEach(x=>x.classList.remove("on"));
-  $("#ds-"+t.dataset.dt).classList.add("on");
-}));
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDrawer();toggleChat(false);}});
+  $("#ds-"+tab).classList.add("on");
+  if(jump){const b=$(".drawer-body");b.scrollTo({top:$("#ds-"+tab).offsetTop-b.offsetTop-8,behavior:"smooth"});}
+}
+$$(".dtab").forEach(t=>t.addEventListener("click",()=>showDrawerTab(t.dataset.dt)));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#custScrim").classList.contains("open")){closeCust();return;}closeDrawer();toggleChat(false);}});
 
 /* ═════════ Search ═════════ */
 $("#globalSearch").addEventListener("keydown",e=>{
@@ -1589,7 +2219,7 @@ $("#globalSearch").addEventListener("keydown",e=>{
   const q=e.target.value.trim().toUpperCase();
   const s=SHIPMENTS.find(x=>x.id.includes(q)||x.po.toUpperCase().includes(q))||findByRef(q);
   if(s){openDrawer(s.id);toast(`Found ${s.id}`);}
-  else if(q){toast(`No match for “${e.target.value}” — try LG-2418`);}
+  else if(q){toast(`No match for “${e.target.value}” . Try LG-2418`);}
 });
 
 /* ═════════ Settings ═════════ */
@@ -1619,7 +2249,7 @@ $("#lateSlider").addEventListener("input",e=>{
   $("#lateVal").textContent=e.target.value;
 });
 $("#lateSlider").addEventListener("change",e=>{
-  toast(`Alert threshold set to ${e.target.value} days — attention queue will re-rank`);
+  toast(`Alert threshold set to ${e.target.value} days. The action list will re-rank`);
 });
 
 /* ═════════ Agent chat ═════════ */
@@ -1638,22 +2268,29 @@ function agentAnswer(q){
   q=q.toLowerCase();
   if((q.includes("order")||q.includes("book"))&&(q.includes("new")||q.includes("create")||q.includes("start")||q.includes("place"))){
     setTimeout(openWizard,900);
-    return "On it — opening a new order for you. I've prefilled Ningbo → Ashdod from your usual lane; change anything that's different. When you're done I'll send it to your forwarders and start tracking.";
+    return "On it. Opening a new order for you. I've prefilled Ningbo → Ashdod from your usual lane; change anything that's different. When you're done I'll send it to your forwarders and start tracking.";
   }
   if(q.includes("track container")||q.includes("track awb")){
     return "I can watch that reference even though it isn't linked to one of your orders yet. I'll poll the carrier and message you on WhatsApp when it moves. If an order for it shows up in your email later, I'll link the two automatically. Want me to also create a shipment record for it now?";
   }
-  if(q.includes("quote"))return "Quotes are in for <b>LG-2447</b> (Shanghai → Ashdod):\n• Unifreight — $4,250, 26 days, direct\n• Inftech — $3,980, 31 days, via Piraeus\n• Maersk direct — $4,560, 23 days\n\nMy pick is <b>Unifreight</b>: only $270 more than the cheapest, direct sailing, and 92% on-time on this lane vs Inftech's 71%. Open LG-2447 to book in one click.";
-  if(q.includes("2447"))return "<b>LG-2447</b> (Shanghai → Ashdod) has all three quotes back — Unifreight $4,250/26d, Inftech $3,980/31d, Maersk direct $4,560/23d. I recommend Unifreight. Open the shipment and book from the comparison.";
-  if(q.includes("2418"))return "<b>LG-2418</b> (Ningbo → Ashdod, Unifreight) is at stage 5 of 8 — departed but <b>8 days behind plan</b> after missing its Suez slot. New ETA <b>20 Sep</b>. Storage & detention have added <b>$690</b> so far (~$95/day). Fastest fix: approve the Piraeus transship in your attention queue (+$380, arrives 20 Sep).";
-  if(q.includes("2431"))return "<b>LG-2431</b> (Ningbo → Haifa, LCL) was picked up on time, but the <b>bill of lading is 3 days overdue</b> from Unifreight. Without it you can't clear customs at Haifa. I've drafted a chaser referencing the booking number — approve it from the Today queue.";
-  if(q.includes("2402"))return "<b>LG-2402</b> (Shenzhen → LA) is at anchor outside LA, 6 days late due to port congestion. Inftech's invoice came in <b>$610 above quote</b> — the fuel surcharge jumped from $500 to $930 with no rate notice. I recommend querying it before paying.";
-  if(q.includes("late"))return "Two shipments are past your 5-day threshold:\n• <b>LG-2418</b> — 8 days late, Suez slot missed, storage accruing\n• <b>LG-2402</b> — 6 days late, LA port congestion\n\nLG-2431 and LG-2429 are 1–2 days behind but inside tolerance. Both late ones have decisions waiting in your Today queue.";
-  if(q.includes("owe")||q.includes("pay"))return "You have <b>$8,900 awaiting payment</b> across 3 invoices:\n• Inftech #7748 — $3,300 (LG-2436) · matches quote, safe to schedule\n• Inftech #7741 — $5,810 (LG-2402) · <b>$610 over quote — query first</b>\n• Unifreight partial — deferred pending LG-2418 resolution\n\nNothing is overdue yet; the nearest due date is 30 Sep.";
-  if(q.includes("above")||q.includes("variance")||q.includes("6%")||q.includes("spend"))return "September is tracking <b>+$2,350 (+6%) over quotes</b>. Breakdown:\n• LG-2418: +$1,140 — storage/detention ($690) + BAF and doc fees\n• LG-2402: +$610 — un-notified fuel surcharge increase\n• LG-2395: +$30 — local charges, within tolerance\n\nBoth big variances are actionable: transship LG-2418 to stop the meter, and query Inftech's surcharge on #7741.";
-  if(q.includes("document")||q.includes("b/l")||q.includes("bill"))return "12 documents are filed across your active shipments. <b>1 is missing:</b> the bill of lading for LG-2431 (72h overdue from Unifreight). Everything else — invoices, packing lists, PODs — is attached to its shipment. Forward any shipping email to <b>docs@logee.ai</b> and I'll file it automatically.";
+  if(q.includes("at risk")||q.includes("go wrong")||q.includes("heads")){
+    if(q.includes("2429"))return "<b>LG-2429</b> reaches Ashdod on schedule, but two things will stop it leaving the port in time:\n• The <b>commercial invoice isn't on file</b>, so customs can't clear it\n• <b>No delivery truck is booked</b>, and Ashdod trucks are booking 3–4 days out\n\nFree time ends <b>Tue 22 Sep</b>, then storage is ~$140/day. If nothing changes, I expect ~4 extra days: <b>~$560</b>, and your customer waits. Requesting the invoice and pre-booking a truck for 21 Sep costs nothing.";
+    if(q.includes("2431"))return "<b>LG-2431</b> lands in Haifa on 28 Sep, but the <b>bill of lading is 3 days overdue</b>. Customs takes ~2 days and can't start without it, so the cargo would sit in the CFS warehouse at ~$65/day: <b>~$260</b> plus a 2-day delay. Chasing Unifreight now means clearance is ready before it lands.";
+    if(q.includes("2440"))return "<b>LG-2440</b>: the carrier still says 4 Oct, but the vessel is running <b>2 days behind</b> on its current rotation and Rotterdam berth waits are 1–2 days this week. My forecast is <b>~7 Oct</b>. There's no extra cost, but telling your customer now lets them re-plan instead of finding out on the day.";
+    const open=openHU();
+    return open.length?`I'm forecasting <b>${open.length} problem${open.length>1?"s":""}</b> you can still prevent:\n`+open.map(h=>`• <b>${h.ship}</b>: ${h.title.replace(h.ship+" ","")}${h.cost?` (~${fmt(h.cost)})`:""}`).join("\n")+"\n\nEach one has a one-click fix on your Today screen.":"Nothing is forecast to go wrong right now. Every heads-up has been handled.";
+  }
+  if(q.includes("quote"))return "Quotes are in for <b>LG-2447</b> (Shanghai → Ashdod):\n• Unifreight: $4,250, 26 days, direct\n• Inftech: $3,980, 31 days, via Piraeus\n• Maersk direct: $4,560, 23 days\n\nMy pick is <b>Unifreight</b>: only $270 more than the cheapest, direct sailing, and 92% on-time on this lane vs Inftech's 71%. Open LG-2447 to book in one click.";
+  if(q.includes("2447"))return "<b>LG-2447</b> (Shanghai → Ashdod) has all three quotes back: Unifreight $4,250/26d, Inftech $3,980/31d, Maersk direct $4,560/23d. I recommend Unifreight. Open the shipment and book from the comparison.";
+  if(q.includes("2418"))return "<b>LG-2418</b> (Ningbo → Ashdod, Unifreight) is at stage 5 of 8. It departed but is <b>8 days behind plan</b> after missing its Suez slot. New ETA <b>20 Sep</b>. Storage & detention have added <b>$690</b> so far (~$95/day). Fastest fix: approve the Piraeus transship in your Today list (+$380, arrives 20 Sep).";
+  if(q.includes("2431"))return "<b>LG-2431</b> (Ningbo → Haifa, LCL) was picked up on time, but the <b>bill of lading is 3 days overdue</b> from Unifreight. Without it you can't clear customs at Haifa. I've drafted a chaser referencing the booking number. Approve it from the Today list.";
+  if(q.includes("2402"))return "<b>LG-2402</b> (Shenzhen → LA) is at anchor outside LA, 6 days late due to port congestion. Inftech's invoice came in <b>$610 above quote</b>: the fuel surcharge jumped from $500 to $930 with no rate notice. I recommend querying it before paying.";
+  if(q.includes("late"))return "Two shipments are past your 5-day threshold:\n• <b>LG-2418</b>: 8 days late, Suez slot missed, storage accruing\n• <b>LG-2402</b>: 6 days late, LA port congestion\n\nLG-2431 and LG-2429 are 1–2 days behind but inside tolerance. Both late ones have decisions waiting in your Today list.";
+  if(q.includes("owe")||q.includes("pay"))return "You have <b>$8,900 awaiting payment</b> across 3 invoices:\n• Inftech #7748: $3,300 (LG-2436) · matches quote, safe to schedule\n• Inftech #7741: $5,810 (LG-2402) · <b>$610 over quote, query first</b>\n• Unifreight partial: deferred pending LG-2418 resolution\n\nNothing is overdue yet; the nearest due date is 30 Sep.";
+  if(q.includes("above")||q.includes("variance")||q.includes("6%")||q.includes("spend"))return "September is tracking <b>+$2,350 (+6%) over quotes</b>. Breakdown:\n• LG-2418: +$1,140 from storage/detention ($690) + BAF and doc fees\n• LG-2402: +$610 from an un-notified fuel surcharge increase\n• LG-2395: +$30 in local charges, within tolerance\n\nBoth big variances are actionable: transship LG-2418 to stop the meter, and query Inftech's surcharge on #7741.";
+  if(q.includes("document")||q.includes("b/l")||q.includes("bill"))return "12 documents are filed across your active shipments. <b>1 is missing:</b> the bill of lading for LG-2431 (72h overdue from Unifreight). Everything else (invoices, packing lists, PODs) is attached to its shipment. Forward any shipping email to <b>docs@logee.ai</b> and I'll file it automatically.";
   if(q.includes("hello")||q.includes("hi "))return "Hi! Ask me where a shipment is, what you owe, why costs moved, or which documents are missing. I'm watching all 23 shipments in the background.";
-  return "Here's what I can help with right now:\n• <b>Where is [shipment]?</b> — live stage, ETA and delays\n• <b>What do I owe?</b> — invoices due, quote vs actual\n• <b>Which shipments are late?</b> — past your 5-day threshold\n• <b>What changed?</b> — overnight events\n\nTry: “Where is LG-2418?”";
+  return "Here's what I can help with right now:\n• <b>Where is [shipment]?</b> Live stage, ETA and delays\n• <b>What do I owe?</b> Invoices due, quote vs actual\n• <b>Which shipments are late?</b> Past your 5-day threshold\n• <b>What changed?</b> Overnight events\n\nTry: “Where is LG-2418?”";
 }
 function sendChat(){
   const inp=$("#chatInput");const v=inp.value.trim();if(!v)return;
@@ -1667,11 +2304,11 @@ $("#chatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendChat();});
 /* dims in cm. l/w/h = single unit · ctnL/ctnW/ctnH + ctnKg = master carton (holds cq units) · pack = how it palletises */
 const SKUS=[
  {code:"SKU-1042",name:"12V DC water pump",hs:"8413.70",kg:1.8,cq:24,l:12,w:9,h:9,ctnL:40,ctnW:30,ctnH:26,ctnKg:46,pack:"Homogeneous carton → pallet",transit:480},
- {code:"SKU-1097",name:"Aluminium mounting rail 2.1m",hs:"7610.90",kg:3.2,cq:10,l:210,w:6,h:4,ctnL:215,ctnW:32,ctnH:22,ctnKg:34,pack:"Bundled — homogeneous",transit:600},
+ {code:"SKU-1097",name:"Aluminium mounting rail 2.1m",hs:"7610.90",kg:3.2,cq:10,l:210,w:6,h:4,ctnL:215,ctnW:32,ctnH:22,ctnKg:34,pack:"Bundled, homogeneous",transit:600},
  {code:"SKU-1120",name:"MC4 connector pair",hs:"8536.69",kg:0.06,cq:500,l:4,w:2,h:2,ctnL:40,ctnW:30,ctnH:20,ctnKg:32,pack:"Homogeneous carton",transit:12000},
  {code:"SKU-1188",name:"40A DC circuit breaker",hs:"8536.20",kg:0.35,cq:60,l:8,w:7,h:7,ctnL:46,ctnW:30,ctnH:26,ctnKg:23,pack:"Homogeneous carton",transit:0},
  {code:"SKU-1203",name:"Junction box IP67",hs:"8538.90",kg:0.9,cq:40,l:12,w:10,h:6,ctnL:44,ctnW:32,ctnH:34,ctnKg:38,pack:"Homogeneous carton → pallet",transit:1600},
- {code:"SKU-1250",name:"Solar cable 6mm² (100m roll)",hs:"8544.49",kg:9.5,cq:4,l:30,w:30,h:15,ctnL:62,ctnW:32,ctnH:32,ctnKg:40,pack:"Palletised — homogeneous",transit:80},
+ {code:"SKU-1250",name:"Solar cable 6mm² (100m roll)",hs:"8544.49",kg:9.5,cq:4,l:30,w:30,h:15,ctnL:62,ctnW:32,ctnH:32,ctnKg:40,pack:"Palletised, homogeneous",transit:80},
 ];
 function hasUnitDims(s){return s.l&&s.w&&s.h;}
 function unitDimStr(s){return hasUnitDims(s)?`${s.l}×${s.w}×${s.h} cm`:"—";}
@@ -1739,8 +2376,8 @@ $("#skuCsv").addEventListener("change",e=>{
         }
       });
       renderSkus();renderSetupProgress();
-      toast(added?`${added} SKUs imported from ${f.name}`:`Couldn't read rows in ${f.name} — expected: code, name, HS, kg, units/carton`);
-    }catch(err){toast("Couldn't read that file — expected a simple CSV");}
+      toast(added?`${added} SKUs imported from ${f.name}`:`Couldn't read rows in ${f.name}. Expected: code, name, HS, kg, units/carton`);
+    }catch(err){toast("Couldn't read that file. Expected a simple CSV");}
     e.target.value="";
   };
   rd.readAsText(f);
@@ -1763,7 +2400,7 @@ function primaryEmail(co){
 function renderContacts(){
   $("#contactsBody").innerHTML=CONTACTS.map(c=>`
     <div class="contact-co">
-      <div class="co-head"><b>${c.co}</b><span class="tag plain">${c.type}</span>${c.people.length?"":'<span class="tag amber">No contact — quotes & threads can\'t be sent</span>'}</div>
+      <div class="co-head"><b>${c.co}</b><span class="tag plain">${c.type}</span>${c.people.length?"":'<span class="tag amber">No contact, so quotes & threads can\'t be sent</span>'}</div>
       <div class="contact-people">
         ${c.people.map(p=>`<div class="person"><span class="cm-avatar">${p.n[0]}</span><div><b>${p.n}</b><span>${p.e} · ${p.r}</span></div></div>`).join("")}
         ${c.people.length?"":'<div class="person none">Add a contact below ↓</div>'}
@@ -1779,11 +2416,11 @@ function addContact(){
   CONTACTS.find(c=>c.co===co).people.push({n,e,r:"Contact"});
   $("#caName").value="";$("#caEmail").value="";
   renderContacts();renderSetupProgress();
-  toast(`${n} added to ${co} — quotes and threads for ${co} now go to ${e}`);
+  toast(`${n} added to ${co}. Quotes and threads for ${co} now go to ${e}`);
 }
 function renderSendOptions(){
   const chip=(c,on,single)=>{
-    if(!c.people.length)return `<button class="fwd-check nocontact" onclick="event.stopPropagation();noContact('${c.co}')">${c.co}<span>No contact — add in Set up</span></button>`;
+    if(!c.people.length)return `<button class="fwd-check nocontact" onclick="event.stopPropagation();noContact('${c.co}')">${c.co}<span>No contact · add in Set up</span></button>`;
     return `<button class="fwd-check${on?" on":""}" data-co="${c.co}" onclick="event.stopPropagation();${single?"selectOne(this)":"this.classList.toggle('on')"};syncWiz()">${c.co}<span>${c.people[0].e}</span></button>`;
   };
   const fwds=CONTACTS.filter(c=>c.type==="Forwarder");
@@ -1817,7 +2454,7 @@ function saveWizContact(){
     chip.classList.add("on");
   }
   syncWiz();
-  toast(`${n} added to ${co} — this order will be sent to ${e}`);
+  toast(`${n} added to ${co}. This order will be sent to ${e}`);
 }
 
 
@@ -1850,7 +2487,7 @@ function addFreeLine(){cargo.push({code:"FREE",name:"Free-text item",kg:1,qty:1,
 function rmCargo(i){cargo.splice(i,1);renderCargo();}
 function renderCargo(){
   const box=$("#cargoLines");
-  if(!cargo.length){box.innerHTML='<div class="empty" style="padding:14px">No lines yet — add SKUs above, or a free-text line below.</div>';}
+  if(!cargo.length){box.innerHTML='<div class="empty" style="padding:14px">No lines yet. Add SKUs above, or a free-text line below.</div>';}
   else{
     box.innerHTML=cargo.map((c,i)=>`
       <div class="cargo-line">
@@ -1907,29 +2544,29 @@ function syncWiz(){
       <div>Sending to: <b>${who}</b>${wizDocsArr.length?` · ${wizDocsArr.length} document(s) attached`:""}</div>`;
   }
 }
-/* per-order communication threads: [type, who, text, time] — types: in (email from forwarder/supplier), out (you, by email), agent (logee action), sys (milestone) */
+/* per-order communication threads: [type, who, text, time]. Types: in (email from forwarder/supplier), out (you, by email), agent (logee action), sys (milestone) */
 const COMMS={
  "LG-2418":[
   ["sys","", "Order created · RFQ sent to Unifreight","28 Aug 09:14"],
   ["in","Dana · Unifreight","Quote attached: $4,100 all-in Ningbo→Ashdod, FCL 40'. Valid 14 days. Sailing 2 Sep via Suez, ETA 12 Sep.","28 Aug 14:02"],
-  ["out","You","Approved — please book the 2 Sep sailing. B/L consignee details as per PO-88112.","28 Aug 15:40"],
+  ["out","You","Approved, please book the 2 Sep sailing. B/L consignee details as per PO-88112.","28 Aug 15:40"],
   ["sys","","Booking confirmed · B/L received and filed","2 Sep 11:20"],
-  ["in","Dana · Unifreight","Heads up — vessel missed its Suez transit slot due to congestion. New ETA 18 Sep. We'll update daily.","9 Sep 08:31"],
-  ["agent","logee agent","Flagged this order as late (>5 days). Storage & detention now accruing at ~$95/day — added to actual cost. Asked Unifreight for recovery options.","9 Sep 08:32"],
+  ["in","Dana · Unifreight","Heads up: vessel missed its Suez transit slot due to congestion. New ETA 18 Sep. We'll update daily.","9 Sep 08:31"],
+  ["agent","logee agent","Flagged this order as late (>5 days). Storage & detention now accruing at ~$95/day, added to actual cost. Asked Unifreight for recovery options.","9 Sep 08:32"],
   ["in","Dana · Unifreight","Two options: (A) transship at Piraeus, arrive 20 Sep, +$380. (B) stay on vessel, arrive 24 Sep, storage continues. Need your call by Thursday.","16 Sep 16:45"],
   ["agent","logee agent","Summarised both options into your attention queue with cost impact. Option A is cheaper overall if storage runs past 21 Sep (likely).","16 Sep 16:46"],
  ],
  "LG-2431":[
   ["sys","","Order created · booked with Unifreight (LCL)","10 Sep 10:05"],
   ["in","Dana · Unifreight","Pickup completed at Ningbo consolidation warehouse, 14:30 local. B/L to follow.","14 Sep 09:10"],
-  ["agent","logee agent","B/L not received 72h after pickup — outside Unifreight's usual pattern. Drafted a chaser referencing booking #UF-90233; waiting for your approval in the Today queue.","17 Sep 09:00"],
+  ["agent","logee agent","B/L not received 72h after pickup, outside Unifreight's usual pattern. Drafted a chaser referencing booking #UF-90233; waiting for your approval in the Today list.","17 Sep 09:00"],
  ],
  "LG-2402":[
   ["sys","","Order created · booked with Inftech","20 Aug 08:50"],
   ["in","Roy · Inftech","Departed Shenzhen on schedule. ETA Los Angeles 10 Sep.","25 Aug 19:22"],
-  ["in","Roy · Inftech","LA port congestion — vessel at anchor. Revised ETA 16 Sep. Sorry for the delay.","11 Sep 07:15"],
+  ["in","Roy · Inftech","LA port congestion, vessel at anchor. Revised ETA 16 Sep. Sorry for the delay.","11 Sep 07:15"],
   ["in","Roy · Inftech","Invoice #7741 attached, total $5,810.","14 Sep 12:03"],
-  ["agent","logee agent","Matched invoice #7741 against the quote: fuel surcharge is $930 vs $500 quoted — $610 over, no rate notice on file. Recommend querying before payment. Draft ready in your queue.","14 Sep 12:04"],
+  ["agent","logee agent","Matched invoice #7741 against the quote: fuel surcharge is $930 vs $500 quoted: $610 over, no rate notice on file. Recommend querying before payment. Draft ready in your Today list.","14 Sep 12:04"],
  ],
 };
 function commsFor(s){
@@ -1937,13 +2574,13 @@ function commsFor(s){
   return [
     ["sys","",`Order created · ${s.fwd}`,"—"],
     ["in",`${s.fwd}`,`Booking acknowledged for ${s.route} (${s.mode}). We'll send milestones and documents to this thread.`,"—"],
-    ["agent","logee agent","Watching this order — emails, documents and milestones will be filed here automatically.","—"],
+    ["agent","logee agent","Watching this order. Emails, documents and milestones will be filed here automatically.","—"],
   ];
 }
 let drawerShipId=null;
 function renderActivity(s){
   const feed=commsFor(s).map(c=>{
-    if(c[0]==="sys")return `<div class="cm cm-sys">— ${c[2]} · ${c[3]} —</div>`;
+    if(c[0]==="sys")return `<div class="cm cm-sys">${c[2]} · ${c[3]}</div>`;
     const cls=c[0]==="in"?"cm-in":c[0]==="out"?"cm-out":"cm-agent";
     const av=c[0]==="agent"?'<span class="cm-avatar agent"><svg class="eyes" viewBox="0 0 24 24" style="width:62%;height:62%" fill="none" aria-hidden="true"><circle cx="8.5" cy="12" r="3" fill="#050038"/><circle cx="15.5" cy="12" r="3" fill="#050038"/></svg></span>':`<span class="cm-avatar">${(c[1]||"?")[0]}</span>`;
     const via=c[0]==="agent"?'<span class="cm-via">agent</span>':'<span class="cm-via">email</span>';
@@ -1952,10 +2589,10 @@ function renderActivity(s){
   $("#ds-activity").innerHTML=`
     <div class="comm-feed">${feed}</div>
     <div class="comm-compose">
-      <textarea id="commInput" rows="3" placeholder="Reply to ${primaryEmail(s.fwd)||s.fwd} — sends as email from this order… (Enter to send · Shift+Enter for a new line)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendComm();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,220)+'px'"></textarea>
+      <textarea id="commInput" rows="3" placeholder="Reply to ${primaryEmail(s.fwd)||s.fwd}. Sends as email from this order… (Enter to send · Shift+Enter for a new line)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendComm();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,220)+'px'"></textarea>
       <button class="chat-send" onclick="sendComm()" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
     </div>
-    <div class="comm-hint">Everything in one thread — forwarder emails, agent actions and milestones are filed here automatically. Your reply goes by regular email to ${primaryEmail(s.fwd)||'your '+s.fwd+' contact'}; ${s.fwd} doesn't need a login.</div>`;
+    <div class="comm-hint">Everything in one thread: forwarder emails, agent actions and milestones are filed here automatically. Your reply goes by regular email to ${primaryEmail(s.fwd)||'your '+s.fwd+' contact'}; ${s.fwd} doesn't need a login.</div>`;
 }
 function sendComm(){
   const inp=$("#commInput");const v=inp.value.trim();if(!v)return;
@@ -1963,7 +2600,7 @@ function sendComm(){
   if(!COMMS[s.id])COMMS[s.id]=commsFor(s).slice();
   COMMS[s.id].push(["out","You",v.replace(/</g,"&lt;"),"Just now"]);
   renderActivity(s);
-  toast(`Sent to ${primaryEmail(s.fwd)||s.fwd} — filed on ${s.id}`);
+  toast(`Sent to ${primaryEmail(s.fwd)||s.fwd}, filed on ${s.id}`);
   addReport("blue",`You emailed ${s.fwd} on ${s.id}: “${v.length>60?v.slice(0,60)+"…":v}”`,"Just now");
   const sq=QUEUE.find(x=>x.ship===s.id&&x.send&&!x.resolved);
   if(sq){markQ(sq,sq[sq.send]);renderDecision(s);}
@@ -1973,15 +2610,16 @@ function sendComm(){
 function bookQuote(id,qi){
   const s=SHIPMENTS.find(x=>x.id===id);const q=s.quotes[qi];
   s.fwd=q.co.replace(" (direct)","");s.quoted=q.price;s.stage=4;s.eta=`Booked · ${q.days} days transit expected`;
+  s.fc={cost:q.price+(q.extras||0),eta:q.likelyDays&&q.likelyDays!==q.days?`~${q.likelyDays} days`:"",why:q.extras?`${q.co.split(" ")[0]} has typically added ~${fmt(q.extras)} on this lane (${q.extrasWhy})`:"no extras expected"};
   s.note=`Booked with ${q.co} at $${q.price.toLocaleString()} (${q.days} days). Pickup being scheduled.`;
   delete s.quotes;delete s.rec;
   if(!COMMS[id])COMMS[id]=commsFor(s).slice();
-  COMMS[id].push(["agent","logee agent",`Booked with ${q.co} at $${q.price.toLocaleString()} — the two other quotes were declined politely. Quote filed against this order for invoice matching later.`,"Just now"]);
+  COMMS[id].push(["agent","logee agent",`Booked with ${q.co} at $${q.price.toLocaleString()}. The two other quotes were declined politely. Quote filed against this order for invoice matching later.`,"Just now"]);
   renderShips();renderTodayPanels();
   const bq=QUEUE.find(x=>x.ship===id&&x.compare&&!x.resolved);
   if(bq)markQ(bq,`Booked with ${q.co} at $${q.price.toLocaleString()}`);
   addReport("green",`${id} booked with ${q.co} at $${q.price.toLocaleString()} (${q.days} days)` ,"Just now");
-  toast(`${id} booked with ${q.co} — $${q.price.toLocaleString()}`);
+  toast(`${id} booked with ${q.co} at $${q.price.toLocaleString()}`);
   openDrawer(id);
 }
 function confirmPOD(id){
@@ -1991,7 +2629,7 @@ function confirmPOD(id){
   if(!COMMS[id])COMMS[id]=commsFor(s).slice();
   COMMS[id].push(["sys","","Delivery confirmed (POD) · order closed","Just now"]);
   renderShips();renderTodayPanels();
-  addReport("blue",`${id} closed — POD confirmed`,"Just now");
+  addReport("blue",`${id} closed, POD confirmed`,"Just now");
   toast(`${id} delivered & closed`);
   openDrawer(id);
 }
@@ -2002,8 +2640,8 @@ function approvePay(id){
   if(pq){resolveQ(pq.id,pq[pq.pay]);return;}
   s.payState="scheduled";
   renderCosts();
-  addReport("blue",`Invoice for ${id} approved — payment scheduled for the next run`,"Just now");
-  toast(`${id}: invoice approved — scheduled for the next payment run`);
+  addReport("blue",`Invoice for ${id} approved, payment scheduled for the next run`,"Just now");
+  toast(`${id}: invoice approved and scheduled for the next payment run`);
 }
 function copyRef(v){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(()=>toast(v+" copied"),()=>toast(v));}
@@ -2028,13 +2666,13 @@ function trackTrace(){
   const awb=q.replace(/\s/g,"").match(/^(\d{3})-?(\d{8})$/);
   if(cont){
     const car=CARRIER_PREFIX[cont[1]]||"unknown carrier";
-    toast(`Container ${q} recognised — ${car}. Not one of your orders.`);
+    toast(`Container ${q} recognised: ${car}. Not one of your orders.`);
     setTimeout(()=>openChatWith(`Track container ${Q} for me`),700);
   }else if(awb){
     toast(`AWB ${q} recognised (airline ${awb[1]}). Not one of your orders.`);
     setTimeout(()=>openChatWith(`Track AWB ${q} for me`),700);
   }else{
-    toast(`No match for “${q}” — try a container (ZIMU3141592), B/L, AWB, PO or shipment ID`);
+    toast(`No match for “${q}”. Try a container (ZIMU3141592), B/L, AWB, PO or shipment ID`);
   }
 }
 function simulateEmail(){
@@ -2044,7 +2682,7 @@ function simulateEmail(){
     const id="LG-"+(nextId++);
     SHIPMENTS.unshift({id,route:"Ningbo → Haifa",mode:"Sea LCL",fwd:"Unifreight",status:"ontime",stage:4,daysLate:0,
       eta:"ETD 26 Sep · ETA 24 Oct",quoted:1780,actual:null,po:"PO-88170",pos:["PO-88170"],
-      note:"Created automatically from a forwarded email — booking confirmation and B/L filed.",
+      note:"Created automatically from a forwarded email. Booking confirmation and B/L filed.",
       docs:[["Booking confirmation","Unifreight · from email","just now"],["Bill of lading","B/L · from email","just now"]],
       lines:[["Ocean freight (quote)",1780,null]]});
     COMMS[id]=[
@@ -2088,19 +2726,19 @@ function submitOrder(){
   renderShips();renderTodayPanels();renderBilling();
   addReport("blue",`New order ${id}: ${segVal("segType")} ${segVal("segMode")} ${$("#wOrigin").value} → ${$("#wDest").value}, ${packLine}, sent to ${who.join(", ")}`,"Just now");
   showView("shipments");filterShips("all");
-  toast(`${id} created — ${mode==="quotes"?"RFQ emailed to "+emails.join(", "):"booking emailed to "+emails[0]}`);
+  toast(`${id} created. ${mode==="quotes"?"RFQ emailed to "+emails.join(", "):"booking emailed to "+emails[0]}`);
   setTimeout(()=>openDrawer(id),450);
   if(mode==="quotes"){
     setTimeout(()=>{
       const sh=SHIPMENTS.find(x=>x.id===id);if(!sh||sh.quotes)return;
       const base=3600+Math.floor(Math.random()*900);
       sh.quotes=who.map((co,i)=>({co,price:base+i*280+Math.floor(Math.random()*160),days:24+i*3,note:i===0?"Direct sailing":"Via transship"}));
-      sh.rec=`${sh.quotes[0].co} is the strongest quote here — best price-to-transit balance on this lane. Book it and I'll schedule the pickup.`;
-      sh.eta=`${sh.quotes.length} quotes in — pick one to book`;
+      sh.rec=`${sh.quotes[0].co} is the strongest quote here: best price-to-transit balance on this lane. Book it and I'll schedule the pickup.`;
+      sh.eta=`${sh.quotes.length} quotes in · pick one to book`;
       if(!COMMS[id])COMMS[id]=commsFor(sh).slice();
       sh.quotes.forEach(q=>COMMS[id].push(["in",q.co,`Quote for ${sh.route}: $${q.price.toLocaleString()} all-in, ~${q.days} days transit.`,"Just now"]));
-      renderShips();addReport("blue",`All quotes in for ${id} — ready to compare`,"Just now");
-      toast(`Quotes are in for ${id} — open it to compare`);
+      renderShips();addReport("blue",`All quotes in for ${id}, ready to compare`,"Just now");
+      toast(`Quotes are in for ${id}. Open it to compare`);
       if(drawerShipId===id&&$("#drawer").classList.contains("open"))openDrawer(id);
     },7000);
   }
@@ -2136,7 +2774,7 @@ function switchPlan(id){
   currentPlanId=id;
   renderPlanTiers();renderBilling();
   $("#upcomingAmt").textContent=p.price===0?"$0.00":`$${p.price.toLocaleString()}.00`;
-  toast(`Switched to ${p.name} — takes effect on your next billing date`);
+  toast(`Switched to ${p.name}. Takes effect on your next billing date`);
 }
 function renderBilling(){
   const plan=PLANS.find(x=>x.id===currentPlanId);
@@ -2152,7 +2790,7 @@ function renderBilling(){
   $("#tokenBar").style.width=tokLimit==null?"8%":Math.min(100,tokensUsed/tokLimit*100)+"%";
   $("#tokenBar").style.background=tokLimit!=null&&tokensUsed>tokLimit*0.9?"var(--red)":"var(--violet)";
 }
-renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
+renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
 if(window.innerWidth>1180)toggleChat(true);
 </script>
 </body>
