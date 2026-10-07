@@ -298,6 +298,11 @@ tbody tr:last-child td{border-bottom:none}
 .rp-big .l{font-size:12.5px;font-weight:700;color:var(--ink-soft)}
 .rp-big .n{font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--green);line-height:1.1}
 .rp-watch{font-size:13.5px;color:var(--ink-soft);max-width:48ch;padding-bottom:6px}
+.rp-flag{border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;margin-bottom:12px}
+.rp-flag-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rp-flag-head b{font-size:14.5px}
+.rp-flag-head span{font-size:12.5px;color:var(--ink-soft);font-weight:600}
+.rp-flag .mfc-bar{margin:10px 0 8px}
 .rp-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
 .rp-tiles div{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px}
 .rp-tiles .l{display:block;font-size:12px;font-weight:700;color:var(--ink-soft)}
@@ -1028,7 +1033,7 @@ tbody tr:last-child td{border-bottom:none}
 
     <div class="set-card" id="jsBilling">
       <h3>Billing &amp; plan</h3>
-      <p>Plans differ on two things: shipments per month, and AI tokens for the agent (chat, drafted messages, quote comparisons, auto-created orders).</p>
+      <p>You pay for the shipments you book each month. Using the agent is unlimited on every plan: chat, forecasts, invoice checks, drafted messages and auto-created orders.</p>
 
       <div class="tier-grid" id="tierGrid"></div>
 
@@ -1036,11 +1041,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="usage-head"><span>Shipments this month</span><span><b id="usageCount">—</b> / <span id="usageLimit">60</span> included</span></div>
         <div class="bar-wrap"><div class="bar" id="usageBar" style="background:var(--blue)"></div></div>
       </div>
-      <div class="usage-row">
-        <div class="usage-head"><span>AI tokens this month</span><span><b id="tokenCount">—</b> / <span id="tokenLimit">10,000</span> included</span></div>
-        <div class="bar-wrap"><div class="bar" id="tokenBar" style="background:var(--violet)"></div></div>
-        <div class="comm-hint" style="margin-top:6px">Every agent reply, drafted message and auto-created order uses tokens. Resets on your billing date.</div>
-      </div>
+      <div class="comm-hint" id="overageHint" style="margin-top:-4px;margin-bottom:12px"></div>
 
       <div class="conn" style="margin-top:6px">
         <div class="cico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
@@ -2005,13 +2006,17 @@ const SEP_SHIPMENTS=23, SEP_CAUSE="Storage (LG-2418 Suez delay)";
 /* demo: value logged before September, since the customer joined in April.
    Value is shown as a running total so a quiet month never reads as "logee did nothing". */
 const JOINED="April";
-const BEFORE_SEP={saved:10740,caught:29,hours:96,warned:7};
+const BEFORE_SEP={saved:10740,caught:29,hours:96,warned:7,missed:1050};
+/* demo: warnings logee raised this month that nobody acted on. logee still flagged them, so they count as caught. */
+const MISSED_SEP=[["8 Sep","LG-2386","Storage warning snoozed, container collected 2 days late","missed",280]];
 const HOURS_SEP=22, HOURS_PER_FIX=0.5;
 function valueTotals(rows){
   const fixes=HEADSUPS.filter(h=>h.state==="fixed").length;
   return {
     saved:BEFORE_SEP.saved+SAVED_EARLIER+savedNow,
-    caught:BEFORE_SEP.caught+SAVINGS_EARLIER.length+fixes,
+    caught:BEFORE_SEP.caught+SAVINGS_EARLIER.length+MISSED_SEP.length+fixes,
+    missed:BEFORE_SEP.missed+MISSED_SEP.reduce((a,r)=>a+r[4],0),
+    open:openHU().reduce((a,h)=>a+h.cost,0),
     hours:Math.round(BEFORE_SEP.hours+HOURS_SEP+fixes*HOURS_PER_FIX),
     warned:BEFORE_SEP.warned+rows.filter(r=>r[3]==="customer").length,
     watched:MONTHS_PAST.reduce((a,m)=>a+m[2],0)+monthNumbers().likely,
@@ -2020,17 +2025,33 @@ function valueTotals(rows){
 function renderSavings(){
   const live=HEADSUPS.filter(h=>h.state==="fixed").map(h=>["Today",h.ship,h.done.split(". ")[0],h.custFix?"customer":"prevented",h.cost]);
   const custLive=HEADSUPS.filter(h=>h.custSent&&!h.custFix).map(h=>["Today",h.ship,"Customer updated early","customer",0]);
-  const rows=[...live,...custLive,...SAVINGS_EARLIER.slice().reverse()];
+  const rows=[...live,...custLive,...[...SAVINGS_EARLIER,...MISSED_SEP].sort((a,b)=>parseInt(b[0])-parseInt(a[0]))];
   const total=SAVED_EARLIER+savedNow;
   const v=valueTotals(rows);
+  const flagged=v.saved+v.missed+v.open, decided=v.saved+v.missed;
+  const pct=n=>n/flagged*100;
   const first=MONTHS_PAST[0],last=MONTHS_PAST[MONTHS_PAST.length-1];
   const gap=m=>Math.round((m[2]-m[1])/m[1]*100);
   const sum=k=>rows.filter(r=>r[3]===k).reduce((a,r)=>a+r[4],0);
-  const kindTag={prevented:["green","Prevented"],recovered:["blue","Recovered"],chosen:["violet","Better choice"],customer:["plain","Customer"]};
+  const kindTag={prevented:["green","Prevented"],recovered:["blue","Recovered"],chosen:["violet","Better choice"],customer:["plain","Customer"],missed:["red","Missed"]};
   $("#rpSavings").innerHTML=`
     <div class="rp-hero">
       <div class="rp-big"><div class="l">Saved since you joined in ${JOINED}</div><div class="n">${fmt(v.saved)}</div></div>
-      <div class="rp-watch">${fmtK(Math.round(v.watched/1000)*1000)} of freight watched since ${JOINED}, with every surprise caught before it reached an invoice or a customer.</div>
+      <div class="rp-watch">${fmtK(Math.round(v.watched/1000)*1000)} of freight watched since ${JOINED}. Every problem below was flagged before it reached an invoice or a customer.</div>
+    </div>
+    <div class="rp-flag">
+      <div class="rp-flag-head"><b>logee flagged ${fmt(flagged)} since ${JOINED}</b><span>You acted on ${Math.round(v.saved/decided*100)}% of what was decided</span></div>
+      <div class="mfc-bar" role="img" aria-label="Flagged ${fmt(flagged)}: acted on ${fmt(v.saved)}, missed ${fmt(v.missed)}, still open ${fmt(v.open)}">
+        <span style="width:${pct(v.saved)}%;background:var(--green)"></span>
+        <span style="width:${pct(v.missed)}%;background:var(--red)"></span>
+        <span style="width:${pct(v.open)}%;background:var(--amber)"></span>
+      </div>
+      <div class="mfc-legend">
+        <span><i style="background:var(--green)"></i>Acted on ${fmt(v.saved)}</span>
+        <span><i style="background:var(--red)"></i>Missed ${fmt(v.missed)}: warned, not acted on</span>
+        <span><i style="background:var(--amber)"></i>Still open ${fmt(v.open)}</span>
+        ${v.open?`<button class="chip-btn" style="margin-left:auto" onclick="showView('today')">Act on what's open →</button>`:""}
+      </div>
     </div>
     <div class="rp-tiles">
       <div><span class="l">Problems caught</span><b>${v.caught}</b><span class="s">before they cost you</span></div>
@@ -2044,10 +2065,11 @@ function renderSavings(){
       <div><b>${fmt(sum("recovered"))}</b>Overcharges recovered</div>
       <div><b>${fmt(sum("chosen"))}</b>From better quote choices</div>
       <div><b>${rows.filter(r=>r[3]==="customer").length}</b>Customers warned early</div>
+      <div><b style="color:var(--red)">${fmt(sum("missed"))}</b>Missed: warned, not acted on</div>
     </div>
     <div class="cost-lines rp-list">
       <div class="cline head"><span>When</span><span class="hide-m">Shipment</span><span>What happened</span><span class="num">Saved</span></div>
-      ${rows.map(r=>`<div class="cline"><span>${r[0]}</span><span class="hide-m"><span class="ship-id">${r[1]}</span></span><span>${r[2]} <span class="tag ${kindTag[r[3]][0]}" style="margin-left:4px">${kindTag[r[3]][1]}</span></span><span class="num" style="color:${r[4]?"var(--green)":"var(--ink-faint)"}">${r[4]?fmt(r[4]):"n/a"}</span></div>`).join("")}
+      ${rows.map(r=>`<div class="cline"><span>${r[0]}</span><span class="hide-m"><span class="ship-id">${r[1]}</span></span><span>${r[2]} <span class="tag ${kindTag[r[3]][0]}" style="margin-left:4px">${kindTag[r[3]][1]}</span></span><span class="num" style="color:${r[3]==="missed"?"var(--red)":r[4]?"var(--green)":"var(--ink-faint)"}">${r[3]==="missed"?fmt(r[4])+" lost":r[4]?fmt(r[4]):"n/a"}</span></div>`).join("")}
     </div>`;
 }
 function renderFwdScore(){
@@ -2334,7 +2356,7 @@ function sendChat(){
   const inp=$("#chatInput");const v=inp.value.trim();if(!v)return;
   pushMsg("user",v.replace(/</g,"&lt;"));inp.value="";
   const t=pushMsg("bot",'<span class="typing"><i></i><i></i><i></i></span>');
-  setTimeout(()=>{t.innerHTML=agentAnswer(v);$("#chatLog").scrollTop=1e6;tokensUsed+=40+Math.floor(Math.random()*60);renderBilling();},700+Math.random()*500);
+  setTimeout(()=>{t.innerHTML=agentAnswer(v);$("#chatLog").scrollTop=1e6;},700+Math.random()*500);
 }
 $("#chatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendChat();});
 
@@ -2785,23 +2807,22 @@ function submitOrder(){
 /* ═════════ Boot ═════════ */
 /* ═════════ Plans & billing ═════════ */
 const PLANS=[
- {id:"free",name:"Free",price:0,shipments:5,tokens:1000,desc:"Try it out"},
- {id:"starter",name:"Starter",price:500,shipments:25,tokens:5000,desc:"Small forwarders & importers"},
- {id:"pro",name:"TMS Light",price:1000,shipments:60,tokens:10000,desc:"Most teams"},
- {id:"enterprise",name:"Enterprise",price:null,shipments:null,tokens:null,desc:"Custom volume & tokens"},
+ {id:"free",name:"Free",price:0,shipments:5,extra:null,desc:"Tracking & order threads"},
+ {id:"starter",name:"Starter",price:500,shipments:25,extra:18,desc:"Adds forecasts & cost checks"},
+ {id:"pro",name:"TMS Light",price:1000,shipments:60,extra:15,desc:"Most teams"},
+ {id:"enterprise",name:"Enterprise",price:null,shipments:null,extra:null,desc:"Custom volume, ERP & SSO"},
 ];
 let currentPlanId="pro";
-let tokensUsed=6140;
 function renderPlanTiers(){
   $("#tierGrid").innerHTML=PLANS.map(p=>{
     const cur=p.id===currentPlanId;
     const priceHtml=p.price==null?`<div class="tprice">Custom</div>`:`<div class="tprice">$${p.price}<span>/mo</span></div>`;
     const shipHtml=p.shipments==null?"Unlimited shipments":`<b>${p.shipments}</b> shipments/mo`;
-    const tokHtml=p.tokens==null?"Unlimited AI tokens":`<b>${p.tokens.toLocaleString()}</b> AI tokens/mo`;
+    const extraHtml=p.extra?`then $${p.extra} per extra`:p.price===0?"upgrade for more":"custom limits";
     return `<div class="tier${cur?" current":""}">
       <span class="tname">${p.name}${cur?' <span class="tag blue">Current</span>':""}</span>
       ${priceHtml}
-      <div class="tspec"><span>${shipHtml}</span><span>${tokHtml}</span><span>${p.desc}</span></div>
+      <div class="tspec"><span>${shipHtml}</span><span>${extraHtml}</span><span>${p.desc}</span></div>
       <button class="${cur?"btn btn-ghost":"btn btn-blue"}" ${cur?"disabled style=\"opacity:.55;cursor:default\"":""} onclick="${cur?"":`switchPlan('${p.id}')`}">${cur?"Current plan":p.id==="enterprise"?"Contact sales":p.price===0?"Downgrade":"Switch plan"}</button>
     </div>`;
   }).join("");
@@ -2818,15 +2839,14 @@ function renderBilling(){
   const plan=PLANS.find(x=>x.id===currentPlanId);
   const n=SHIPMENTS.length;
   const shipLimit=plan.shipments;
-  const tokLimit=plan.tokens;
   $("#usageCount").textContent=n;
   $("#usageLimit").textContent=shipLimit==null?"∞":shipLimit;
   $("#usageBar").style.width=shipLimit==null?"8%":Math.min(100,n/shipLimit*100)+"%";
   $("#usageBar").style.background=shipLimit!=null&&n>shipLimit?"var(--red)":"var(--blue)";
-  $("#tokenCount").textContent=tokLimit==null?tokensUsed.toLocaleString():tokensUsed.toLocaleString();
-  $("#tokenLimit").textContent=tokLimit==null?"∞":tokLimit.toLocaleString();
-  $("#tokenBar").style.width=tokLimit==null?"8%":Math.min(100,tokensUsed/tokLimit*100)+"%";
-  $("#tokenBar").style.background=tokLimit!=null&&tokensUsed>tokLimit*0.9?"var(--red)":"var(--violet)";
+  const over=shipLimit==null?0:Math.max(0,n-shipLimit);
+  $("#overageHint").textContent=shipLimit==null?"No shipment limit on your plan."
+    :over?`${over} extra shipment${over>1?"s":""} this month${plan.extra?`, billed at $${plan.extra} each`:". Upgrade to keep adding shipments"}.`
+    :`Each shipment is counted once, in the month it's booked.${plan.extra?` Extra shipments are $${plan.extra} each.`:""}`;
 }
 renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
 if(window.innerWidth>1180)toggleChat(true);
