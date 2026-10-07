@@ -297,6 +297,18 @@ tbody tr:last-child td{border-bottom:none}
 .rp-hero{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
 .rp-big .l{font-size:12.5px;font-weight:700;color:var(--ink-soft)}
 .rp-big .n{font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--green);line-height:1.1}
+.rp-watch{font-size:13.5px;color:var(--ink-soft);max-width:48ch;padding-bottom:6px}
+.rp-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.rp-tiles div{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px}
+.rp-tiles .l{display:block;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.rp-tiles b{display:block;font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1.3}
+.rp-tiles .arr{color:var(--ink-faint);font-weight:600}
+.rp-tiles .s{display:block;font-size:11.5px;font-weight:600;color:var(--ink-faint)}
+.rp-month{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;margin-bottom:10px}
+.rp-month b{font-size:15px}
+.rp-month span{font-size:12.5px;color:var(--ink-faint);font-weight:600}
+#view-reports{container-type:inline-size}
+@container (max-width:760px){.rp-tiles{grid-template-columns:repeat(2,1fr)}}
 .rp-split{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .rp-split div{background:var(--canvas);border-radius:var(--r-sm);padding:9px 14px;font-size:12px;font-weight:700;color:var(--ink-soft)}
 .rp-split b{display:block;font-size:17px;color:var(--ink);letter-spacing:-.3px}
@@ -1666,9 +1678,9 @@ function renderOutcome(){
       <div class="d"><span>${m.avoidable?"Storage & delays you can still stop":"Nothing preventable left open"}</span></div>
     </div>
     <div class="out" onclick="showView('reports')">
-      <div class="l">Saved this month</div>
-      <div class="n" style="color:var(--green)">${fmtK(SAVED_EARLIER+savedNow)}</div>
-      <div class="d"><span>by acting before it went wrong</span></div>
+      <div class="l">Saved since ${JOINED}</div>
+      <div class="n" style="color:var(--green)">${fmtK(BEFORE_SEP.saved+SAVED_EARLIER+savedNow)}</div>
+      <div class="d"><span>${fmtK(SAVED_EARLIER+savedNow)} of it this month</span></div>
     </div>`;
 }
 /* right panel: Where you are / About to go wrong / Do this next */
@@ -1990,17 +2002,43 @@ const FWD_STATS=[
 const MONTHS_PAST=[["Apr",32600,36190,18,"Fuel surcharges"],["May",35100,38260,20,"Port storage"],["Jun",38400,42240,22,"Peak-season surcharge"],["Jul",36900,39480,19,"Fuel surcharges"],["Aug",39200,41160,21,"Documentation fees"]];
 const SEP_SHIPMENTS=23, SEP_CAUSE="Storage (LG-2418 Suez delay)";
 
+/* demo: value logged before September, since the customer joined in April.
+   Value is shown as a running total so a quiet month never reads as "logee did nothing". */
+const JOINED="April";
+const BEFORE_SEP={saved:10740,caught:29,hours:96,warned:7};
+const HOURS_SEP=22, HOURS_PER_FIX=0.5;
+function valueTotals(rows){
+  const fixes=HEADSUPS.filter(h=>h.state==="fixed").length;
+  return {
+    saved:BEFORE_SEP.saved+SAVED_EARLIER+savedNow,
+    caught:BEFORE_SEP.caught+SAVINGS_EARLIER.length+fixes,
+    hours:Math.round(BEFORE_SEP.hours+HOURS_SEP+fixes*HOURS_PER_FIX),
+    warned:BEFORE_SEP.warned+rows.filter(r=>r[3]==="customer").length,
+    watched:MONTHS_PAST.reduce((a,m)=>a+m[2],0)+monthNumbers().likely,
+  };
+}
 function renderSavings(){
   const live=HEADSUPS.filter(h=>h.state==="fixed").map(h=>["Today",h.ship,h.done.split(". ")[0],h.custFix?"customer":"prevented",h.cost]);
   const custLive=HEADSUPS.filter(h=>h.custSent&&!h.custFix).map(h=>["Today",h.ship,"Customer updated early","customer",0]);
   const rows=[...live,...custLive,...SAVINGS_EARLIER.slice().reverse()];
   const total=SAVED_EARLIER+savedNow;
+  const v=valueTotals(rows);
+  const first=MONTHS_PAST[0],last=MONTHS_PAST[MONTHS_PAST.length-1];
+  const gap=m=>Math.round((m[2]-m[1])/m[1]*100);
   const sum=k=>rows.filter(r=>r[3]===k).reduce((a,r)=>a+r[4],0);
   const kindTag={prevented:["green","Prevented"],recovered:["blue","Recovered"],chosen:["violet","Better choice"],customer:["plain","Customer"]};
   $("#rpSavings").innerHTML=`
     <div class="rp-hero">
-      <div class="rp-big"><div class="l">Saved in September so far</div><div class="n">${fmt(total)}</div></div>
+      <div class="rp-big"><div class="l">Saved since you joined in ${JOINED}</div><div class="n">${fmt(v.saved)}</div></div>
+      <div class="rp-watch">${fmtK(Math.round(v.watched/1000)*1000)} of freight watched since ${JOINED}, with every surprise caught before it reached an invoice or a customer.</div>
     </div>
+    <div class="rp-tiles">
+      <div><span class="l">Problems caught</span><b>${v.caught}</b><span class="s">before they cost you</span></div>
+      <div><span class="l">Admin hours saved</span><b>~${v.hours}</b><span class="s">invoices checked, chasers sent, documents filed</span></div>
+      <div><span class="l">Gap to quote</span><b>+${gap(first)}% <span class="arr">→</span> <span style="color:var(--green)">+${gap(last)}%</span></b><span class="s">${first[0]} vs ${last[0]}</span></div>
+      <div><span class="l">Customers warned early</span><b>${v.warned}</b><span class="s">heard about a delay from you first</span></div>
+    </div>
+    <div class="rp-month"><b>September so far: ${fmt(total)}</b><span>The month's detail, item by item</span></div>
     <div class="rp-split">
       <div><b>${fmt(sum("prevented"))}</b>Storage &amp; delays prevented</div>
       <div><b>${fmt(sum("recovered"))}</b>Overcharges recovered</div>
