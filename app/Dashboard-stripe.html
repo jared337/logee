@@ -2110,7 +2110,7 @@ function submitOrder(){
 /* ═════════ Boot ═════════ */
 /* ═════════ Plans & billing ═════════ */
 const PLANS=[
- {id:"free",name:"Free",price:0,shipments:5,tokens:1000,desc:"Try it out"},
+ {id:"free",name:"Free",price:0,shipments:25,tokens:1000,desc:"30 days · then pick a plan"},
  {id:"starter",name:"Starter",price:500,shipments:25,tokens:5000,desc:"Small forwarders & importers"},
  {id:"pro",name:"TMS Light",price:1000,shipments:60,tokens:10000,desc:"Most teams"},
  {id:"enterprise",name:"Enterprise",price:null,shipments:null,tokens:null,desc:"Custom volume & tokens"},
@@ -2120,8 +2120,8 @@ let tokensUsed=6140;
 function renderPlanTiers(){
   $("#tierGrid").innerHTML=PLANS.map(p=>{
     const cur=p.id===currentPlanId;
-    const priceHtml=p.price==null?`<div class="tprice">Custom</div>`:`<div class="tprice">$${p.price}<span>/mo</span></div>`;
-    const shipHtml=p.shipments==null?"Unlimited shipments":`<b>${p.shipments}</b> shipments/mo`;
+    const priceHtml=p.price==null?`<div class="tprice">Custom</div>`:p.price===0?`<div class="tprice">$0<span> for 30 days</span></div>`:`<div class="tprice">$${p.price}<span>/mo</span></div>`;
+    const shipHtml=p.shipments==null?"Unlimited shipments":p.price===0?`Up to <b>${p.shipments}</b> shipments`:`<b>${p.shipments}</b> shipments/mo`;
     const tokHtml=p.tokens==null?"Unlimited AI tokens":`<b>${p.tokens.toLocaleString()}</b> AI tokens/mo`;
     return `<div class="tier${cur?" current":""}">
       <span class="tname">${p.name}${cur?' <span class="tag blue">Current</span>':""}</span>
