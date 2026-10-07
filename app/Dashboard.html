@@ -997,7 +997,7 @@ tbody tr:last-child td{border-bottom:none}
 
     <div class="set-card" id="jsThreshold">
       <h3>Late-shipment alert threshold</h3>
-      <p>Flag a shipment in the attention queue when it runs later than this many days past plan.</p>
+      <p>Flag a shipment in your Next best actions list when it runs later than this many days past plan.</p>
       <div class="slider-row">
         <input type="range" min="1" max="14" value="5" id="lateSlider" aria-label="Late threshold in days">
         <div class="slider-val"><span id="lateVal">5</span> days</div>
@@ -1504,7 +1504,7 @@ const SETUP_STEPS=[
     check:()=>SKUS.length>0,
     action:()=>showView("skus"),label:"Add SKUs"},
   {id:"threshold",title:"Set your late-shipment alert threshold",required:false,
-    desc:"Controls when a shipment lands in your attention queue as late. A sensible default is already set.",
+    desc:"Controls when a late shipment lands in your Next best actions list. A sensible default is already set.",
     check:()=>true,
     action:()=>goToSettings("jsThreshold"),label:"Review"},
   {id:"team",title:"Invite your team",required:false,
@@ -2554,7 +2554,7 @@ const COMMS={
   ["in","Dana · Unifreight","Heads up: vessel missed its Suez transit slot due to congestion. New ETA 18 Sep. We'll update daily.","9 Sep 08:31"],
   ["agent","logee agent","Flagged this order as late (>5 days). Storage & detention now accruing at ~$95/day, added to actual cost. Asked Unifreight for recovery options.","9 Sep 08:32"],
   ["in","Dana · Unifreight","Two options: (A) transship at Piraeus, arrive 20 Sep, +$380. (B) stay on vessel, arrive 24 Sep, storage continues. Need your call by Thursday.","16 Sep 16:45"],
-  ["agent","logee agent","Summarised both options into your attention queue with cost impact. Option A is cheaper overall if storage runs past 21 Sep (likely).","16 Sep 16:46"],
+  ["agent","logee agent","Summarised both options into your Today list with cost impact. Option A is cheaper overall if storage runs past 21 Sep (likely).","16 Sep 16:46"],
  ],
  "LG-2431":[
   ["sys","","Order created · booked with Unifreight (LCL)","10 Sep 10:05"],
