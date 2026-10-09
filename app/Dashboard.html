@@ -202,6 +202,26 @@ h1{font-size:24px;font-weight:800;letter-spacing:-.4px}
 .fchip{border:1.5px solid var(--line);border-radius:999px;padding:7px 15px;font-weight:700;font-size:12.5px;background:var(--bg)}
 .fchip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .tbl{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+/* Inventory */
+.inv-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;background:var(--bg)}
+.seg button{border-radius:999px;padding:5px 14px;font-weight:700;font-size:12.5px;color:var(--ink-soft)}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.inv-search{border:1.5px solid var(--line);border-radius:999px;padding:7px 15px;font-size:13px;min-width:220px;background:var(--bg);color:var(--ink);margin-left:auto}
+.inv-tbl{overflow-x:auto}
+.inv-tbl table{min-width:900px}
+.num{font-variant-numeric:tabular-nums;font-weight:700}
+.inv-tbl td:first-child,.inv-tbl th,.inv-tbl .tag,.inv-tr{white-space:nowrap}
+.inv-caret{display:inline-block;width:14px;color:var(--ink-faint);transition:transform .15s}
+tr.open .inv-caret{transform:rotate(90deg)}
+tr.inv-sub td{background:var(--canvas);font-size:13px;padding-top:9px;padding-bottom:9px}
+tr.inv-group td{background:var(--canvas);font-weight:800;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft);padding:9px 16px}
+tr.inv-site td{font-weight:800}
+tr.inv-static{cursor:default}
+.inv-tr{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:3px 8px;margin:2px 4px 2px 0;background:var(--blue-soft);color:var(--blue)}
+.inv-tr.late{background:var(--red-soft);color:var(--red)}
+.inv-tr.watch{background:var(--amber-soft);color:var(--amber)}
+.inv-tr:hover{text-decoration:underline}
 table{width:100%;border-collapse:collapse}
 th{Text-align:left;font-size:11.5px;color:var(--ink-faint);font-weight:800;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg);letter-spacing:.2px}
 td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
@@ -765,6 +785,7 @@ tbody tr:last-child td{border-bottom:none}
   <nav class="rail" aria-label="Main navigation">
     <button data-view="today" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="lbl">Today</span><span class="pip" id="pipToday"></span></button>
     <button data-view="shipments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg><span class="lbl">Shipments</span></button>
+    <button data-view="inventory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8.5l9-5.5 9 5.5V21"/><path d="M7 21v-9h10v9"/><path d="M7 15h10M7 18h10"/></svg><span class="lbl">Inventory</span></button>
     <button data-view="skus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="lbl">SKUs</span></button>
     <button data-view="costs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 9a3 3 0 0 0-2.6-1.5h-1.8a2.4 2.4 0 0 0 0 4.8h1.8a2.4 2.4 0 0 1 0 4.8h-1.8A3 3 0 0 1 8.5 15.5"/><path d="M12 5.5v13"/></svg><span class="lbl">Costs</span></button>
     <button data-view="docs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8M8 17h5"/></svg><span class="lbl">Docs</span></button>
@@ -887,6 +908,25 @@ tbody tr:last-child td{border-bottom:none}
       <button class="fchip" data-df="other">Other</button>
     </div>
     <div class="tbl"><table><thead><tr><th>Document</th><th>Shipment</th><th>Type</th><th>Received</th><th></th></tr></thead><tbody id="docRows"></tbody></table></div>
+  </section>
+
+  <!-- ── INVENTORY ── -->
+  <section class="view" id="view-inventory">
+    <div class="view-head">
+      <div><h1>Inventory</h1><p>Your stock position across every site — what's on the shelf, what's on the way, and where you're running low.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <label class="btn btn-ghost" style="cursor:pointer">Upload stock CSV<input type="file" accept=".csv" id="invCsv" style="display:none"></label>
+        <button class="btn btn-ghost" onclick="toast('Syncing stock levels from Priority ERP… 5 warehouses up to date (demo)')">Sync from Priority</button>
+        <button class="btn btn-blue" onclick="openLocModal()">＋ Add location</button>
+      </div>
+    </div>
+    <div class="kpis" id="invKpis"></div>
+    <div class="inv-tools">
+      <div class="seg" id="invViewSeg"><button class="on" data-iv="sku">By SKU</button><button data-iv="loc">By location</button></div>
+      <div class="filters" id="invCountries" style="margin-bottom:0"></div>
+      <input class="inv-search" id="invSearch" placeholder="Search SKU or description…" oninput="invState.q=this.value.trim().toLowerCase();renderInventory()">
+    </div>
+    <div class="tbl inv-tbl"><table aria-label="Inventory position"><thead><tr><th>SKU</th><th>Item · site</th><th>On hand</th><th>In transit</th><th>Total position</th><th>Reorder at</th><th>Status</th></tr></thead><tbody id="invRows"></tbody></table></div>
   </section>
 
   <!-- ── SKUS ── -->
@@ -1216,6 +1256,33 @@ tbody tr:last-child td{border-bottom:none}
       <button class="btn btn-ghost" id="wizBack" onclick="wizNav(-1)" style="visibility:hidden">← Back</button>
       <div style="flex:1"></div>
       <button class="btn btn-blue" id="wizNext" onclick="wizNav(1)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Add / edit location modal ── -->
+<div class="modal-scrim" id="locScrim">
+  <div class="wizard" style="max-width:520px">
+    <div class="wiz-head">
+      <div style="flex:1"><h2 id="locModalTitle">Add location</h2><p>A warehouse, 3PL or store where you hold stock. It shows up in Inventory straight away.</p></div>
+      <button class="drawer-close" onclick="closeLocModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="wiz-body">
+      <div class="f-grid">
+        <div class="field full"><label>Location name</label><input id="lcName" placeholder="Eilat DC"></div>
+        <div class="field"><label>City</label><input id="lcCity" placeholder="Eilat"></div>
+        <div class="field"><label>Country</label><select id="lcCountry"></select></div>
+        <div class="field"><label>Type</label>
+          <select id="lcType"><option>Own warehouse</option><option>3PL warehouse</option><option>Store / branch</option><option>Bonded / port storage</option></select>
+        </div>
+        <div class="field"><label>Code <span style="color:var(--ink-faint);font-weight:600">(optional)</span></label><input id="lcCode" maxlength="6" placeholder="Auto" style="text-transform:uppercase"></div>
+        <div class="field full"><label>Address <span style="color:var(--ink-faint);font-weight:600">(optional)</span></label><input id="lcAddr" placeholder="Street, postcode"></div>
+      </div>
+    </div>
+    <div class="wiz-foot">
+      <button class="btn btn-ghost" onclick="closeLocModal()">Cancel</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-blue" id="lcSave" onclick="saveLoc()">Add location</button>
     </div>
   </div>
 </div>
@@ -2389,6 +2456,184 @@ function renderSkus(){
     </tr>`).join("");
   renderSkuPick();
 }
+/* ═════════ Inventory ═════════ */
+const LOCS=[
+ {id:"ASH",name:"Ashdod DC",city:"Ashdod",country:"Israel",type:"Own warehouse"},
+ {id:"APC",name:"Airport City DC",city:"Airport City",country:"Israel",type:"Own warehouse"},
+ {id:"HFA",name:"Haifa store",city:"Haifa",country:"Israel",type:"Store / branch"},
+ {id:"LAX",name:"LA 3PL",city:"Los Angeles",country:"USA",type:"3PL warehouse"},
+ {id:"RTM",name:"Rotterdam 3PL",city:"Rotterdam",country:"Netherlands",type:"3PL warehouse"},
+];
+/* [sku, location, on hand, reorder at] */
+const STOCK=[
+ ["SKU-1042","ASH",620,400],["SKU-1042","APC",210,250],["SKU-1042","HFA",95,100],["SKU-1042","LAX",140,120],
+ ["SKU-1097","ASH",380,300],["SKU-1097","APC",460,300],["SKU-1097","LAX",55,80],
+ ["SKU-1120","ASH",18000,10000],["SKU-1120","APC",9500,8000],["SKU-1120","HFA",4200,3000],["SKU-1120","LAX",6000,4000],["SKU-1120","RTM",25000,10000],
+ ["SKU-1188","ASH",720,500],["SKU-1188","APC",140,300],["SKU-1188","LAX",260,200],["SKU-1188","RTM",1200,600],
+ ["SKU-1203","ASH",900,800],["SKU-1203","APC",640,600],["SKU-1203","HFA",380,300],["SKU-1203","RTM",250,500],
+ ["SKU-1250","ASH",46,60],["SKU-1250","APC",72,60],["SKU-1250","HFA",0,30],["SKU-1250","LAX",24,40],
+];
+/* [sku, destination, qty, shipment] — totals match SKUS[].transit */
+const INBOUND=[
+ ["SKU-1042","ASH",480,"LG-2418"],
+ ["SKU-1097","ASH",400,"LG-2429"],["SKU-1097","LAX",200,"LG-2402"],
+ ["SKU-1120","HFA",8000,"LG-2431"],["SKU-1120","ASH",4000,"LG-2436"],
+ ["SKU-1203","ASH",1000,"LG-2418"],["SKU-1203","RTM",600,"LG-2440"],
+ ["SKU-1250","LAX",80,"LG-2402"],
+];
+const invState={view:"sku",country:"all",lowOnly:false,q:"",open:new Set()};
+const locById=id=>LOCS.find(l=>l.id===id);
+function shipEta(id){
+  const s=SHIPMENTS.find(x=>x.id===id);if(!s)return {eta:"",status:"ontime"};
+  const d=[...s.eta.matchAll(/\d{1,2} [A-Z][a-z]{2}/g)].pop();
+  return {eta:d?d[0]:s.eta,status:s.status};
+}
+function invCell(sku,loc){
+  const st=STOCK.find(r=>r[0]===sku&&r[1]===loc);
+  const inb=INBOUND.filter(r=>r[0]===sku&&r[1]===loc);
+  return {qty:st?st[2]:0,min:st?st[3]:0,inb,tr:inb.reduce((a,r)=>a+r[2],0),known:!!st||inb.length>0};
+}
+function invLevel(c){
+  if(c.qty===0&&c.tr===0&&c.min>0)return "out";
+  if(c.qty<c.min)return c.qty+c.tr>=c.min?"inbound":"low";
+  return "ok";
+}
+function invStatusTag(lv){
+  return {out:'<span class="tag red">Out of stock</span>',low:'<span class="tag amber">Below reorder</span>',inbound:'<span class="tag blue">Low · restock inbound</span>',ok:'<span class="tag green">OK</span>'}[lv];
+}
+function inbTags(inb){
+  if(!inb.length)return '<span style="color:var(--ink-faint)">—</span>';
+  return inb.map(r=>{const e=shipEta(r[3]);return `<button class="inv-tr ${e.status==="late"?"late":e.status==="watch"?"watch":""}" onclick="event.stopPropagation();openDrawer('${r[3]}')" title="Open shipment ${r[3]}">${r[2].toLocaleString()} · ${r[3]} · ETA ${e.eta}</button>`;}).join("");
+}
+const fmtN=n=>n.toLocaleString();
+function invLocs(){return LOCS.filter(l=>invState.country==="all"||l.country===invState.country);}
+function invSkus(){const q=invState.q;return SKUS.filter(s=>!q||s.code.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));}
+function siteLine(l){return `<b>${l.name}</b> <span class="route">· ${l.city}, ${l.country}</span>`;}
+
+function renderInvKpis(){
+  const locs=invLocs(),ids=locs.map(l=>l.id);
+  let onHand=0,transit=0,low=0;const ships=new Set();
+  SKUS.forEach(s=>ids.forEach(id=>{const c=invCell(s.code,id);if(!c.known)return;onHand+=c.qty;transit+=c.tr;c.inb.forEach(r=>ships.add(r[3]));if(["low","out"].includes(invLevel(c)))low++;}));
+  const countries=new Set(locs.map(l=>l.country)).size;
+  $("#invKpis").innerHTML=`
+    <div class="kpi" onclick="setInvLow(false)"><div class="n">${fmtN(onHand)}</div><div class="l">Units on hand</div><div class="d flat">${SKUS.length} SKUs</div></div>
+    <div class="kpi" onclick="showView('shipments')"><div class="n" style="color:var(--blue)">${fmtN(transit)}</div><div class="l">Units in transit</div><div class="d flat">${ships.size} shipment${ships.size===1?"":"s"} inbound</div></div>
+    <div class="kpi" onclick="setInvView('loc')"><div class="n">${locs.length}</div><div class="l">Sites</div><div class="d flat">${countries} countr${countries===1?"y":"ies"}</div></div>
+    <div class="kpi" onclick="setInvLow(!invState.lowOnly)" style="${invState.lowOnly?"border-color:var(--amber)":""}"><div class="n" style="color:${low?"var(--amber)":"var(--green)"}">${low}</div><div class="l">Below reorder, nothing inbound</div><div class="d flat">${invState.lowOnly?"Showing these only · click to clear":"Click to show only these"}</div></div>`;
+}
+function renderInvCountries(){
+  const cs=[...new Set(LOCS.map(l=>l.country))];
+  $("#invCountries").innerHTML=["all",...cs].map(c=>`<button class="fchip ${invState.country===c?"on":""}" onclick="setInvCountry('${c}')">${c==="all"?"All countries":c}</button>`).join("")
+    +(invState.lowOnly?`<button class="fchip on" style="background:var(--amber);border-color:var(--amber)" onclick="setInvLow(false)">Below reorder ✕</button>`:"");
+}
+function setInvCountry(c){invState.country=c;renderInventory();}
+function setInvLow(v){invState.lowOnly=v;renderInventory();}
+function setInvView(v){invState.view=v;$$("#invViewSeg button").forEach(b=>b.classList.toggle("on",b.dataset.iv===v));renderInventory();}
+$$("#invViewSeg button").forEach(b=>b.addEventListener("click",()=>setInvView(b.dataset.iv)));
+function toggleInv(code){invState.open.has(code)?invState.open.delete(code):invState.open.add(code);renderInventory();}
+const lowMatch=c=>!invState.lowOnly||["low","out"].includes(invLevel(c));
+
+function renderInventory(){
+  renderInvKpis();renderInvCountries();
+  const locs=invLocs(),skus=invSkus();let html="";
+  if(invState.view==="sku"){
+    skus.forEach(s=>{
+      const cells=locs.map(l=>({l,c:invCell(s.code,l.id)})).filter(x=>x.c.known&&lowMatch(x.c));
+      if(!cells.length)return;
+      const qty=cells.reduce((a,x)=>a+x.c.qty,0),tr=cells.reduce((a,x)=>a+x.c.tr,0);
+      const lows=cells.filter(x=>["low","out"].includes(invLevel(x.c))).length;
+      const inbLow=cells.filter(x=>invLevel(x.c)==="inbound").length;
+      const countries=new Set(cells.map(x=>x.l.country)).size;
+      const open=invState.open.has(s.code)||invState.lowOnly;
+      html+=`<tr class="${open?"open":""}" onclick="toggleInv('${s.code}')">
+        <td><span class="inv-caret">▸</span><span class="ship-id">${s.code}</span></td>
+        <td>${s.name}<br><span class="route">${cells.length} site${cells.length===1?"":"s"} · ${countries} countr${countries===1?"y":"ies"}</span></td>
+        <td class="num">${fmtN(qty)}</td>
+        <td>${tr?`<span class="tag blue">${fmtN(tr)} units</span>`:'<span style="color:var(--ink-faint)">—</span>'}</td>
+        <td class="num">${fmtN(qty+tr)}</td>
+        <td style="color:var(--ink-faint)">per site</td>
+        <td>${lows?`<span class="tag amber">${lows} site${lows===1?"":"s"} low</span>`:inbLow?`<span class="tag blue">Restock inbound</span>`:'<span class="tag green">All sites OK</span>'}</td>
+      </tr>`;
+      if(open)cells.forEach(({l,c})=>{html+=`<tr class="inv-sub inv-static">
+        <td></td><td>${siteLine(l)}</td>
+        <td class="num">${fmtN(c.qty)}</td><td>${inbTags(c.inb)}</td>
+        <td class="num">${fmtN(c.qty+c.tr)}</td><td class="num" style="color:var(--ink-soft)">${c.min?fmtN(c.min):"—"}</td>
+        <td>${invStatusTag(invLevel(c))}</td></tr>`;});
+    });
+  }else{
+    [...new Set(locs.map(l=>l.country))].forEach(country=>{
+      let block="";
+      locs.filter(l=>l.country===country).forEach(l=>{
+        const cells=skus.map(s=>({s,c:invCell(s.code,l.id)})).filter(x=>x.c.known&&lowMatch(x.c));
+        if(!cells.length){
+          const empty=!skus.some(s=>invCell(s.code,l.id).known);
+          if(empty&&!invState.lowOnly&&!invState.q)block+=`<tr class="inv-site" onclick="openLocModal('${l.id}')" title="Edit location"><td colspan="2">${l.name} <span class="route" style="font-weight:600">· ${l.city} · ${l.type||"Warehouse"}</span></td>
+            <td colspan="5" style="color:var(--ink-soft);font-weight:600">No stock recorded yet — upload a stock CSV or sync from Priority</td></tr>`;
+          return;
+        }
+        const qty=cells.reduce((a,x)=>a+x.c.qty,0),tr=cells.reduce((a,x)=>a+x.c.tr,0);
+        const lows=cells.filter(x=>["low","out"].includes(invLevel(x.c))).length;
+        block+=`<tr class="inv-site" onclick="openLocModal('${l.id}')" title="Edit location"><td colspan="2">${l.name} <span class="route" style="font-weight:600">· ${l.city} · ${cells.length} SKU${cells.length===1?"":"s"}</span></td>
+          <td class="num">${fmtN(qty)}</td><td>${tr?`<span class="tag blue">${fmtN(tr)} units</span>`:'<span style="color:var(--ink-faint)">—</span>'}</td>
+          <td class="num">${fmtN(qty+tr)}</td><td></td><td>${lows?`<span class="tag amber">${lows} low</span>`:'<span class="tag green">OK</span>'}</td></tr>`;
+        cells.forEach(({s,c})=>{block+=`<tr class="inv-sub inv-static">
+          <td><span class="ship-id">${s.code}</span></td><td>${s.name}</td>
+          <td class="num">${fmtN(c.qty)}</td><td>${inbTags(c.inb)}</td>
+          <td class="num">${fmtN(c.qty+c.tr)}</td><td class="num" style="color:var(--ink-soft)">${c.min?fmtN(c.min):"—"}</td>
+          <td>${invStatusTag(invLevel(c))}</td></tr>`;});
+      });
+      if(block)html+=`<tr class="inv-group inv-static"><td colspan="7">${country}</td></tr>`+block;
+    });
+  }
+  $("#invRows").innerHTML=html||`<tr class="inv-static"><td colspan="7" class="empty">No stock matches${invState.q?` “${invState.q}”`:""}${invState.country!=="all"?` in ${invState.country}`:""}.</td></tr>`;
+}
+const COUNTRIES=["Argentina","Australia","Austria","Bangladesh","Belgium","Brazil","Bulgaria","Canada","Chile","China","Colombia","Croatia","Cyprus","Czech Republic","Denmark","Egypt","Estonia","Finland","France","Germany","Greece","Hong Kong","Hungary","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan","Kenya","Latvia","Lithuania","Malaysia","Malta","Mexico","Morocco","Netherlands","New Zealand","Nigeria","Norway","Pakistan","Peru","Philippines","Poland","Portugal","Romania","Saudi Arabia","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","Sweden","Switzerland","Taiwan","Thailand","Turkey","UAE","UK","Ukraine","USA","Vietnam"];
+let locEditId=null;
+function openLocModal(id){
+  const l=id?locById(id):null;locEditId=l?l.id:null;
+  $("#locModalTitle").textContent=l?"Edit location":"Add location";
+  $("#lcSave").textContent=l?"Save changes":"Add location";
+  $("#lcName").value=l?l.name:"";$("#lcCity").value=l?l.city:"";
+  const mine=[...new Set(LOCS.map(x=>x.country))].sort();
+  $("#lcCountry").innerHTML=`<option value="">Select a country…</option>`
+    +`<optgroup label="Your countries">${mine.map(c=>`<option>${c}</option>`).join("")}</optgroup>`
+    +`<optgroup label="All countries">${COUNTRIES.filter(c=>!mine.includes(c)).map(c=>`<option>${c}</option>`).join("")}</optgroup>`;
+  $("#lcCountry").value=l?l.country:(invState.country!=="all"?invState.country:"");
+  $("#lcType").value=l&&l.type?l.type:"Own warehouse";
+  $("#lcCode").value=l?l.id:"";$("#lcCode").disabled=!!l;
+  $("#lcAddr").value=l&&l.addr?l.addr:"";
+  $("#locScrim").classList.add("open");
+  setTimeout(()=>$("#lcName").focus(),50);
+}
+function closeLocModal(){$("#locScrim").classList.remove("open");locEditId=null;}
+function saveLoc(){
+  const name=$("#lcName").value.trim(),city=$("#lcCity").value.trim();
+  const country=$("#lcCountry").value;
+  if(!name||!city||!country){toast("Give the location a name, city and country");return;}
+  const rec={name,city,country,type:$("#lcType").value,addr:$("#lcAddr").value.trim()};
+  if(locEditId){
+    Object.assign(locById(locEditId),rec);
+    toast(`${name} updated`);
+  }else{
+    if(LOCS.some(x=>x.name.toLowerCase()===name.toLowerCase())){toast(`There's already a location called ${name}`);return;}
+    let id=$("#lcCode").value.trim().toUpperCase().replace(/[^A-Z0-9]/g,"");
+    if(!id)id=name.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase()||"LOC";
+    if(LOCS.some(x=>x.id===id)){let n=2;while(LOCS.some(x=>x.id===id+n))n++;id=id+n;}
+    LOCS.push({id,...rec});
+    invState.country=country;invState.q="";$("#invSearch").value="";invState.lowOnly=false;
+    setInvView("loc");
+    toast(`${name} added — ${city}, ${country}`);
+  }
+  closeLocModal();renderInventory();
+}
+$("#locScrim").addEventListener("click",e=>{if(e.target.id==="locScrim")closeLocModal();});
+$("#locScrim").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.tagName==="INPUT")saveLoc();if(e.key==="Escape")closeLocModal();});
+$("#invCsv")?.addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  toast(`${f.name} received — expects columns: sku, location, on hand, reorder at (demo)`);
+  e.target.value="";
+});
+
 let skuEditIndex=null;
 function openSkuModal(i){
   skuEditIndex=(typeof i==="number")?i:null;
@@ -2848,7 +3093,7 @@ function renderBilling(){
     :over?`${over} extra shipment${over>1?"s":""} this month${plan.extra?`, billed at $${plan.extra} each`:". Upgrade to keep adding shipments"}.`
     :`Each shipment is counted once, in the month it's booked.${plan.extra?` Extra shipments are $${plan.extra} each.`:""}`;
 }
-renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
+renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderInventory();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
 if(window.innerWidth>1180)toggleChat(true);
 </script>
 </body>
