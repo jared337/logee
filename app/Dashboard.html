@@ -101,6 +101,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
 .rail button.active svg{stroke-width:2.1}
 .rail button .pip{position:absolute;top:7px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid var(--bg)}
 .rail .spacer{flex:1}
+.rail .rail-div{width:32px;height:1px;background:var(--line);margin:4px 0;flex-shrink:0}
 
 /* ── Main region ──────────────────────────── */
 .main{position:relative;overflow:hidden;display:flex}
@@ -222,6 +223,13 @@ tr.inv-static{cursor:default}
 .inv-tr.late{background:var(--red-soft);color:var(--red)}
 .inv-tr.watch{background:var(--amber-soft);color:var(--amber)}
 .inv-tr:hover{text-decoration:underline}
+.inv-empty{max-width:640px}
+.inv-step{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.inv-step .prog-check{flex-shrink:0;font-size:11.5px;font-weight:800}
+.inv-step .prog-check.todo{color:var(--ink-soft)}
+.inv-step.now .prog-check.todo{background:var(--blue);border-color:var(--blue);color:#fff}
+.inv-step.later{opacity:.5}
+.inv-step.done b{color:var(--ink-soft);text-decoration:line-through}
 table{width:100%;border-collapse:collapse}
 th{Text-align:left;font-size:11.5px;color:var(--ink-faint);font-weight:800;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg);letter-spacing:.2px}
 td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
@@ -690,6 +698,7 @@ tbody tr:last-child td{border-bottom:none}
   .topbar-right .btn{padding:8px 12px}
   .rail{grid-row:2;grid-column:1;flex-direction:row;width:100%;border-right:none;border-bottom:1px solid var(--line);padding:6px 6px;overflow-x:auto;justify-content:flex-start;gap:2px}
   .rail .spacer{display:none}
+  .rail .rail-div{width:1px;height:28px;margin:0 4px;align-self:center}
   .rail button{width:auto;min-width:58px;height:44px;flex-shrink:0;padding:0 6px}
   .rail button .lbl{display:block;font-size:9px}
   .main{grid-row:3;grid-column:1;overflow:visible}
@@ -786,11 +795,12 @@ tbody tr:last-child td{border-bottom:none}
     <button data-view="today" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="lbl">Today</span><span class="pip" id="pipToday"></span></button>
     <button data-view="shipments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg><span class="lbl">Shipments</span></button>
     <button data-view="inventory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8.5l9-5.5 9 5.5V21"/><path d="M7 21v-9h10v9"/><path d="M7 15h10M7 18h10"/></svg><span class="lbl">Inventory</span></button>
-    <button data-view="skus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="lbl">SKUs</span></button>
     <button data-view="costs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 9a3 3 0 0 0-2.6-1.5h-1.8a2.4 2.4 0 0 0 0 4.8h1.8a2.4 2.4 0 0 1 0 4.8h-1.8A3 3 0 0 1 8.5 15.5"/><path d="M12 5.5v13"/></svg><span class="lbl">Costs</span></button>
     <button data-view="docs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8M8 17h5"/></svg><span class="lbl">Docs</span></button>
     <button data-view="reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 16V9"/><path d="M13 16V5"/><path d="M8 16v-4"/></svg><span class="lbl">Reports</span></button>
     <div class="spacer"></div>
+    <div class="rail-div" role="separator"></div>
+    <button data-view="skus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="lbl">SKUs</span></button>
     <button data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1.5 14h5M9.5 8h5M17.5 16h5"/></svg><span class="lbl">Settings</span></button>
   </nav>
 
@@ -914,12 +924,14 @@ tbody tr:last-child td{border-bottom:none}
   <section class="view" id="view-inventory">
     <div class="view-head">
       <div><h1>Inventory</h1><p>Your stock position across every site — what's on the shelf, what's on the way, and where you're running low.</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="invActions">
         <label class="btn btn-ghost" style="cursor:pointer">Upload stock CSV<input type="file" accept=".csv" id="invCsv" style="display:none"></label>
         <button class="btn btn-ghost" onclick="toast('Syncing stock levels from Priority ERP… 5 warehouses up to date (demo)')">Sync from Priority</button>
         <button class="btn btn-blue" onclick="openLocModal()">＋ Add location</button>
       </div>
     </div>
+    <div id="invEmpty"></div>
+    <div id="invMain">
     <div class="kpis" id="invKpis"></div>
     <div class="inv-tools">
       <div class="seg" id="invViewSeg"><button class="on" data-iv="sku">By SKU</button><button data-iv="loc">By location</button></div>
@@ -927,6 +939,7 @@ tbody tr:last-child td{border-bottom:none}
       <input class="inv-search" id="invSearch" placeholder="Search SKU or description…" oninput="invState.q=this.value.trim().toLowerCase();renderInventory()">
     </div>
     <div class="tbl inv-tbl"><table aria-label="Inventory position"><thead><tr><th>SKU</th><th>Item · site</th><th>On hand</th><th>In transit</th><th>Total position</th><th>Reorder at</th><th>Status</th></tr></thead><tbody id="invRows"></tbody></table></div>
+    </div>
   </section>
 
   <!-- ── SKUS ── -->
@@ -1583,6 +1596,14 @@ const SETUP_STEPS=[
     desc:"Without SKUs, new orders can only use free-text lines, with no weights, HS codes or carton counts for accurate quotes.",
     check:()=>SKUS.length>0,
     action:()=>showView("skus"),label:"Add SKUs"},
+  {id:"locations",title:"Add your stock locations",required:false,
+    desc:"Warehouses, 3PLs and stores where you hold stock, so Inventory can show your position at every site. Needs SKUs first.",
+    check:()=>LOCS.length>0,
+    action:()=>{showView("inventory");if(SKUS.length)openLocModal();},label:"Add a location"},
+  {id:"stock",title:"Load your stock levels",required:false,
+    desc:"Upload on-hand quantities per SKU and location, or sync them from your ERP. Needs SKUs and locations first.",
+    check:()=>STOCK.length>0,
+    action:()=>showView("inventory"),label:"Load stock"},
   {id:"threshold",title:"Set your late-shipment alert threshold",required:false,
     desc:"Controls when a late shipment lands in your Next best actions list. A sensible default is already set.",
     check:()=>true,
@@ -2455,6 +2476,7 @@ function renderSkus(){
       <td style="text-align:right"><button class="chip-btn" onclick="openSkuModal(${i})">Edit</button></td>
     </tr>`).join("");
   renderSkuPick();
+  renderInventory();
 }
 /* ═════════ Inventory ═════════ */
 const LOCS=[
@@ -2533,7 +2555,30 @@ $$("#invViewSeg button").forEach(b=>b.addEventListener("click",()=>setInvView(b.
 function toggleInv(code){invState.open.has(code)?invState.open.delete(code):invState.open.add(code);renderInventory();}
 const lowMatch=c=>!invState.lowOnly||["low","out"].includes(invLevel(c));
 
+/* Inventory depends on SKUs → locations → stock; walk the user through whichever is missing */
+function renderInvEmpty(){
+  const steps=[
+    {done:SKUS.length>0,title:"Add your products",desc:"Inventory counts SKUs, so your catalog comes first.",btn:`<button class="btn btn-blue" onclick="showView('skus')">Go to SKUs</button>`},
+    {done:LOCS.length>0,title:"Add your locations",desc:"The warehouses, 3PLs and stores where you hold stock.",btn:`<button class="btn btn-blue" onclick="openLocModal()">＋ Add location</button>`},
+    {done:STOCK.length>0||INBOUND.length>0,title:"Load your stock levels",desc:"On-hand quantity per SKU per location.",btn:`<label class="btn btn-blue" style="cursor:pointer" onclick="event.preventDefault();$('#invCsv').click()">Upload stock CSV</label> <button class="btn btn-ghost" onclick="toast('Syncing stock levels from Priority ERP… (demo)')">Sync from Priority</button>`},
+  ];
+  const next=steps.findIndex(s=>!s.done);
+  if(next<0)return false;
+  $("#invEmpty").innerHTML=`<div class="panel inv-empty">
+    <h3 style="display:block">Set up inventory in three steps</h3>
+    ${steps.map((s,i)=>`<div class="inv-step ${s.done?"done":i===next?"now":"later"}">
+      <div class="prog-check ${s.done?"done":"todo"}">${s.done?CHECKMARK:i+1}</div>
+      <div><b>${s.title}</b><div class="prog-desc">${s.desc}</div>${i===next?`<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${s.btn}</div>`:""}</div>
+    </div>`).join("")}
+  </div>`;
+  return true;
+}
 function renderInventory(){
+  const empty=renderInvEmpty();
+  $("#invEmpty").style.display=empty?"":"none";
+  $("#invMain").style.display=empty?"none":"";
+  $("#invActions").style.display=empty?"none":"flex";
+  if(empty)return;
   renderInvKpis();renderInvCountries();
   const locs=invLocs(),skus=invSkus();let html="";
   if(invState.view==="sku"){
@@ -2624,7 +2669,7 @@ function saveLoc(){
     setInvView("loc");
     toast(`${name} added — ${city}, ${country}`);
   }
-  closeLocModal();renderInventory();
+  closeLocModal();renderInventory();renderSetupProgress();
 }
 $("#locScrim").addEventListener("click",e=>{if(e.target.id==="locScrim")closeLocModal();});
 $("#locScrim").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.tagName==="INPUT")saveLoc();if(e.key==="Escape")closeLocModal();});
@@ -3093,7 +3138,7 @@ function renderBilling(){
     :over?`${over} extra shipment${over>1?"s":""} this month${plan.extra?`, billed at $${plan.extra} each`:". Upgrade to keep adding shipments"}.`
     :`Each shipment is counted once, in the month it's booked.${plan.extra?` Extra shipments are $${plan.extra} each.`:""}`;
 }
-renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderInventory();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
+renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();renderSetupProgress();
 if(window.innerWidth>1180)toggleChat(true);
 </script>
 </body>
