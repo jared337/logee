@@ -547,6 +547,15 @@ tbody tr:last-child td{border-bottom:none}
 .ct-in{width:100%;min-width:90px;border:1.5px solid var(--blue);border-radius:7px;padding:5px 8px;font-size:12.5px;outline:none;background:var(--bg);color:var(--ink)}
 .wiz-foot{padding:14px 26px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
 .wiz-foot .btn{border-radius:12px}
+/* first-login company card: reuses the welcome popup's look */
+.co-q{display:flex;align-items:center;gap:10px;margin:18px 0 8px}.co-q:first-child{margin-top:0}
+.co-q label{font-size:14px;font-weight:700;color:var(--ink)}
+.wc-list.co-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.co-role .wc-txt b{font-size:13.5px}
+.co-role.on{border-color:var(--blue);background:var(--blue-soft)}
+.co-role.on .wc-ico{background:var(--blue);color:#fff}
+#coGo:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width:560px){.wc-list.co-roles{grid-template-columns:1fr}}
 .summary-box{background:var(--canvas);border-radius:var(--r-md);padding:14px 16px;font-size:13px;margin-top:14px}
 .summary-box div{padding:3px 0}
 .summary-box b{font-weight:800}
@@ -1312,8 +1321,8 @@ tbody tr[onclick*="toggleInv"]:hover .inv-caret{color:var(--blue)}
     </div>
 
     <div class="set-card" id="jsContacts">
-      <h3>Freight contacts</h3>
-      <p>Who quotes, emails and threads go to. Every company you work with needs at least one contact. The agent also learns new contacts automatically from incoming email.</p>
+      <h3>Suppliers &amp; forwarders</h3>
+      <p>Who quotes, emails and threads go to. Every supplier and forwarder you work with needs at least one contact. The agent also learns new contacts automatically from incoming email.</p>
       <div id="contactsBody"></div>
       <div class="contact-add-stick">
       <div class="contact-add" id="contactAdd">
@@ -1327,6 +1336,18 @@ tbody tr[onclick*="toggleInv"]:hover .inv-caret{color:var(--blue)}
         <select id="caNewType" aria-label="Company type"><option>Forwarder</option><option>Carrier</option><option>Supplier</option></select>
       </div>
       </div>
+    </div>
+
+    <div class="set-card" id="jsCompany">
+      <h3>Company details</h3>
+      <p>Used on the quotes, RFQs and messages logee sends for you. Update these any time.</p>
+      <div class="field" style="margin-bottom:14px"><label>Company name</label><input id="stCoName" autocomplete="organization"></div>
+      <div class="field" style="margin-bottom:14px"><label>Website</label><input id="stCoSite" autocomplete="url"></div>
+      <div class="field" style="margin-bottom:14px"><label>Country</label><select id="stCoCountry"></select></div>
+      <div class="field" style="margin-bottom:14px"><label>Your role</label><select id="stCoRole"><option value="">Select…</option><option>Importer</option><option>Exporter</option><option>Brand owner</option><option>Retailer / e-commerce</option><option>Logistics / supply chain manager</option><option>Other</option></select></div>
+      <div class="field" style="margin-bottom:14px"><label>Phone (optional)</label><input id="stCoPhone" type="tel" autocomplete="tel"></div>
+      <div class="field" style="margin-bottom:14px"><label>Time zone</label><select id="stCoTz"></select></div>
+      <button class="btn btn-blue" onclick="saveCompanySettings()">Save changes</button>
     </div>
 
     <div class="set-card" id="jsNotify">
@@ -1522,7 +1543,7 @@ tbody tr[onclick*="toggleInv"]:hover .inv-caret{color:var(--blue)}
       <div class="wpane" id="wp4">
         <div class="send-opt on" data-send="quotes" onclick="pickSend(this)">
           <b>Request quotes from your forwarders</b>
-          <p>The agent sends a structured RFQ to each contact below, collects the quotes side-by-side, and you pick.</p>
+          <p>The agent sends a structured RFQ to each forwarder below, collects the quotes side-by-side, and you pick.</p>
           <div class="fwd-checks" id="fwdQuoteChecks"></div>
         </div>
         <div class="send-opt" data-send="direct" onclick="pickSend(this)">
@@ -1581,10 +1602,34 @@ tbody tr[onclick*="toggleInv"]:hover .inv-caret{color:var(--blue)}
   </div>
 </div>
 
+<!-- ── Company details (first login) ── -->
+<div class="modal-scrim" id="companyScrim">
+  <div class="wizard welcome-card" role="dialog" aria-labelledby="coTitle">
+    <div class="wiz-head"><div style="flex:1"><h2 id="coTitle">Let's get you set up 👋</h2><p>Three quick questions and you're in. It takes about 20 seconds.</p></div></div>
+    <div class="wiz-body">
+      <div class="co-q"><span class="wc-num">1</span><label for="coName">What's your company called?</label></div>
+      <div class="field"><input id="coName" placeholder="e.g. Acme Imports" autocomplete="organization" oninput="coCheck()"></div>
+      <div class="co-q"><span class="wc-num">2</span><label for="coCountry">Where are you based?</label></div>
+      <div class="field"><select id="coCountry" autocomplete="country-name" onchange="coCheck()"></select></div>
+      <div class="co-q"><span class="wc-num">3</span><label>What best describes you?</label></div>
+      <div class="wc-list co-roles" id="coRoles">
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span><span class="wc-txt"><b>Importer</b></span></button>
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span><span class="wc-txt"><b>Exporter</b></span></button>
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg></span><span class="wc-txt"><b>Brand owner</b></span></button>
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/></svg></span><span class="wc-txt"><b>Retailer / e-commerce</b></span></button>
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5Z"/></svg></span><span class="wc-txt"><b>Logistics manager</b></span></button>
+        <button type="button" class="wc-step co-role" onclick="coPickRole(this)"><span class="wc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></span><span class="wc-txt"><b>Other</b></span></button>
+      </div>
+      <input type="hidden" id="coRole">
+    </div>
+    <div class="wiz-foot"><div style="flex:1;font-size:12.5px;color:var(--ink-soft)">You can add more details any time in Settings.</div><button class="btn btn-blue" id="coGo" onclick="saveCompany()" disabled>Continue →</button></div>
+  </div>
+</div>
+
 <!-- ── Welcome ── -->
 <div class="modal-scrim" id="welcomeScrim">
   <div class="wizard welcome-card">
-    <div class="wiz-head"><div style="flex:1"><h2>Welcome to logee 👋</h2><p>Five quick steps and logee runs your freight on autopilot — live tracking, smart quotes, cost checks and filed documents. Most take under two minutes.</p></div><button class="drawer-close" onclick="closeWelcome()" aria-label="Close">✕</button></div>
+    <div class="wiz-head"><div style="flex:1"><h2>Let's finish your quick setup 🚀</h2><p>Five quick steps and logee runs your freight on autopilot — live tracking, smart quotes, cost checks and filed documents. Most take under two minutes.</p></div><button class="drawer-close" onclick="closeWelcome()" aria-label="Close">✕</button></div>
     <div class="wiz-body"><div id="welcomeList" class="wc-list"></div></div>
     <div class="wiz-foot"><div style="flex:1"></div><button class="btn btn-ghost" onclick="closeWelcome()">Maybe later</button></div>
   </div>
@@ -1927,6 +1972,7 @@ function showView(v){
   $("#view-"+v).classList.add("active");
   $$(".rail button[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
   if(v==="setup")renderSetupPage();
+  if(v==="today"&&typeof onDashboardEnter==="function")setTimeout(onDashboardEnter,0);
   if(v==="settings"){const on=$("#settingsNav button.on");if(on)showSetting(on.dataset.set);}
 }
 $$(".rail button[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
@@ -1978,7 +2024,8 @@ function initSetupCards(){
   ["jsConn","jsContacts"].forEach(id=>{const c=$("#"+id);if(c)pool.appendChild(c);});
   const SET=[
     ["jsConn","Connections",'<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 0 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/>',true],
-    ["jsContacts","Freight contacts",'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',true],
+    ["jsContacts","Suppliers & forwarders",'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',true],
+    ["jsCompany","Company details",'<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01"/>',false],
     ["jsNotify","Notifications",'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',false],
     ["jsThreshold","Alert threshold",'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/>',false],
     ["jsTeam","Team access",'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',false],
@@ -2003,7 +2050,7 @@ const SETUP_STEPS=[
     desc:"Without an email inbox, ERP or forwarder connected, shipments won't update themselves, and you're back to checking email by hand.",
     check:()=>$$("#jsConn .toggle").length===0||[...$$("#jsConn .toggle")].some(t=>t.classList.contains("on")),
     action:()=>goToSettings("jsConn"),label:"Go to Connections"},
-  {id:"contacts",title:"Add a contact for every company you work with",required:true,
+  {id:"contacts",title:"Add a contact for every supplier and forwarder",required:true,
     desc:()=>{const missing=CONTACTS.filter(c=>c.people.length===0);return missing.length?`${missing.map(c=>c.co).join(", ")} ${missing.length>1?"have":"has"} no contact yet, so logee can't send them quotes, RFQs or messages until you add one.`:"Every company has at least one contact, so quotes and order messages can go out.";},
     check:()=>CONTACTS.every(c=>c.people.length>0),
     action:()=>goToSettings("jsContacts"),label:"Add contacts"},
@@ -2041,10 +2088,10 @@ function renderSettingsTiles(){
   $$(".set-tile[data-step]").forEach(t=>t.classList.toggle("done",settingsTileDone(t.dataset.step)));
 }
 const ONBOARD=[
-  {key:"connections",title:"Connect your updates",sub:"Shipments track themselves — no inbox digging",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 0 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',action:()=>{showView("settings");showSetting("jsConn");}},
-  {key:"contacts",title:"Add your contacts",sub:"Quotes & messages go out on their own",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>',action:()=>{showView("settings");showSetting("jsContacts");}},
+  {key:"connections",title:"Connect your systems",sub:"Shipments track themselves — no inbox digging",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 0 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',action:()=>{showView("settings");showSetting("jsConn");}},
+  {key:"contacts",title:"Add your suppliers & forwarders",sub:"Quotes & messages go out on their own",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>',action:()=>{showView("settings");showSetting("jsContacts");}},
   {key:"skus",title:"Add your SKUs",sub:"Every quote comes back accurate",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>',action:()=>showView("skus")},
-  {key:"stock",title:"Load your stock",sub:"See your inventory position everywhere",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8.5l9-5.5 9 5.5V21"/><path d="M7 21v-9h10v9"/><path d="M7 15h10M7 18h10"/></svg>',action:()=>showView("inventory")},
+  {key:"stock",title:"Inventory",sub:"See your inventory position everywhere",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8.5l9-5.5 9 5.5V21"/><path d="M7 21v-9h10v9"/><path d="M7 15h10M7 18h10"/></svg>',action:()=>showView("inventory")},
   {key:"firstshipment",title:"Create your first shipment",sub:"Forward an email — logee builds the order",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a1 1 0 0 0 1 1h1"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4A1 1 0 0 0 17.5 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>',action:()=>openWizard()},
 ];
 function renderWelcome(){
@@ -2061,12 +2108,65 @@ function startSetup(){const next=ONBOARD.find(o=>!settingsTileDone(o.key));close
 function openWelcome(){const el=$("#welcomeScrim");if(!el)return;renderWelcome();el.classList.add("open");}
 function closeWelcome(){const el=$("#welcomeScrim");if(el)el.classList.remove("open");try{sessionStorage.setItem("logee_welcomed","1");}catch(e){}}
 $("#welcomeScrim")&&$("#welcomeScrim").addEventListener("click",e=>{if(e.target.id==="welcomeScrim")closeWelcome();});
-setTimeout(function(){
+function loadCompany(){try{return JSON.parse(localStorage.getItem("logee_company")||"null");}catch(e){return null;}}
+function tzOptions(selected){
+  let tz=selected;if(!tz){try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";}catch(e){tz="UTC";}}
+  let zones=[];try{zones=Intl.supportedValuesOf("timeZone");}catch(e){}
+  if(!zones.includes(tz))zones.unshift(tz);
+  return zones.map(z=>`<option${z===tz?" selected":""}>${z}</option>`).join("");
+}
+function fillCompanySettings(){
+  const c=loadCompany()||{};
+  $("#stCoName").value=c.name||"";$("#stCoSite").value=c.site||"";$("#stCoCountry").innerHTML=countryOptions(c.country||"");
+  $("#stCoRole").value=c.role||"";$("#stCoPhone").value=c.phone||"";$("#stCoTz").innerHTML=tzOptions(c.tz);
+}
+function saveCompanySettings(){
+  const v=id=>($("#"+id).value||"").trim();
+  const name=v("stCoName"),country=v("stCoCountry"),role=v("stCoRole");
+  if(!name||!country||!role){toast("Company name, country and role are required");return;}
+  const data={name,site:v("stCoSite"),country,role,phone:v("stCoPhone"),tz:v("stCoTz")};
+  try{localStorage.setItem("logee_company",JSON.stringify(data));}catch(e){}
+  toast("Company details saved");
+}
+const COUNTRY_CODES="AF AL DZ AD AO AR AM AU AT AZ BH BD BY BE BZ BJ BO BA BW BR BN BG KH CM CA CL CN CO CR HR CU CY CZ DK DO EC EG SV EE ET FI FR GE DE GH GR GT HN HK HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KW KG LA LV LB LY LT LU MO MY MV MT MU MX MD MC MN ME MA MZ MM NA NP NL NZ NI NG MK NO OM PK PA PY PE PH PL PT PR QA RO RU SA SN RS SG SK SI ZA KR ES LK SD SE CH SY TW TJ TZ TH TN TR TM UG UA AE GB US UY UZ VE VN YE ZM ZW".split(" ");
+function countryOptions(selected){
+  let dn=null;try{dn=new Intl.DisplayNames(["en"],{type:"region"});}catch(e){}
+  const names=COUNTRY_CODES.map(c=>{try{return dn?dn.of(c):c;}catch(e){return c;}}).sort((a,b)=>a.localeCompare(b));
+  if(selected&&!names.includes(selected))names.unshift(selected);
+  return `<option value="">Select your country…</option>`+names.map(n=>`<option${n===selected?" selected":""}>${n}</option>`).join("");
+}
+function coCheck(){const ok=$("#coName").value.trim()&&$("#coCountry").value.trim()&&$("#coRole").value;$("#coGo").disabled=!ok;}
+function coPickRole(btn){
+  $$("#coRoles .co-role").forEach(b=>b.classList.toggle("on",b===btn));
+  $("#coRole").value=btn.textContent.replace(/^[^\p{L}]+/u,"").trim();coCheck();
+}
+function openCompany(){
+  const el=$("#companyScrim");if(!el)return;
+  let guess="";try{const r=new Intl.Locale(navigator.language).region;if(r)guess=new Intl.DisplayNames(["en"],{type:"region"}).of(r)||"";}catch(e){}
+  $("#coCountry").innerHTML=countryOptions(guess);
+  coCheck();el.classList.add("open");setTimeout(()=>{const n=$("#coName");if(n)n.focus();},60);
+}
+function saveCompany(){
+  const v=id=>($("#"+id).value||"").trim();
+  const name=v("coName"),country=v("coCountry"),role=v("coRole");
+  if(!name||!country||!role){toast("Add your company name, country and role to continue");return;}
+  let tz="UTC";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";}catch(e){}
+  const data=Object.assign({site:"",phone:""},loadCompany()||{},{name,country,role,tz});
+  try{localStorage.setItem("logee_company",JSON.stringify(data));}catch(e){}
+  $("#companyScrim").classList.remove("open");
+  fillCompanySettings();
+  toast("Welcome aboard, "+name+" 🎉");
+  startOnboarding();
+}
+function startOnboarding(){
   let seen=false;try{seen=sessionStorage.getItem("logee_welcomed")==="1";}catch(e){}
   if(seen)return;
   if(ONBOARD.filter(o=>settingsTileDone(o.key)).length>=ONBOARD.length)return;
   openWelcome();
-},600);
+}
+/* First-run prompts only appear once the user is on the dashboard (Today) after signing in */
+function onDashboardEnter(){const v=$("#view-today");if(!v||!v.classList.contains("active"))return;loadCompany()?startOnboarding():openCompany();}
+setTimeout(onDashboardEnter,600);
 function renderSetupProgress(){
   const total=ONBOARD.length;
   const done=ONBOARD.filter(o=>settingsTileDone(o.key)).length;
@@ -3393,7 +3493,7 @@ function renderContacts(){
       </tr>`;
     }).join("");
   }).join("");
-  $("#contactsBody").innerHTML=`<div class="tbl"><table aria-label="Freight contacts"><thead><tr><th>Company</th><th>Type</th><th>Contact</th><th>Email</th><th>Role</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  $("#contactsBody").innerHTML=`<div class="tbl"><table aria-label="Suppliers and forwarders"><thead><tr><th>Company</th><th>Type</th><th>Contact</th><th>Email</th><th>Role</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
   const sel=$("#caCo");
   sel.innerHTML=CONTACTS.map(c=>`<option>${c.co}</option>`).join("")+`<option>＋ New company…</option>`;
 }
@@ -3455,7 +3555,7 @@ function renderSendOptions(){
 }
 let wizAddcCo=null;
 function noContact(co){
-  // add the contact inline, without leaving the order
+  // add the supplier inline, without leaving the order
   wizAddcCo=co;
   $("#wizAddcCo").textContent=co;
   $("#wizAddcName").value="";$("#wizAddcEmail").value="";
@@ -3897,7 +3997,7 @@ function renderBilling(){
     :over?`${over} extra shipment${over>1?"s":""} this month${plan.extra?`, billed at $${plan.extra} each`:". Upgrade to keep adding shipments"}.`
     :`Each shipment is counted once, in the month it's booked.${plan.extra?` Extra shipments are $${plan.extra} each.`:""}`;
 }
-renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();initSetupCards();renderSetupProgress();
+renderMonthForecast();renderQueue();renderTodayPanels();renderShips();renderCosts();renderDocs();renderReports();renderSkus();renderContacts();renderPlanTiers();renderBilling();initSetupCards();renderSetupProgress();fillCompanySettings();
 if(window.innerWidth>1180)toggleChat(true);
 </script>
 </body>
