@@ -493,8 +493,8 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       <a href="pricing.html">Pricing</a>
     </nav>
     <div class="nav-right">
-      <a href="signin.html" class="nav-signin">Sign in</a>
-      <button class="btn btn-primary" onclick="openSignup('nav')">Start free</button>
+      <a href="https://app.logee.ai/" class="nav-signin">Sign in</a>
+      <a href="https://app.logee.ai/" class="btn btn-primary">Start free</a>
       <button class="hamburger" aria-label="Menu" onclick="toast('Menu (mobile nav)')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -512,7 +512,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       <h1>Fix your freight problems<br><span class="hl">before they cost you.</span></h1>
       <p class="sub">logee watches every shipment and warns you days before free time runs out, an invoice comes in over quote, or a delivery slips, with the one-click fix ready.</p>
       <div class="hero-cta">
-        <button class="btn btn-primary btn-lg" onclick="openSignup('hero')">Start free</button>
+        <a href="https://app.logee.ai/" class="btn btn-primary btn-lg">Start free</a>
         <a href="how-it-works.html" class="btn btn-ghost btn-lg">See how it works</a>
       </div>
       <div class="hero-trust">
@@ -946,7 +946,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       </a>
     </div>
     <div style="text-align:center;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary btn-lg" onclick="openSignup('pricing')">Start free</button>
+      <a href="https://app.logee.ai/" class="btn btn-primary btn-lg">Start free</a>
       <a href="pricing.html" class="btn btn-ghost btn-lg">Compare all plans</a>
     </div>
     <div style="text-align:center;font-size:12.5px;color:var(--ink-faint);margin-top:14px">No credit card to start · Cancel anytime · Forwarders join by email, free</div>
@@ -1017,7 +1017,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       <h2>Find out what your next shipment will really cost</h2>
       <p>Connect your inbox and logee starts watching for delays, storage and overcharges in minutes. Start free, then upgrade as you grow.</p>
       <div class="cbtns">
-        <button class="btn btn-primary btn-lg" onclick="openSignup('final')">Start free</button>
+        <a href="https://app.logee.ai/" class="btn btn-primary btn-lg">Start free</a>
         <a href="how-it-works.html" class="btn btn-white btn-lg">See how it works</a>
       </div>
     </div>
@@ -1048,8 +1048,8 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
       </div>
       <div class="foot-col">
         <h5>Get started</h5>
-        <a href="#" onclick="openSignup('footer');return false;">Start free</a>
-        <a href="signin.html">Sign in</a>
+        <a href="https://app.logee.ai/">Start free</a>
+        <a href="https://app.logee.ai/">Sign in</a>
         <a href="demo.html">Book a demo</a>
         <a href="app/Dashboard.html">Dashboard</a>
       </div>
@@ -1089,7 +1089,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
           </button>
         </div>
         <div class="consent">No credit card. logee connects to the inbox you sign in with, so it can start building your shipments straight away. By continuing you agree to our <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy Policy</a>.</div>
-        <div class="signin-row">Already have an account? <a href="signin.html">Sign in</a></div>
+        <div class="signin-row">Already have an account? <a href="https://app.logee.ai/">Sign in</a></div>
       </div>
     </div>
 
@@ -1162,9 +1162,8 @@ function ssoStart(provider){
   if(burger&&links) burger.addEventListener('click',function(){links.classList.toggle('open');});
 })();
 
-/* ── open signup when arriving with #start (from other pages) ── */
-if(location.hash==='#start'){ setTimeout(function(){openSignup('link');},60); }
-window.addEventListener('hashchange',function(){ if(location.hash==='#start') openSignup('link'); });
+/* ── old #start links go straight to the app ── */
+if(location.hash==='#start'){ location.replace('https://app.logee.ai/'); }
 </script>
 </body>
 </html>
