@@ -7,7 +7,7 @@
 <link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="logo/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon-180.png">
-<meta name="description" content="How logee collects, uses and protects your information.">
+<meta name="description" content="How logee collects, uses, stores and shares your information, including Google user data and AI processing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
 <style>
@@ -101,6 +101,13 @@ h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.8px;line-height:1.12;font-w
 .legal .note{background:var(--amber-soft);border:1px solid #f4dca5;border-radius:var(--r-md);padding:14px 18px;font-size:14px;color:#7a5a12;margin:0 auto 34px;max-width:760px;line-height:1.55}
 .legal h2{font-size:22px;margin:34px 0 10px}
 .legal p,.legal li{font-size:15.5px}
+.legal h2{scroll-margin-top:92px}
+.legal .toc{display:grid;grid-template-columns:1fr 1fr;gap:2px 24px;margin:6px 0 30px;padding:16px 20px;background:var(--canvas);border:1px solid var(--line);border-radius:var(--r-md)}
+.legal .toc a{font-size:14px;font-weight:600;color:var(--ink-soft);padding:4px 0}
+.legal .toc a:hover{color:var(--blue)}
+.legal .gdata{border-left:4px solid var(--blue);padding-left:22px;margin:38px 0 6px}
+.legal .gdata h2{margin-top:0}
+@media(max-width:720px){.legal .toc{grid-template-columns:1fr}.legal .gdata{padding-left:16px}}
 
 /* value / feature cards */
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -197,13 +204,13 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://logee.ai/privacy.html">
 <meta property="og:title" content="Privacy Policy · logee.ai">
-<meta property="og:description" content="How logee collects, uses and protects your information.">
+<meta property="og:description" content="How logee collects, uses, stores and shares your information, including Google user data and AI processing.">
 <meta property="og:image" content="https://logee.ai/img/ship.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy Policy · logee.ai">
-<meta name="twitter:description" content="How logee collects, uses and protects your information.">
+<meta name="twitter:description" content="How logee collects, uses, stores and shares your information, including Google user data and AI processing.">
 <meta name="twitter:image" content="https://logee.ai/img/ship.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"logee.ai","url":"https://logee.ai/","logo":"https://logee.ai/logo/app-icon-512.png","description":"AI transport management system (TMS) for SMB importers and exporters.","email":"hello@logee.ai"}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap">
@@ -237,46 +244,132 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);margin-top:6px}
 
   <section class="sec legal" style="padding-top:0">
     <div class="wrap prose">
-      <p class="updated">Last updated: 18 September 2026</p>
-      <div class="note"><strong>Template notice:</strong> this is a starting draft to be reviewed and finalised with qualified legal counsel before launch. It is not legal advice and may not meet the requirements of every jurisdiction (for example GDPR, CCPA or Australian Privacy Principles).</div>
+      <p class="updated">Last updated: 16 November 2026</p>
 
-      <p>This Privacy Policy explains how logee.ai ("logee", "we", "us") collects, uses and protects information when you use our website and services (the "Service"). By using the Service you agree to the practices described here.</p>
+      <p>This Privacy Policy explains how logee.ai ("logee", "we", "us") collects, uses, stores and shares information when you use our website at logee.ai and our application at app.logee.ai (together, the "Service"), and the choices and rights you have. If you connect a Gmail account, see <a href="#google-user-data">Google user data</a> for exactly what we access and what we do with it.</p>
 
-      <h2>1. Information we collect</h2>
+      <nav class="toc" aria-label="In this policy">
+        <a href="#who-we-are">1. Who we are</a>
+        <a href="#information-we-collect">2. Information we collect</a>
+        <a href="#google-user-data">3. Google user data</a>
+        <a href="#other-accounts">4. Microsoft 365 and other connected accounts</a>
+        <a href="#how-we-use">5. How we use information</a>
+        <a href="#ai">6. AI and automated processing</a>
+        <a href="#sharing">7. How we share information</a>
+        <a href="#cookies">8. Cookies and similar technologies</a>
+        <a href="#retention">9. How long we keep information</a>
+        <a href="#security">10. Security</a>
+        <a href="#transfers">11. International transfers</a>
+        <a href="#rights">12. Your rights and choices</a>
+        <a href="#children">13. Children</a>
+        <a href="#changes">14. Changes to this policy</a>
+        <a href="#contact">15. Contact us</a>
+      </nav>
+
+      <h2 id="who-we-are">1. Who we are</h2>
+      <p>logee is an AI transport management system for importers and exporters. For account, billing, website, support and security information, logee is the controller (or the "business", under some laws). For the shipment and business data you connect to the Service, such as emails, documents, orders and invoices, we act on your instructions as your service provider (processor). You decide what to connect, and you are responsible for having the right to connect it.</p>
+      <p>If your organisation needs a data processing agreement, email <a href="mailto:privacy@logee.ai">privacy@logee.ai</a>.</p>
+
+      <h2 id="information-we-collect">2. Information we collect</h2>
+      <h3>Information you give us</h3>
       <ul>
-        <li><strong>Account details</strong> you provide, such as your name, work email and company.</li>
-        <li><strong>Connected data</strong> from services you link, such as shipment-related emails, documents, bookings and invoices from your inbox or ERP.</li>
-        <li><strong>Usage data</strong> about how you interact with the Service, and standard technical data such as device and browser information.</li>
+        <li><strong>Account details.</strong> When you sign in with Google, we receive your name and email address. In the app you can add company details, such as your company name, website, country, role, time zone and an optional phone number.</li>
+        <li><strong>Contacts.</strong> The names and work email addresses of the suppliers, forwarders and colleagues you add, so logee can send them requests and messages for you.</li>
+        <li><strong>Messages and requests.</strong> What you send us through our contact form, a demo request, support or email, such as your name, email address, company and message.</li>
+        <li><strong>Payment details.</strong> If you buy a paid plan, payment is handled by a third-party payment provider. We do not store your full card number.</li>
       </ul>
-
-      <h2>2. How we use information</h2>
+      <h3>Information from services you connect</h3>
       <ul>
-        <li>To create, track and manage your shipments and provide the Service.</li>
-        <li>To detect issues such as delays or cost variances and to notify you.</li>
-        <li>To support you, improve the Service, and keep it secure.</li>
-        <li>To communicate with you about your account and, where permitted, about the product.</li>
+        <li><strong>Email.</strong> If you connect Gmail or a Microsoft 365 or Outlook account, shipment-related emails and attachments (for example bookings, quotes, bills of lading, packing lists and invoices) and the details we extract from them, such as shipment references, container numbers, dates, routes and costs. Gmail data is also covered in <a href="#google-user-data">Google user data</a>.</li>
+        <li><strong>Business systems and forwarders.</strong> If you connect an ERP system or a forwarder, the orders, SKUs, shipment milestones, documents and invoices they provide.</li>
+        <li><strong>Carrier tracking.</strong> Status and estimated arrival updates from carriers for the containers and bills of lading you track.</li>
       </ul>
+      <h3>Information we create and collect automatically</h3>
+      <ul>
+        <li><strong>Your shipment workspace.</strong> Shipment records, timelines, alerts, drafted messages, and a log of the actions you approve, so you can see what logee did and when.</li>
+        <li><strong>Technical and usage data.</strong> Your IP address, device and browser type, the pages and features you use, and diagnostic logs.</li>
+      </ul>
+      <h3>Information about other people</h3>
+      <p>Emails and documents you connect may contain personal information about other people, such as staff at your forwarders, carriers and suppliers. We process it only to provide the Service to you.</p>
 
-      <h2>3. How we share information</h2>
-      <p>We do not sell your personal information. We share it only with service providers who help us run the Service (under confidentiality obligations), when you direct us to (for example emailing a forwarder on your behalf), or where required by law.</p>
+      <section class="gdata" id="google-user-data">
+        <h2>3. Google user data</h2>
+        <p><strong>Signing in with Google.</strong> When you sign in with Google, we receive your name and email address. We use them to create and secure your logee account.</p>
+        <p><strong>Connecting Gmail.</strong> If you connect a Gmail account, logee requests permission to read your email messages and send email on your behalf. We use this access only to provide features you can see in logee: finding shipment-related emails from forwarders and carriers, extracting details such as bookings, container numbers, dates and invoices into your shipments, and sending messages you approve to your forwarders. We never send an email from your account unless you have approved it.</p>
+        <p><strong>What we store.</strong> Shipment-related email content and attachments, and the details we extract from them. Data is encrypted in transit and at rest. Access tokens are stored encrypted.</p>
+        <p><strong>What we don't do.</strong> We do not sell Google user data, transfer it to advertising platforms, data brokers or information resellers, use it for advertising, or use it to develop, improve or train generalised AI or machine-learning models. Our staff do not read your emails unless you ask or agree for us to view specific messages (for example, to help with a support request), it is necessary for security purposes such as investigating abuse or a bug, it is necessary to comply with the law, or the data has been aggregated and anonymised and is used only for internal operations.</p>
+        <p><strong>Who we share it with.</strong> We share Google user data only with: service providers that host or process it for us to run the features above, including the AI provider described below, under terms that limit their use of it to providing their service to us; the recipients of messages you approve, such as your forwarders; authorities or others where necessary for security purposes or to comply with the law; and a successor, if logee is part of a merger, acquisition or sale of assets, but only after we obtain your explicit prior consent.</p>
+        <p><strong>AI processing.</strong> To extract shipment details, email content may be processed by a third-party AI provider acting as our service provider, under terms that prohibit them from using it to train their models.</p>
+        <p><strong>Revoking access.</strong> You can disconnect Gmail in logee under Settings → Connections, or at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. When you disconnect, we stop reading your email straight away and delete stored Gmail data within 30 days. You can also ask us to delete your data at any time by emailing <a href="mailto:privacy@logee.ai">privacy@logee.ai</a>.</p>
+        <p><strong>Changes.</strong> We will not use Google user data in a new way, or for a purpose other than those described here, without first updating this policy and asking for your consent.</p>
+        <p>logee.ai's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Limited Use requirements</a>.</p>
+      </section>
 
-      <h2>4. Data retention</h2>
-      <p>We keep your information for as long as your account is active or as needed to provide the Service, and only as long as necessary for legitimate business or legal purposes after that.</p>
+      <h2 id="other-accounts">4. Microsoft 365 and other connected accounts</h2>
+      <p>If you connect a Microsoft 365 or Outlook account, we apply the same protections to that data as to Google user data: we use it only to provide features you can see in logee, we do not sell it, use it for advertising or use it to train generalised AI models, and you can disconnect it at any time in Settings → Connections or from your Microsoft account. Data from your ERP, forwarders and other connected services is handled on the same basis.</p>
 
-      <h2>5. Security</h2>
-      <p>We use reasonable technical and organisational measures to protect your data, including encryption in transit and at rest and least-privilege access. See our <a href="security.html">Security page</a> for details.</p>
+      <h2 id="how-we-use">5. How we use information</h2>
+      <p>We use information to provide and improve the Service. Where the GDPR or a similar law applies, the legal basis for each purpose is shown in brackets.</p>
+      <ul>
+        <li><strong>Provide the Service.</strong> Create, track and manage your shipments, read and organise your emails and documents, check costs against quotes, forecast and flag delays, draft messages for your approval, and send the alerts and digests you turn on (performance of our contract with you).</li>
+        <li><strong>Run your account.</strong> Sign you in, manage billing, give support and answer your questions (performance of our contract; our legitimate interests in running our business).</li>
+        <li><strong>Keep the Service secure and reliable.</strong> Prevent fraud and abuse, fix bugs and monitor performance (our legitimate interests; legal obligations).</li>
+        <li><strong>Improve the Service.</strong> Understand how features are used and fix problems, using usage and technical data (our legitimate interests).</li>
+        <li><strong>Communicate with you.</strong> Tell you about your account and important changes and, where permitted, about product news. You can opt out of marketing at any time (performance of our contract; our legitimate interests; your consent where the law requires it).</li>
+        <li><strong>Meet legal duties.</strong> Comply with the law and enforce our terms (legal obligation; our legitimate interests).</li>
+      </ul>
+      <p>We use Google user data only as described in <a href="#google-user-data">Google user data</a>.</p>
 
-      <h2>6. Your choices and rights</h2>
-      <p>You can disconnect linked accounts at any time, and you can request access to, correction of, or deletion of your personal information by contacting us. Depending on where you live, you may have additional rights under local law.</p>
+      <h2 id="ai">6. AI and automated processing</h2>
+      <p>logee uses artificial intelligence to read emails and documents, extract shipment details, spot issues and draft messages. To do this, relevant content may be processed by third-party AI providers acting as our service providers, under terms that prohibit them from using it to train their models. We do not use your connected data to train generalised AI models.</p>
+      <p>logee suggests and drafts, and you decide. We do not take decisions that have legal or similarly significant effects on you without your approval: bookings and messages sent from your accounts happen only when you approve them. AI output can be incomplete or wrong, so please check important details before you act on them.</p>
 
-      <h2>7. International transfers</h2>
-      <p>Your information may be processed in countries other than your own. Where required, we take steps to ensure appropriate safeguards are in place.</p>
+      <h2 id="sharing">7. How we share information</h2>
+      <p>We do not sell personal information, and we do not share it for cross-context behavioural advertising. We share it only as follows.</p>
+      <ul>
+        <li><strong>Service providers</strong> that help us run the Service, such as cloud hosting, AI processing, email and messaging delivery (including WhatsApp, if you turn on WhatsApp alerts), payment processing and customer support. They may use the information only to provide their service to us, and they must protect it.</li>
+        <li><strong>People you choose.</strong> When you approve a message, it goes to the forwarders, carriers, suppliers or colleagues you choose.</li>
+        <li><strong>Your workspace.</strong> People you invite can see what their role allows. Forwarders you invite see only their own shipments.</li>
+        <li><strong>Legal and safety.</strong> Authorities or others, where the law requires it or to protect rights, safety and security.</li>
+        <li><strong>Business changes.</strong> A successor, if logee is part of a merger, acquisition or sale of assets. We will notify you, and we will not transfer Google user data to a successor unless you give your explicit prior consent.</li>
+        <li><strong>With your consent</strong> or at your request.</li>
+      </ul>
+      <p>Google user data is shared only as described in <a href="#google-user-data">Google user data</a>.</p>
 
-      <h2>8. Changes to this policy</h2>
-      <p>We may update this policy from time to time. If we make material changes, we'll let you know and update the date above.</p>
+      <h2 id="cookies">8. Cookies and similar technologies</h2>
+      <p>Our website at logee.ai does not use advertising or analytics cookies. It does load fonts from Google Fonts, so your browser connects to Google's servers and Google receives your IP address and basic browser information (see <a href="https://policies.google.com/privacy">Google's privacy policy</a>). The logee application uses cookies and similar technologies that are strictly necessary to sign you in, keep your session secure and remember your preferences. If we add analytics or other optional cookies, we will update this policy and ask for your consent where the law requires it.</p>
+      <p>Our website links to third-party sites, such as carrier tracking pages. We are not responsible for their privacy practices.</p>
 
-      <h2>9. Contact us</h2>
-      <p>Questions about privacy? Email us at <a href="mailto:privacy@logee.ai">privacy@logee.ai</a>.</p>
+      <h2 id="retention">9. How long we keep information</h2>
+      <p>We keep information for as long as your account is active and as needed to provide the Service. If you disconnect Gmail, we delete stored Gmail data within 30 days. If you close your account or ask us to delete your data, we delete or anonymise it within a reasonable period, unless we must keep some of it for legal, tax, accounting or security reasons, or to resolve a dispute. Backups are kept for a limited period and then deleted.</p>
+
+      <h2 id="security">10. Security</h2>
+      <p>We use reasonable technical and organisational measures to protect your data, including encryption in transit and at rest, encrypted storage of access tokens, and least-privilege access to our systems. No system is completely secure. If a breach affects your personal information, we will notify you and the relevant authorities as the law requires. See our <a href="security.html">Security page</a> for more.</p>
+
+      <h2 id="transfers">11. International transfers</h2>
+      <p>We and our service providers may process information in countries other than your own, which may have different data protection laws. Where the law requires it, we use safeguards such as standard contractual clauses.</p>
+
+      <h2 id="rights">12. Your rights and choices</h2>
+      <p>You can:</p>
+      <ul>
+        <li>Disconnect any linked account at any time in Settings → Connections.</li>
+        <li>Ask for access to, or a copy of, your personal information, and ask us to correct it.</li>
+        <li>Ask us to delete your personal information, or to export your data.</li>
+        <li>Object to, or ask us to restrict, certain processing, and withdraw consent where we rely on it.</li>
+        <li>Opt out of marketing emails using the unsubscribe link or by emailing us.</li>
+      </ul>
+      <p>To exercise these rights, email <a href="mailto:privacy@logee.ai">privacy@logee.ai</a>. We may need to verify your identity, and we will respond within the time the law requires.</p>
+      <p>Depending on where you live, you may have additional rights. If you are in the EEA, the UK or a similar jurisdiction, you can also complain to your local data protection authority. If you are in California, you have the right to know what personal information we hold and to ask us to delete or correct it, and we will not discriminate against you for using these rights. We do not sell or share personal information as those terms are defined under California law.</p>
+      <p>If your information appears in a workspace run by your employer or another organisation, that organisation controls it, and you should contact them first. You can also email us and we will help direct your request.</p>
+
+      <h2 id="children">13. Children</h2>
+      <p>The Service is for business use and is not directed to anyone under 18. We do not knowingly collect personal information from children. If you believe a child has given us personal information, email <a href="mailto:privacy@logee.ai">privacy@logee.ai</a> and we will delete it.</p>
+
+      <h2 id="changes">14. Changes to this policy</h2>
+      <p>We may update this policy from time to time. We will post the new version here with a new date and, for material changes, notify you by email or in the app. If we change how we use Google user data, we will ask for your consent before using it in the new way.</p>
+
+      <h2 id="contact">15. Contact us</h2>
+      <p>Questions or requests about privacy? Email <a href="mailto:privacy@logee.ai">privacy@logee.ai</a>.</p>
     </div>
   </section>
 </main>
